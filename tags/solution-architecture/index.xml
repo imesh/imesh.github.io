@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Solution Architecture on imesh.io</title>
-    <link>http://localhost:1313/tags/solution-architecture/</link>
+    <link>0.0.0.0/tags/solution-architecture/</link>
     <description>Recent content in Solution Architecture on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 27 Aug 2013 18:07:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/solution-architecture/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="0.0.0.0/tags/solution-architecture/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Apache Stratos Single Node Installation</title>
-      <link>http://localhost:1313/apache-stratos-single-node-installation/</link>
+      <link>/0.0.0.0/apache-stratos-single-node-installation/</link>
       <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/apache-stratos-single-node-installation/</guid>
+      <guid>/0.0.0.0/apache-stratos-single-node-installation/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
