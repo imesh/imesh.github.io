@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://imesh.github.io/sitemap.xml 
