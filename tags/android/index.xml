@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/android/</link>
+    <description>Recent content in Android on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Mar 2013 06:18:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Android Automated Unit Testing</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/android-automated-unit-testing/</link>
+      <pubDate>Tue, 26 Mar 2013 06:18:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/android-automated-unit-testing/</guid>
+      <description>&lt;p&gt;I did some experiments with Android Unit Testing features to implement a custom automated unit testing framework recently. Android itself has a unit testing framework built in. This has been written using JUnit and has implemented new functionality to test Android specific features such as Activities, Services and Content Providers. The basic concept behind Android Unit Test framework is to implement an Android test application similar to a standard Android application and define required meta data to identify the application to be tested and test steps. Once the test application is run it automatically loads the target application and executes the given set of test commands as it is done by a human.&lt;/p&gt;
+
+&lt;p&gt;The UI interaction of the test either can be implemented in Java using the Instrumentation Test Runner or in Python using &lt;a href=&#34;http://developer.android.com/tools/help/monkeyrunner_concepts.html&#34;&gt;Monkey Runner&lt;/a&gt;. The below diagram illustrates the architecture of the Android Unit Testing framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://developer.android.com/images/testing/test_framework.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Reference: &lt;a href=&#34;http://developer.android.com/tools/testing/testing_android.html&#34;&gt;Android Testing Fundamentals&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Except for standard test implementation several other open source projects have emerged to simplify the process. One of the leading implementation is &lt;a href=&#34;https://github.com/jayway/robotium&#34;&gt;Robotium&lt;/a&gt;. Robotium is a very light weight framework which has introduced helper classes to facilitate most of the user interaction commands which may cost more if we were to implement on standard Android Test Framework. For an example to type on a text field with standard Android Unit Test implementation we may need to write something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Find field references
+LoginActivity mActivity = getActivity();
+final EditText mEmailView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.email);
+final EditText mPasswordView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.password);
+final Button mSignIn = (Button) mActivity.findViewById(com.example.helloworld.R.id.sign_in_button);
+
+// Set field values and press sign in button
+mActivity.runOnUiThread(new Runnable() {
+    public void run() {
+        mEmailView.setText(&amp;quot;ABC&amp;quot;);
+        mPasswordView.setText(&amp;quot;hello&amp;quot;);
+        mSignIn.callOnClick();              
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However with Robotium we could write the same test script with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Find field references
+Activity mActivity = getActivity();
+        EditText mEmailView = (EditText) mActivity.findViewById(R.id.email);
+        EditText mPasswordView = (EditText) mActivity.findViewById(R.id.password);      
+
+        solo.enterText(mEmailView, &amp;quot;f&amp;quot;);
+        solo.enterText(mPasswordView, &amp;quot;hello&amp;quot;);
+        solo.clickOnButton(&amp;quot;Sign in or register&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Robotium also supports to take screen shots at different points of the test flow so that we could have a look at the screens for investigating problems.&lt;/p&gt;
+
+&lt;p&gt;Another important aspect of unit testing is that executing them in a build using a continuous integration system like Jenkins. Jenkins has a plugin for integrating Android Unit Tests called &lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/Android+Emulator+Plugin&#34;&gt;Android Emulator Plugin&lt;/a&gt;. This could be used to test Android applications on different device configurations while generating test reports at the end of test sessions.&lt;/p&gt;
+
+&lt;p&gt;Android unit testing is quite interesting. So if you find any questions or and comments regarding this please let me know. I will try my best to answer them via this post. Thanks.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

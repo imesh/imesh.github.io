@@ -1,0 +1,191 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Android Automated Unit Testing &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/imesh/imesh.github.io.git/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/highlight.css">
+		<link href="http://localhost:1313/imesh/imesh.github.io.git/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Android Automated Unit Testing</h1>
+                    <h2 class="headline">March 26, 2013</h2>
+                </header>
+                <section id="post-body">
+                    <p>I did some experiments with Android Unit Testing features to implement a custom automated unit testing framework recently. Android itself has a unit testing framework built in. This has been written using JUnit and has implemented new functionality to test Android specific features such as Activities, Services and Content Providers. The basic concept behind Android Unit Test framework is to implement an Android test application similar to a standard Android application and define required meta data to identify the application to be tested and test steps. Once the test application is run it automatically loads the target application and executes the given set of test commands as it is done by a human.</p>
+
+<p>The UI interaction of the test either can be implemented in Java using the Instrumentation Test Runner or in Python using <a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html">Monkey Runner</a>. The below diagram illustrates the architecture of the Android Unit Testing framework.</p>
+
+<p><img src="http://developer.android.com/images/testing/test_framework.png" alt="" /></p>
+
+<p>Reference: <a href="http://developer.android.com/tools/testing/testing_android.html">Android Testing Fundamentals</a></p>
+
+<p>Except for standard test implementation several other open source projects have emerged to simplify the process. One of the leading implementation is <a href="https://github.com/jayway/robotium">Robotium</a>. Robotium is a very light weight framework which has introduced helper classes to facilitate most of the user interaction commands which may cost more if we were to implement on standard Android Test Framework. For an example to type on a text field with standard Android Unit Test implementation we may need to write something like this:</p>
+
+<pre><code>// Find field references
+LoginActivity mActivity = getActivity();
+final EditText mEmailView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.email);
+final EditText mPasswordView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.password);
+final Button mSignIn = (Button) mActivity.findViewById(com.example.helloworld.R.id.sign_in_button);
+
+// Set field values and press sign in button
+mActivity.runOnUiThread(new Runnable() {
+    public void run() {
+        mEmailView.setText(&quot;ABC&quot;);
+        mPasswordView.setText(&quot;hello&quot;);
+        mSignIn.callOnClick();              
+    }
+});
+</code></pre>
+
+<p>However with Robotium we could write the same test script with:</p>
+
+<pre><code>// Find field references
+Activity mActivity = getActivity();
+        EditText mEmailView = (EditText) mActivity.findViewById(R.id.email);
+        EditText mPasswordView = (EditText) mActivity.findViewById(R.id.password);      
+
+        solo.enterText(mEmailView, &quot;f&quot;);
+        solo.enterText(mPasswordView, &quot;hello&quot;);
+        solo.clickOnButton(&quot;Sign in or register&quot;);
+</code></pre>
+
+<p>Robotium also supports to take screen shots at different points of the test flow so that we could have a look at the screens for investigating problems.</p>
+
+<p>Another important aspect of unit testing is that executing them in a build using a continuous integration system like Jenkins. Jenkins has a plugin for integrating Android Unit Tests called <a href="https://wiki.jenkins-ci.org/display/JENKINS/Android+Emulator+Plugin">Android Emulator Plugin</a>. This could be used to test Android applications on different device configurations while generating test reports at the end of test sessions.</p>
+
+<p>Android unit testing is quite interesting. So if you find any questions or and comments regarding this please let me know. I will try my best to answer them via this post. Thanks.</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/imesh/imesh.github.io.git/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fimesh%2fimesh.github.io.git%2fandroid-automated-unit-testing%2f - Android%20Automated%20Unit%20Testing "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/main.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

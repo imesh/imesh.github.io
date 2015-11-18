@@ -1,0 +1,173 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>NTFS Write Support on Mountain Lion &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/imesh/imesh.github.io.git/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/highlight.css">
+		<link href="http://localhost:1313/imesh/imesh.github.io.git/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>NTFS Write Support on Mountain Lion</h1>
+                    <h2 class="headline">May 5, 2013</h2>
+                </header>
+                <section id="post-body">
+                    <p>One of the first things that you would notice if you plug-in a portable hard drive formatted in NTFS format to a Mac with Mountain Lion is that the drive is read only. Sometimes you may have not even notice it if you did not try to execute any write operations.</p>
+
+<p>Out of the box Mountain Lion does not support write access to Windows based file system NTFS. However FAT32 is read/write supported. Mac uses it&rsquo;s own set of file systems; <a href="http://en.wikipedia.org/wiki/Hierarchical_File_System">HFS, HFS Plus</a> (Mac OS Standard, Mac OS Extended). Nevertheless there is a way to get NTFS write access on Mac OS, Mountain Lion.</p>
+
+<p><strong>Theory Behind:</strong></p>
+
+<p>Mac OS has been built on top of the Linux kernel. The Linux kernel supports a feature called <a href="http://en.wikipedia.org/wiki/Filesystem_in_Userspace">Filesystem in Userspace</a> (FUSE) which allows non-priviledged users to create their own file systems without editing the kernel code. This is simply an awesome design feature. From a software engineer&rsquo;s perspective this is a vital feature for any software system, keeping space for extending a system without modifying it&rsquo;s core code.</p>
+
+<p>FUSE has been implemented by <a href="http://osxfuse.github.io">OSXFUSE</a> for Mac OS X. This is kind of an API for implementing support for many different file systems. By make using OXSFUSE, NTFS-3G has implemented read/write support for NTFS. There we go, we could make use of these two system applications to support NTFS write access on Mountain Lion. One of the important point to note here is that this is not a dirty fix rather it is a well defined implementation for extending Mac OS&rsquo;s file handling capabilities.</p>
+
+<p><strong>How to Install the Fix:</strong></p>
+
+<ol>
+<li><p>Download and install MacFUSE: <a href="http://goo.gl/VdnPW">http://goo.gl/VdnPW</a>. <a href="http://code.google.com/p/macfuse/">MacFUSE</a> is the base version of OSXFUSE. This might prompt you to restart the Mac once the installation is complete. I guess it would be wise to let it proceed.</p></li>
+
+<li><p>Download and install NTFS-3G: <a href="http://goo.gl/HH0Pm">http://goo.gl/HH0Pm</a>. This is the implementation of FUSE API for NTFS.</p></li>
+
+<li><p>Download and install the NTFS-3G timeout errors fix: <a href="http://goo.gl/nH5Or">http://goo.gl/nH5Or</a>. There seems to be some known errors in NTFS-3G so we might need this fix.</p></li>
+
+<li><p>Download and install OSXFUSE: <a href="http://sourceforge.net/projects/osxfuse">http://sourceforge.net/projects/osxfuse</a>. Make sure to check the third check box on the installation configuration page which is by default un-checked.</p></li>
+</ol>
+
+<p><strong>References:</strong></p>
+
+<p><a href="http://kennelbound.com/write-support-for-ntfs-with-mac-osx-mountain-lion/">http://kennelbound.com/write-support-for-ntfs-with-mac-osx-mountain-lion/</a></p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/imesh/imesh.github.io.git/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fimesh%2fimesh.github.io.git%2fntfs-write-support-on-mountain-lion%2f - NTFS%20Write%20Support%20on%20Mountain%20Lion "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/main.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,208 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Introduction to Apache Stratos Mock IaaS &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/imesh/imesh.github.io.git/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/imesh/imesh.github.io.git/css/highlight.css">
+		<link href="http://localhost:1313/imesh/imesh.github.io.git/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/imesh/imesh.github.io.git/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Introduction to Apache Stratos Mock IaaS</h1>
+                    <h2 class="headline">December 22, 2014</h2>
+                </header>
+                <section id="post-body">
+                    <p>Apache Stratos supports many Infrastructure as a Service (IaaS) platforms; EC2, OpenStack, VCloud, CloudStack, Docker, etc. However setting up an IaaS or purchasing a public IaaS service is an overhead for contributors and people who would like to tryout Stratos; setting up a local IaaS needs considerable amount of hardware resources and purchasing an online IaaS account involves costs. These are some of the major barriers Stratos community had for last year or so for implementing automated integration tests, bringing in new contributors and allowing people to tryout Stratos with less effort.</p>
+
+<p>Once Stratos introduced Linux Container support with Docker/Kubernetes this problem was solved up to some extent. Nevertheless setting up a Kubernetes cluster also requires several virtual/physical machines and setting up a puppet master (or any other orchestration platform) is an overhead. Very recently when we introduced the Composite Application feature for grouping cartridges this problem became much worse due to the complexity of the logic implemented and the time it took to verify each functionality with above IaaS platforms.</p>
+
+<p>As a solution to this problem we introduced a Mock IaaS feature which could simulate the basic features that Stratos requires from an IaaS. The below diagram illustrates the component architecture of the Mock IaaS:</p>
+
+<p><a href="http://imesh.gunaratne.org/wp-content/uploads/2014/12/Mock-IaaS-Component-Architecture-2.png"><img src="http://imesh.gunaratne.org/wp-content/uploads/2014/12/Mock-IaaS-Component-Architecture-2.png" alt="Mock IaaS Component Architecture-2" /></a></p>
+
+<p><em>Figure: Mock IaaS Component Architecture</em></p>
+
+<p><strong>Stratos IaaS Interface</strong></p>
+
+<p>Stratos provides an abstraction layer for implementing support for Infrastructure as a Service platforms. This is a generic interface that includes following features:</p>
+
+<ul>
+<li><p>Start an instance</p></li>
+
+<li><p>Send user-data/payload parameters to instances</p></li>
+
+<li><p>Attach network interfaces to instances</p></li>
+
+<li><p>Allocate public IP addresses to network interfaces</p></li>
+
+<li><p>Attach storage (volumes) to instances</p></li>
+
+<li><p>Terminate an instance</p></li>
+</ul>
+
+<p>In Stratos 4.0.0 release this interface did not include some of the methods for interacting with the IaaS rather those were directly invoked via the jclouds compute service API. With the introduction of the Mock IaaS all the methods required to communicate with the IaaS were moved to the IaaS interface and jclouds specific logic were moved to a separate class called JcloudsIaas. Now this IaaS interface is implemented by the Mock IaaS client and Jclouds IaaS client (JcloudsIaas). Jclouds IaaS client is further extended by EC2, OpenStack, VCloud, CloudStack, Docker providers.</p>
+
+<p><strong>How Mock IaaS Works</strong></p>
+
+<p>Mock IaaS service simulates the lifecycle of an instance using a thread. Each instance will have a separate thread which publishes instance status events to message broker and health statistics to Complex Event Processor (CEP). Once a mock member thread is started it will publish Instance Started event to message broker and in several seconds it will publish the Instance Activated event. Thereafter the health statistics publisher will be started. It will read statistics from a singleton health statistics map which is updated by the health statistics generator.</p>
+
+<p>Health statistics generator updates the health statistics map according to the statistics patterns defined in the Mock IaaS configuration. The following sample Mock IaaS configuration illustrates how these patterns could be defined for different cartridges:</p>
+
+<p>[code]
+<mock-iaas enabled="true">
+   <health-statistics>
+       <cartridge type="tomcat">
+           &lt;!&ndash; factor:memory-consumption|load-average|request-in-flight&ndash;&gt;
+           &lt;!&ndash; mode:loop|continue|stop &ndash;&gt;
+           &lt;!&ndash; Mode defines the action needs to be taken after the last sample value:
+                loop: start from beginning
+                continue: continue the last sample value
+                stop: stop publishing statistics &ndash;&gt;
+           <pattern factor="memory-consumption" mode="continue">
+               &lt;!&ndash; Sample values &ndash;&gt;
+               <sampleValues>20,30,40,50,60,70,50,40,30,20</sampleValues>
+               &lt;!&ndash; Duration of each sample value in seconds &ndash;&gt;
+               <sampleDuration>60</sampleDuration>
+           </pattern>
+           <pattern factor="load-average" mode="continue">
+               &lt;!&ndash; Sample values &ndash;&gt;
+               <sampleValues>20</sampleValues>
+               &lt;!&ndash; Duration of each sample value in seconds &ndash;&gt;
+               <sampleDuration>60</sampleDuration>
+           </pattern>
+       </cartridge>
+   </health-statistics>
+</mock-iaas>
+[/code]</p>
+
+<p>In the above sample we have defined a health statistics generation pattern for tomcat cartridge. Similarly we can define multiple health statistics generation patterns for different cartridges. Under each cartridge its possible to define three different autoscaling factors: memory-consumption|load-average|request-in-flight. Mock health statistics generator will generate statistics for each factor for the given cartridge and update the central health statistics map. In each pattern mode attribute defines the action that needs to be taken once the last sample value is reached. If this is set to loop, mock health statistics generator will loop back to the first value. If it is set to continue the last sample value will be continued. If it is set to stop, health statistics generation process will be stopped and eventually health statistics publishing process will also stop. Finally the members in that cluster will become faulty.</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/imesh/imesh.github.io.git/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fimesh%2fimesh.github.io.git%2fintroduction-to-apache-stratos-mock-iaas%2f - Introduction%20to%20Apache%20Stratos%20Mock%20IaaS "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/main.js"></script>
+<script src="http://localhost:1313/imesh/imesh.github.io.git/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

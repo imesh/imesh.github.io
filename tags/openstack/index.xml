@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openstack on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/openstack/</link>
+    <description>Recent content in Openstack on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Apr 2013 17:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Running Monoscape on OpenStack</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/running-monoscape-on-openstack/</link>
+      <pubDate>Sun, 14 Apr 2013 17:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/running-monoscape-on-openstack/</guid>
+      <description>&lt;p&gt;Since it&amp;rsquo;s inception Monoscape was built on top of OpenStack IaaS. This was around early 2011. During this time OpenStack had only a minimal set of features and components like Nova - Compute, Swift - Object Storage, Glance - Image Service and a very basic web interface. It even didn&amp;rsquo;t had a proper installation process, most people used Stackops distributions. In contrast today OpenStack is a very matured product. Now it has many componenets (&lt;a href=&#34;http://docs.openstack.org/developer/ceilometer/&#34;&gt;Ceilometer&lt;/a&gt; - Billing, Cinder - Block Storage, Glance - Image Service, &lt;a href=&#34;https://wiki.openstack.org/wiki/Heat&#34;&gt;Heat&lt;/a&gt; - AWS CloudFormation, Horizon - Dashboard, Keystone - Identity Management, Nova - Compute, Quantum and Swift) including a rich set of features and a well defined installation process. Still Stackops provide easy to use distributions for OpenStack packaged with Ubuntu Server but I think they are no longer necessary. One major security issue I noticed with Stackops installation process is that they store client&amp;rsquo;s configuration information in their severs online.&lt;/p&gt;
+
+&lt;p&gt;If you are trying out OpenStack for the first time you could use a Virtual Machine (VM) on Oracle VirtualBox or any other VM platform. However you may need to make sure that you use a physical machine with at least 8GB of memory running with a high end processor. So that you could provide nearly 4 GB of memory to the VM and around 10 GB of dynamic disk space.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to install OpenStack&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Download and install Ubuntu 12.04.2 LTS (Precise Pangolin) server x64 from &lt;a href=&#34;http://releases.ubuntu.com&#34;&gt;http://releases.ubuntu.com&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install Git using following command: &amp;gt; sudo apt-get install git&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download OpenStack installation script from from its git repository using the following command: &amp;gt; git clone git://github.com/openstack-dev/devstack.git&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Run stack.sh script. This script will install MySQL, RabitMQ and many other required software. Then the OpenStack compoenents will be configured with the given user preferences on a single node.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once the installation is complete try to login to Horizon via &lt;a href=&#34;http://host-ip/&#34;&gt;http://host-ip/&lt;/a&gt; using the administrative user (&amp;lsquo;admin&amp;rsquo;) and the password given at the installation time. If you could not remember the password by any chance you could find it inside the devstack installation folder written to a text file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;One important point to note on this relase of OpenStack is that the IP address of the host could be dynamic. Earlier it used to be static with Stackops.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once OpenStack is up and running you could start installing Monoscape. However you may need to note that Keystone, OpenStack identity management service does not start automatically in this release as the operating system starts up. Therefore you may need to manually start it using the script created inside devstack folder. That&amp;rsquo;s the only problem I found so far with the latest dev release.&lt;/p&gt;
+
+&lt;p&gt;Monoscape could be installed on a separate physical or virtual machine. First of all download source code from htttps://github.com/monoscape and build it using Mono. A shell script for building all the components could be found in the root folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to install Monoscape&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Create a new OpenStack user account for monoscape to access the EC2 API.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Find EC2 authentication details (secret key and access key) for the above user from the IaaS dashboard.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update Monoscape Application Grid Controller configuraiton file with the above information.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start Monoscape Load Balancer using start-load-balancer.sh shell script.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start Monoscape Application Grid using start-application-grid.sh shell script.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start Monoscape Dashboard using start-dashboard.sh shell script.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Login to Monoscape Dashboard using &lt;a href=&#34;http://host-ip:8080&#34;&gt;http://host-ip:8080&lt;/a&gt; and verify IaaS authentication status.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create a new key for a EC2 image of Ubuntu 12.04 server and start an instance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Copy Monoscape Node Controller to the above VM instance.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update Monoscape Node Controller configuration file with the IP address of the application grid.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Export the above instance of the VM and import it to the IaaS using the same key.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Login to Monoscape Dashboard and upload Mono applications to be deployed in the PaaS.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start an application and do a sanity test to see whether its is working.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you have any concerns or comments about Monoscape or its installation, please do not hesitate to add a comment line to this post.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;OpenStack Documentation - &lt;a href=&#34;http://docs.openstack.org/install&#34;&gt;http://docs.openstack.org/install&lt;/a&gt;&lt;br /&gt;
+Deploying OpenStack for Developers - &lt;a href=&#34;http://devstack.org&#34;&gt;http://devstack.org&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

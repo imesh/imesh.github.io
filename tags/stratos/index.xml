@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stratos on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/stratos/</link>
+    <description>Recent content in Stratos on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 Jun 2014 19:32:40 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/stratos/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Install Stratos in One Go</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</link>
+      <pubDate>Sun, 22 Jun 2014 19:32:40 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</guid>
+      <description>
+
+&lt;p&gt;Apache Stratos 4.0.0 &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Installation+Guide&#34;&gt;installation process&lt;/a&gt; has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments.&lt;/p&gt;
+
+&lt;p&gt;As a solution to this, I implemented a script to automate the complete Stratos installation process by filling the gaps in between:&lt;/p&gt;
+
+&lt;h4 id=&#34;prerequisites:44b86b14737d76c995bb84192bc26c97&#34;&gt;Prerequisites:&lt;/h4&gt;
+
+&lt;p&gt;[code] An Ubuntu 12.04 64bit host [/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;steps-to-follow:44b86b14737d76c995bb84192bc26c97&#34;&gt;Steps to follow:&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Take a git clone of the below git repository:
+[code] git clone &lt;a href=&#34;https://github.com/imesh/stratos-dev-stack.git&#34;&gt;https://github.com/imesh/stratos-dev-stack.git&lt;/a&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update install.sh with host private IP and IaaS configuration parameters:
+[code]
+host_private_ip=&amp;ldquo;&amp;rdquo;
+ec2_identity=&amp;ldquo;identity&amp;rdquo;
+ec2_credential=&amp;ldquo;credential&amp;rdquo;
+ec2_keypair_name=&amp;ldquo;keypair-name&amp;rdquo;
+ec2_owner_id=&amp;ldquo;owner-id&amp;rdquo;
+ec2_availability_zone=&amp;ldquo;availability-zone&amp;rdquo;
+ec2_security_groups=&amp;ldquo;security-groups&amp;rdquo;
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Grant install.sh executable access:
+[code] chmod +x install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Run install.sh with root permissions:
+[code] sudo ./install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.&lt;/p&gt;
+
+&lt;p&gt;Stratos dashboard URL could be found at the below link:
+[code] https://&lt;hostname&gt;:9443/console [/code]&lt;/p&gt;
+
+&lt;p&gt;In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:&lt;/p&gt;
+
+&lt;p&gt;[code]
+cd /tmp
+wget &lt;a href=&#34;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&#34;&gt;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&lt;/a&gt;
+chmod +x cartridge-creator.sh
+sudo ./cartridge-creator.sh
+[/code]&lt;/p&gt;
+
+&lt;p&gt;During this process it will prompt you to enter the puppet master IP, puppet master hostname, and service name, for those please enter the following:&lt;/p&gt;
+
+&lt;p&gt;[code]
+Puppet master IP: IP of the Stratos host
+Puppet master hostname: puppet.stratos.org
+Service name: default
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Once cartridge creation process is completed create an image from the running VM instance. Thereafter find the image id of the created image and use it as the cartridge image id in each &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Sample+Cartridge+Definition&#34;&gt;cartridge definition&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <description>
+
+&lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;
+
+&lt;h3 id=&#34;1-shared-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;1. Shared Scalable Load Balancing&lt;/h3&gt;
+
+&lt;p&gt;In this load balancing mode a service would get access to a scalable load balancer/cluster shared among multiple services. The resulting load balancing solution may consume less IaaS resources and will be cost efficient for the service provider.&lt;/p&gt;
+
+&lt;h3 id=&#34;2-dedicated-scalable-load-balancing-for-services:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;2. Dedicated Scalable Load Balancing for Services&lt;/h3&gt;
+
+&lt;p&gt;If a service requires a high through put and low response time in load balancing it could request a dedicated scalable load balancer/cluster for its service. This load balancer/cluster will not be shared among any other services and will only be used with the given service. As a result it will use more IaaS resources than option 1 and may cost more.&lt;/p&gt;
+
+&lt;h3 id=&#34;3-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;3. Non Scalable Load Balancing&lt;/h3&gt;
+
+&lt;p&gt;If the service provider does not need a scalable load balancing solution, they could either configure the auto-scaling policies to spawn one load balancer instance or go with a non scalable load balancer/cluster. In non scalable load balancing mode Stratos will not manage the load balancer instances rather it will provide required topology information via the message broker to configure its topology in runtime.&lt;/p&gt;
+
+&lt;p&gt;More importantly in each load balancing mode either Apache Stratos Load Balancer or any other load balancer with Apache Stratos Load Balancer Extension API could be used. I will be writing another article on the load balancer extension API and its usage soon.&lt;/p&gt;
+
+&lt;p&gt;The above load balancing modes could be configured in cartridge definition and load balancer configuration as follows:&lt;/p&gt;
+
+&lt;h3 id=&#34;cartridge-definition-configuration:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Cartridge Definition Configuration&lt;/h3&gt;
+
+&lt;h4 id=&#34;c1-cartridge-1-service-1-configured-with-shared-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C1: Cartridge 1/Service 1 Configured with Shared Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the default.load.balancer property to true in load balancer section in cartridge definition. As a result all the subscriptions made to this service will join to the default shared load balancer.&lt;/p&gt;
+
+&lt;p&gt;According to the current implementation there will be only one default load balancer instance/cluster for a given Stratos deployment.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;default.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;c2-cartridge-2-service-2-configured-with-dedicated-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C2: Cartridge 2/Service 2 Configured with Dedicated Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the &amp;ldquo;service.aware.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be a dedicated load balancer instance/cluster spawned for this service and all the subscriptions made to this service will join to this dedicated load balancer.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;service.aware.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;c3-cartridge-3-service-3-configured-with-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C3: Cartridge 3/Service 3 Configured with Non Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the &amp;ldquo;no.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be no load balancers spawned for this service. However we could configure a static load balancer instance to serve the members spawned for the service subscriptions.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;no.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Once the above cartridge configuration is done we need to configure the load balancer to identify the services which it needs to serve. This is accomplished by adding the load balancer cluster id to each member which it needs to join. Once a new member is spawned in a service cluster, Stratos Manager adds the relevant load balancer cluster id to the member instance. Subsequently when the member activated event is received by the load balancer it checks the member&amp;rsquo;s load balancer cluster id against its value. If it matches then the relevant member will get joined to that load balancer/cluster.&lt;/p&gt;
+
+&lt;h4 id=&#34;load-balancer-configuration-for-c1-c2:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Load Balancer Configuration for C1 &amp;amp; C2&lt;/h4&gt;
+
+&lt;p&gt;Once a load balancer/cluster is spawned for above C1 and C2 options, the cartridge agent will update the topology-member-filter property in loadbalancer.conf value to its own load balancer cluster id at the start up. This process will make sure that only members with the same LB Cluster ID will join to this load balancer/cluster.&lt;/p&gt;
+
+&lt;p&gt;[code]&lt;/p&gt;
+
+&lt;h1 id=&#34;topology-member-filter:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Topology member filter&lt;/h1&gt;
+
+&lt;h1 id=&#34;provide-load-balancer-cluster-ids-in-a-comma-separated-list-to-filter-incoming-topology-events-if:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Provide load balancer cluster ids in a comma separated list to filter incoming topology events if&lt;/h1&gt;
+
+&lt;h1 id=&#34;topology-event-listener-enabled-is-set-to-true-this-functionality-could-be-used-for-allowing-members:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology_event_listener_enabled is set to true. This functionality could be used for allowing members&lt;/h1&gt;
+
+&lt;h1 id=&#34;to-join-a-given-load-balancer-cluster:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;to join a given load balancer cluster.&lt;/h1&gt;
+
+&lt;h1 id=&#34;topology-member-filter-lb-cluster-id-lb-cluster-id1:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology-member-filter: lb-cluster-id=lb-cluster-id1;&lt;/h1&gt;
+
+&lt;p&gt;[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;load-balancer-configuration-for-c3:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Load Balancer Configuration for C3&lt;/h4&gt;
+
+&lt;p&gt;For non-scalable load balancers we could manually start a Stratos load balancer/cluster by commenting out the topology-member-filter property. As a result all the members in the Stratos deployment will get joined to this non-scalable load balancer/cluster.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
+      <pubDate>Fri, 27 Sep 2013 09:50:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
+      <description>
+
+&lt;p&gt;Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &amp;ldquo;x&amp;rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-to-build-from-source:ca22749167d775a2e3747beccf928b4d&#34;&gt;How to Build From Source:&lt;/h4&gt;
+
+&lt;p&gt;You could follow the below steps to build the binary distribution from source:
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;git checkout 3.0.0-incubation-x&lt;/p&gt;
+
+&lt;p&gt;cd incubator-stratos&lt;/p&gt;
+
+&lt;p&gt;mvn clean install
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:&lt;/p&gt;
+
+&lt;p&gt;[code]
+incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;download-binary-distributions:ca22749167d775a2e3747beccf928b4d&#34;&gt;Download Binary Distributions:&lt;/h4&gt;
+
+&lt;p&gt;Please find the official binary packages at the blow location. Select the latest RC version and download the files.&lt;/p&gt;
+
+&lt;p&gt;[code]
+&lt;a href=&#34;https://dist.apache.org/repos/dist/dev/incubator/stratos/&#34;&gt;https://dist.apache.org/repos/dist/dev/incubator/stratos/&lt;/a&gt;
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;download-openstack-cartridge-images:ca22749167d775a2e3747beccf928b4d&#34;&gt;Download Openstack Cartridge Images:&lt;/h4&gt;
+
+&lt;p&gt;Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:&lt;/p&gt;
+
+&lt;p&gt;[code]
+stratos-3.0.0-incubating-tomcat-cartridge.img.zip&lt;/p&gt;
+
+&lt;p&gt;stratos-3.0.0-incubating-php-cartridge.img.zip&lt;/p&gt;
+
+&lt;p&gt;stratos-3.0.0-incubating-mysql-cartridge.img.zip
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;upload-cartridge-images-to-openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Upload Cartridge Images to Openstack:&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;sudo apt-get install python-novaclient python-glanceclient swift&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;source /openrc.sh&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating&amp;ndash;tomcat-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img&lt;/p&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-mysql-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img&lt;/p&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-php-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h4 id=&#34;prepare-stratos-installer:ca22749167d775a2e3747beccf928b4d&#34;&gt;Prepare Stratos Installer&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now take a copy of the Stratos installer from it’s source repository’s tools folder:
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;git checkout 3.0.0-incubation-x&lt;/p&gt;
+
+&lt;p&gt;cd incubator-stratos/tools/stratos-installer
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This folder contains scripts for installing Apache Stratos on a given environment. First configure the required settings in setup.conf file found under conf directory:&lt;/p&gt;
+
+&lt;p&gt;[code]
+vi conf/setup.conf
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Configure general information section with the below parameter values:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+export setup_path= #Folder path containing stratos_setup
+export stratos_pack_path= #Folder path containing stratos packages 
+export stratos_path= #Folder which stratos will be installed
+export JAVA_HOME= #Java home path
+export hostip=&amp;ldquo;&amp;rdquo; #Machine ip on which setup script run
+export host_user=&amp;ldquo;&amp;rdquo; #A host user account for stratos.
+export mysql_connector_jar=$stratos_pack_path/&amp;ldquo;mysql-connector-java-5.1.25.jar&amp;rdquo; #mysql connector jar file name
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]&lt;/p&gt;
+
+&lt;h1 id=&#34;openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Openstack&lt;/h1&gt;
+
+&lt;p&gt;export openstack_provider_enabled=true
+export openstack_identity=&amp;ldquo;stratos:stratos&amp;rdquo; #Openstack project name:Openstack login user
+export openstack_credential=&amp;ldquo;password&amp;rdquo; #Openstack login password
+export openstack_tenant=&amp;ldquo;stratos&amp;rdquo; #Openstack project name
+export openstack_jclouds_endpoint=&amp;ldquo;&lt;a href=&#34;http://hostname:5000/v2.0&amp;quot;&#34;&gt;http://hostname:5000/v2.0&amp;quot;&lt;/a&gt; #Openstack Keystone URL
+export openstack_scaleup_order=2
+export openstack_scaledown_order=3
+export openstack_keypair_name=&amp;ldquo;&amp;rdquo; #Create a new keypair and add the name here
+export nova_region=&amp;ldquo;RegionOne&amp;rdquo; #Openstack region used for spawning cartridge instances
+export openstack_instance_type_tiny=&amp;ldquo;RegionOne\/1&amp;rdquo;
+export openstack_instance_type_small=&amp;ldquo;RegionOne\/2&amp;rdquo;
+export openstack_security_groups=&amp;ldquo;security-groups&amp;rdquo;
+export openstack_php_cartridge_image_id=&amp;ldquo;&amp;rdquo; #Openstack PHP Cartridge Image ID
+export openstack_mysql_cartridge_image_id=&amp;ldquo;&amp;ldquo; #Openstack MySQL Cartridge Image ID
+export openstack_tomcat_cartridge_image_id=&amp;ldquo;&amp;ldquo; #Openstack Apache Tomcat Cartridge Image ID
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install following pre-requisite software:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+java -jdk1.6.x   
+Git
+facter   
+zip
+mysql-server
+Gitblits
+[/code]
+    
+5. Download WSO2 Message Broker (MB) binary distribution from &lt;a href=&#34;http://wso2.com/products/message-broker/&#34;&gt;http://wso2.com/products/message-broker/&lt;/a&gt; and copy it to stratos-pack-path. Here you could use any preferred message broker product which supports AMQP.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Extract MB distribution in stratos-path and set it&amp;rsquo;s port offset in repository/conf/carbon.xml to 5. This will set the actual MB port to 5677.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Add the following entries to the /etc/hosts file:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+&lt;ip-address&gt; stratos.apache.org        # stratos domain
+&lt;ip-address&gt; mb.stratos.apache.org     # message broker hostname
+&lt;ip-address&gt; cc.stratos.apache.org     # cloud controller hostname
+&lt;ip-address&gt; sc.stratos.apache.org     # stratos controller hostname
+&lt;ip-address&gt; elb.stratos.apache.org    # elastic load balancer hostname
+&lt;ip-address&gt; agent.stratos.apache.org  # agent hostname
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;install-apache-stratos:ca22749167d775a2e3747beccf928b4d&#34;&gt;Install Apache Stratos&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Once the above configuration is done, execute the below command to install Stratos at the given path (stratos_path):
+[code]
+sudo ./setup.sh -p &amp;ldquo;elb sc cc agent&amp;rdquo;
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;At the end of the installation it will prompt to start all the servers in the background, you could say no to this question and start the server manually so that you have more control over the initial Stratos environment. More importantly if any configuration errors has occurred, you should be able to rectify them more easily.
+[code]
+sh $stratos_path/&lt;module&gt;/bin/stratos.sh 
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Now carefully watch the logs of Elastic Load Balancer (ELB), Stratos Controller (SC), Cloud Controller (CC) and Stratos Agent. Those logs could be found at the following location of each module. Each should have started successfully without any problems.
+[code]
+$stratos_path/&lt;module&gt;/repository/logs/wso2carbon.log
+[/code]
+ &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;verify-apache-stratos-installation:ca22749167d775a2e3747beccf928b4d&#34;&gt;Verify Apache Stratos Installation&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]&lt;a href=&#34;https://sc.stratos.apache.org:9445/carbon[/code&#34;&gt;https://sc.stratos.apache.org:9445/carbon[/code&lt;/a&gt;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Apache Stratos Single Node Installation</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</link>
+      <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Based on Apache Stratos (incubating) 4.0.0-M5]&lt;/p&gt;
+
+&lt;p&gt;Apache Stratos is an enterprise grade Platform as a Service (PaaS) solution for implementing public and private clouds. It consists of five major components. They are, the Cloud Controller (CC), Stratos Controller (SC), Elastic Load Balancer (ELB), Stratos Agent and CLI. These products could be deployed on many different deployment architectures according to different requirements. A single node deployment could be used for development and demonstration purposes. Please follow the below steps to create a Apache Stratos single node instance.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;An IaaS supported by jclouds API.&lt;/li&gt;
+&lt;li&gt;A Linux server distribution. Ubuntu Server 13.04 x64 is recommended.&lt;/li&gt;
+&lt;li&gt;Java runtime 1.6 (Oracle JDK/JRE).&lt;/li&gt;
+&lt;li&gt;MySQL Server 5.5 database server.&lt;/li&gt;
+&lt;li&gt;MySQL Connector for Java (JAR file).&lt;/li&gt;
+&lt;li&gt;Unzip utility.&lt;/li&gt;
+&lt;li&gt;A physical/virtual machine with minimum of 8GB of RAM and 20GB of disk space.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;pre-installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Pre-Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install the preferred Linux server distribution on the selected host.&lt;/li&gt;
+&lt;li&gt;Install Java runtime, MySQL Server and Unzip utility.&lt;/li&gt;
+&lt;li&gt;Connect the host to a network where the IaaS is accessible. Make sure that a VM instance in the IaaS could access the Stratos host.&lt;/li&gt;
+&lt;li&gt;Login to the IaaS and create an authentication key.&lt;/li&gt;
+&lt;li&gt;Then create a security group with all TCP, UDP and ICMP ports open. Please note that this is only used for demonstration purposes. In a production environment please ensure that only required ports are opened via the security group.&lt;/li&gt;
+&lt;li&gt;Either download cartridge images for the selected IaaS platform from the Apache Stratos website or create your own.&lt;/li&gt;
+&lt;li&gt;Upload cartridge images to the IaaS.&lt;/li&gt;
+&lt;li&gt;Create a new folder to store the binary distributions:&lt;/li&gt;
+&lt;li&gt;Download WSO2 Message Broker (MB) binary distribution from &lt;a href=&#34;http://wso2.com&#34;&gt;http://wso2.com&lt;/a&gt; and copy it to .&lt;/li&gt;
+&lt;li&gt;Download Apache Stratos binary packages from the website or build them from source.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;How to build from source:&lt;/strong&gt;
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;
+cd incubator-stratos
+mvn clean install
+cp stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-.zip
+cp stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-.zip
+cp stratos/products/elb/modules/distribution/target/apache-stratos-elb-.zip
+cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-.zip
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a new MySQL database user for stratos.&lt;/li&gt;
+&lt;li&gt;Copy Stratos Installer from incubator-stratos/tools/stratos-installer to a desired path.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Extract WSO2 Message Broker (MB) on the installation path and set it’s port offset value in repository/conf/carbon.xml to 5. Once this is set message broker listening port will be 5677.&lt;/li&gt;
+&lt;li&gt;Update stratos-installer/conf/setup.conf and define all configuration parameters. This is one of the crucial steps of the installation. The configuration has divided into following sections; General, Message Broker, Cloud Controller, Stratos Controller, Elastic Load Balancer, Stratos Agent and IaaS. All these sections should be precisely configured.&lt;/li&gt;
+&lt;li&gt;Execute sudo JAVA_HOME=$JAVA_HOME stratos-installer/setup.sh -p “cc sc elb agent”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This script will extract stratos packages to the given installation path, create stratos_foundation and userstore databases and configure all four products with the given parameter values. Once it is prompted to start the servers, you may say no and start them manually. So that you have more control and visibility over the system.&lt;/p&gt;
+
+&lt;p&gt;It is recommended to start the servers on the following order; MB, CC, SC, ELB and finally the Agent. Wait until each product is started successfully to start the next. Once all servers are started, make sure that none of the server logs have errors on them. If you could see any errors, you may need to first correct them before proceeding further.&lt;/p&gt;
+
+&lt;h3 id=&#34;post-installation-verification:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Post Installation (Verification)&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Find the URL of the stratos controller from it’s log and open it on a web browser. The default URL would be https://{host-name}:9445/carbon and administrator user credentials are admin/admin.&lt;/li&gt;
+&lt;li&gt;Login to the stratos controller and create a new tenant.&lt;/li&gt;
+&lt;li&gt;Logout from the administrator account and login again to the stratos controller using the tenant user created. Here you may need to use the tenant user’s email address as the username.&lt;/li&gt;
+&lt;li&gt;Click on the Single Tenant Cartridges menu item on the navigator. Check whether you could see any cartridges populated on this page. If not there could be errors raised on cloud controller log with related to the IaaS configuration in cloud-controller.xml or cartridge definitions specified in &lt;cartridge&gt;.xml files. Please go through them and try to correct the errors.&lt;/li&gt;
+&lt;li&gt;Subscribe to an available cartridge using an external git repository. This process may take some time depending on the resources available in the IaaS. If subscription process is successful you should see the cartridge instance state as ACTIVE.&lt;/li&gt;
+&lt;li&gt;Now the applications deployed via the git repository should be available in the cloud to be accessed by a client.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;removal:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Removal&lt;/h3&gt;
+
+&lt;p&gt;[code]
+sudo ./clean.sh -a mysql-username -b mysql-password
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Apache Stratos in a Nutshell</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-in-a-nutshell/</link>
+      <pubDate>Mon, 19 Aug 2013 01:42:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-in-a-nutshell/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/images/ApacheStratos/stratos-logo.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Based on Apache Stratos 3.0.0]&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stratos.incubator.apache.org&#34;&gt;Apache Stratos&lt;/a&gt; is an open source, enterprise grade Platform as a Service (PaaS) cloud platform built with open standards. Stratos was originally developed by WSO2 and very recently donated to Apache Software Foundation (ASF) with the vision of making it the most open PaaS framework in the market by involving a wide range of organizations and individuals to design and implement it’s features at their best [1].&lt;/p&gt;
+
+&lt;p&gt;This might be a great start of a long journey on making an industry standard PaaS solution. Few years back a similar  action was taken by NASA and Rackspace when they decided to start the OpenStack project by donating NASA&amp;rsquo;s Nebula platform and Rackspace&amp;rsquo;s Cloud Files platform at a time where there was no open &amp;amp; industry standard Infrastructure as a Service (IaaS) solution available. By now there are over 200 organizations contributing to OpenStack [2] and many cloud vendors using it as their de facto standard IaaS.&lt;/p&gt;
+
+&lt;h2 id=&#34;open-standards:cae6071688411d68b991aedf25d98df6&#34;&gt;Open Standards&lt;/h2&gt;
+
+&lt;h3 id=&#34;osgi-for-modular-architecture:cae6071688411d68b991aedf25d98df6&#34;&gt;OSGi for Modular Architecture&lt;/h3&gt;
+
+&lt;p&gt;At it’s core Apache Stratos is built using OSGi’s [3] dynamic modular architecture. OSGi is one of the best or may be the only industry proven standard for implementing true component based Java applications until JSR 277 [4] was implemented. The core benifit of using a such standard is that, applications could extend their features without having to change the entire system [5]. The complete Stratos PaaS has been composed as a collection of OSGi modules. These modules have been grouped into four different categories as an extra step for improving the maintainability and readability of the platform. They are grouped as components, service stubs, features and products.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/a/1/images/apachestratos/osgi-componenet-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The component modules are the lowest level implementation of the system functionality. Service stub modules include Axis2 web service client stubs for accessing services. The service implementation is done in each required component. Feature modules aggregate components and service stubs and exposes high level system features to the next level. A feature may also refer another feature. Finally a product module is made by aggregating a collection of selected features. In Apache Stratos currently there are five products; Cloud Controller (CC), Elastic Load Balancer (ELB), Stratos Controller (SC), Stratos Agent and Command Line Interface (CLI). This exceptional architectural design was inherited from OSGi modular architecture of WSO2 Carbon platform. Except for this model Carbon provides more extensive features like User Management, Security Management, Tenant Management, Clustering, SOA Governance, Centralized Logging, Web UI and many other supportive features for middleware related products [6].&lt;/p&gt;
+
+&lt;h3 id=&#34;apache-axis2-synapse-tribes-for-service-implementation-mediation-clustering:cae6071688411d68b991aedf25d98df6&#34;&gt;Apache Axis2, Synapse &amp;amp; Tribes for Service Implementation, Mediation &amp;amp; Clustering&lt;/h3&gt;
+
+&lt;p&gt;At it’s next level Stratos make use of Apache Axis2, Axis2 Clustering and Apache Synapse for implementing web services, clustering and message mediation logic. Each product has implemented service APIs for communicating with other products for managing the cloud ecosystem. The load balancer module makes use of Apache Tribes group management framework as the messaging system for clustering the end points. Here the endpoints are known as cartridges which deploy cloud applications in OS level isolated environments. At the moment each cartridge is made out of a virtual machine instance in the IaaS. However there is a plan to improve this functionality by introducing LXC based virtualization to re-use VMs for creating multiple cartridges.&lt;/p&gt;
+
+&lt;h3 id=&#34;apache-qpid-amqp-for-messaging:cae6071688411d68b991aedf25d98df6&#34;&gt;Apache Qpid - AMQP for Messaging&lt;/h3&gt;
+
+&lt;p&gt;Apache Qpid implements Advanced Message Queuing Protocol (AMQP) [7] as an open standard for reliable and high performance messaging [8]. Apache Stratos has used Apache Qpid for synchronizing cluster topology information between products using publish-subscribe pattern [9]. This includes cluster information of cartridges connected to the load balancer.&lt;/p&gt;
+
+&lt;h3 id=&#34;jclouds-api-for-iaas-communication:cae6071688411d68b991aedf25d98df6&#34;&gt;jclouds API for IaaS Communication&lt;/h3&gt;
+
+&lt;p&gt;JClouds provides a single, open standard REST API for accessing many different types of IaaS platforms [10]. Apache Stratos has used JClouds to ensure that it is loosely coupled with the underlying virtualized infrastructure. Currently JClouds supports Amazon EC2, OpenStack, VMWare vCloud, Rackspace and many other IaaS solutions.&lt;/p&gt;
+
+&lt;h3 id=&#34;git-version-controlling-for-artifact-distribution:cae6071688411d68b991aedf25d98df6&#34;&gt;Git Version Controlling for Artifact Distribution&lt;/h3&gt;
+
+&lt;p&gt;Application deployment is one of the key tasks in a PaaS. Stratos has achieved this functionality by using Git version controlling system. The application deployment packages (war files, php deployment distributions, etc) could be checked into a Git repository and the URL of the repo could be registered in the system.&lt;/p&gt;
+
+&lt;h2 id=&#34;logical-architecture:cae6071688411d68b991aedf25d98df6&#34;&gt;Logical Architecture&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/a/1/images/ApacheStratos/apache-stratos-logical-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;cloud-controller-cc:cae6071688411d68b991aedf25d98df6&#34;&gt;Cloud Controller (CC)&lt;/h3&gt;
+
+&lt;p&gt;Cloud Controller is the main access point to the IaaS. It make use of JClouds API for communicating with many different IaaS platforms. One of the key features of Stratos PaaS is that it could be connected to multiple IaaSs concurrently and implement heterogeneous cloud solutions. For an example, an organization could subscribe to a public and a private IaaS at the same time and configure Cloud Controller IaaS policies to ensure which IaaS to be utilized most. Moreover Cloud Controller is the central storage point of cluster topology information of all products.&lt;/p&gt;
+
+&lt;h3 id=&#34;elastic-load-balancer-elb:cae6071688411d68b991aedf25d98df6&#34;&gt;Elastic Load Balancer (ELB)&lt;/h3&gt;
+
+&lt;p&gt;As the name implies ELB is the load balancing module of Apache Stratos PaaS. It constitutes of Apache Synapse mediation framework, Apache Axis2 clustering, Apache Tribes group management messaging framework and an auto-scaling module implemented using Carbon. Once an application is deployed on a cartridge, it connects to the ELB via the Stratos Agent with Axis2 clustering. This clustering configuration is dynamically managed by the ELB. Each cartridge subscription will have it’s own cluster and all cartridge instances created for scaling functionality will be automatically added to the same cluster. Each cluster could be uniquely identified by it’s domain name given at the time the subscription is made.&lt;/p&gt;
+
+&lt;p&gt;All incoming requests of applications are managed in a request queue and monitored by the autoscaler module. The autoscaler module uses a Synapse in-mediator, task and an out-mediator [11] for handling this functionality. According to the scaling rules defined, autoscaler will scale number of instances of applications via the Cloud Controller. In-addition, the ELB keeps a track of session information of messages and routes them to relevant application instances if available.&lt;/p&gt;
+
+&lt;h3 id=&#34;stratos-agent:cae6071688411d68b991aedf25d98df6&#34;&gt;Stratos Agent&lt;/h3&gt;
+
+&lt;p&gt;Stratos Agent’s responsibility is to provide cluster registration functionality for cartridges. Any cartridge which does not have clustering support used by the ELB could go through the agent to subscribe to the PaaS.&lt;/p&gt;
+
+&lt;h3 id=&#34;stratos-controller-sc:cae6071688411d68b991aedf25d98df6&#34;&gt;Stratos Controller (SC)&lt;/h3&gt;
+
+&lt;p&gt;Stratos Controller consists of three main components; the Dashboard, Artifact Distribution Coordinator (ADC) and Autoscaling Policy Manager. The dashboard provides features for managing tenants, cartridge subscriptions, users and roles, single sign-on features based on Security Assertion Markup Language (SAML) [13], registry, metering and key stores. In Stratos each application deployment package is known as an artifact. The responsibility of the ADC is to synchronize artifacts from it’s source Git repository to the cartridge instances. This process is triggered automatically whenever a commit is made to the remote repo or else it could also be triggered manually via the dashboard. The Autoscaling Policy Manager maintains policy rules for managing the auto scaling process in the ELB.&lt;/p&gt;
+
+&lt;h3 id=&#34;command-line-interface-cli:cae6071688411d68b991aedf25d98df6&#34;&gt;Command Line Interface (CLI)&lt;/h3&gt;
+
+&lt;p&gt;The Command Line Interface (CLI) provides same set of features given by the dashboard on the shell. It could be operated in two modes; they are the Interactive Mode and Single Command line Mode. The interactive mode could be used by a human to execute commands against the SC and the single command line could be used by a machine to execute a command script.&lt;/p&gt;
+
+&lt;h3 id=&#34;cartridges:cae6071688411d68b991aedf25d98df6&#34;&gt;Cartridges&lt;/h3&gt;
+
+&lt;p&gt;A cartridge is a virtual machine image on an IaaS which has software components to interact with the Stratos PaaS. Out of the box Apache Stratos provide cartridges for PHP, MySQL and Tomcat based applications on OpenStack and Amazon EC2. More importantly a custom cartridge for any other platform could be created with the given set of tools. The documentation for cartridge creation process could be found here [14]. Even though this process sounds tedious it provides a very secure, OS level isolated environment for cloud applications.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://wso2.com/blogs/thesource/2013/06/what-the-you-just-gave-away-wso2-stratos&#34;&gt;http://wso2.com/blogs/thesource/2013/06/what-the-you-just-gave-away-wso2-stratos&lt;/a&gt;
+[2] &lt;a href=&#34;http://en.wikipedia.org/wiki/OpenStack&#34;&gt;http://en.wikipedia.org/wiki/OpenStack&lt;/a&gt;
+[3] &lt;a href=&#34;http://en.wikipedia.org/wiki/OSGi&#34;&gt;http://en.wikipedia.org/wiki/OSGi&lt;/a&gt;
+[4] &lt;a href=&#34;http://jcp.org/en/jsr/detail?id=277&#34;&gt;http://jcp.org/en/jsr/detail?id=277&lt;/a&gt;
+[5] &lt;a href=&#34;http://www.osgi.org/Technology/WhatIsOSGi&#34;&gt;http://www.osgi.org/Technology/WhatIsOSGi&lt;/a&gt;
+[6] &lt;a href=&#34;http://wso2.com/products/carbon&#34;&gt;http://wso2.com/products/carbon&lt;/a&gt;
+[7] &lt;a href=&#34;http://qpid.apache.org&#34;&gt;http://qpid.apache.org&lt;/a&gt;
+[8] &lt;a href=&#34;http://qpid.apache.org/amqp.html&#34;&gt;http://qpid.apache.org/amqp.html&lt;/a&gt;
+[9] &lt;a href=&#34;http://en.wikipedia.org/wiki/Publish–subscribe_pattern&#34;&gt;http://en.wikipedia.org/wiki/Publish–subscribe_pattern&lt;/a&gt;
+[10] &lt;a href=&#34;https://github.com/jclouds/jclouds&#34;&gt;https://github.com/jclouds/jclouds&lt;/a&gt;
+[11] &lt;a href=&#34;http://synapse.apache.org/userguide/mediators.html&#34;&gt;http://synapse.apache.org/userguide/mediators.html&lt;/a&gt;
+[12] &lt;a href=&#34;http://en.wikipedia.org/wiki/Security_Assertion_Markup_Language&#34;&gt;http://en.wikipedia.org/wiki/Security_Assertion_Markup_Language&lt;/a&gt;
+[13] &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS&#34;&gt;https://cwiki.apache.org/confluence/display/STRATOS&lt;/a&gt;
+[14] &lt;a href=&#34;http://blog.afkham.org/2011/09/wso2-load-balancer-how-it-works.html&#34;&gt;http://blog.afkham.org/2011/09/wso2-load-balancer-how-it-works.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

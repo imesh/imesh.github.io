@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Identity on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/identity/</link>
+    <description>Recent content in Identity on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 May 2014 13:36:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/identity/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Exposing WSO2 Identity Server Admin Services as REST APIs</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
+      <pubDate>Thu, 15 May 2014 13:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
+      <description>&lt;p&gt;WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Download WSO2 ESB 4.8.1 and IS 4.5.0.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extract ESB distribution and set the offset to 1 in carbon.xml file.
+[code] &lt;offset&gt;1&lt;/offset&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] &lt;HideAdminServiceWSDLs&gt;false&lt;/HideAdminServiceWSDLs&gt; [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now start IS with OSGi console enabled:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] sh &lt;IS-HOME&gt;/bin/wso2server.sh -DosgiConsole [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] &lt;a href=&#34;https://localhost:9443/services/UserAdmin?wsdl&#34;&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/a&gt; [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now create an in sequence in ESB with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersInSeq&#34;&gt;
+    &lt;payloadFactory media-type=&#34;xml&#34;&gt;
+        &lt;format&gt;
+            &lt;xsd:listAllUsers xmlns:xsd=&#34;http://org.apache.axis2/xsd&#34;&gt;
+                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
+                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
+            &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
+        &lt;/format&gt;
+        &lt;args&gt;
+            &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:filter&#34;/&gt;
+            &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:limit&#34;/&gt;
+        &lt;/args&gt;
+    &lt;/payloadFactory&gt;
+    &lt;property xmlns:ns=&#34;http://org.apache.synapse/xsd&#34; name=&#34;Authorization&#34; 
+              expression=&#34;fn:concat(&#39;Basic &#39;, base64Encode(&#39;admin:admin&#39;))&#34; scope=&#34;transport&#34; type=&#34;STRING&#34;/&gt;
+    &lt;property name=&#34;SOAPAction&#34; value=&#34;urn:listAllUsers&#34; scope=&#34;transport&#34; type=&#34;STRING&#34;/&gt;
+    &lt;property name=&#34;HTTP_METHOD&#34; value=&#34;POST&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
+    &lt;log level=&#34;full&#34;/&gt;
+    &lt;send&gt;
+        &lt;endpoint&gt;
+            &lt;address uri=&#34;https://localhost:9443/services/UserAdmin&#34; format=&#34;soap12&#34;/&gt;
+        &lt;/endpoint&gt;
+    &lt;/send&gt;
+&lt;/sequence&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an out sequence with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersOutSeq&#34;&gt;
+    &lt;log level=&#34;full&#34;/&gt;
+    &lt;property name=&#34;messageType&#34; value=&#34;application/json&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
+    &lt;send/&gt;
+&lt;/sequence&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an API with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;api xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;listUsers&#34; context=&#34;/listUsers&#34;&gt;
+    &lt;resource methods=&#34;GET&#34; inSequence=&#34;ListUsersInSeq&#34; outSequence=&#34;ListUsersOutSeq&#34;&gt;
+        &lt;faultSequence/&gt;
+    &lt;/resource&gt;
+&lt;/api&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Send a HTTP GET request to the listUsers API:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Request:
+[code]
+curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Response:
+[code]
+{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
+   {&amp;ldquo;return&amp;rdquo;:[ {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:true,
+&amp;ldquo;itemDisplayName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;itemName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false},
+                       {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:false,
+&amp;ldquo;itemDisplayName&amp;rdquo;:null,&amp;ldquo;itemName&amp;rdquo;:false,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false}
+]}}
+[/code]&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

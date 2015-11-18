@@ -1,0 +1,1534 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/</link>
+    <description>Recent content on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Nov 2015 06:13:48 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>about</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/about/</link>
+      <pubDate>Wed, 18 Nov 2015 06:13:48 +0530</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/about/</guid>
+      <description>&lt;p&gt;i## About imesh.io&lt;/p&gt;
+
+&lt;p&gt;Imesh is a Senior Technical Lead at WSO2 and the Product Lead of WSO2 Private PaaS. He is a committer and Project Management Committee (PMC) member of Apache Stratos project. Imesh has provided technical consultancy for many customers on designing and implementing Enterprise Integration, API Management, Identity Management and Platform as a Service (PaaS) solutions at WSO2.&lt;/p&gt;
+
+&lt;p&gt;Imesh holds a masters with a distinction in Enterprise Applications Development awarded by Sheffield Hallam University (SHU), United Kingdom. Imesh implemented a PaaS solution for Mono for his masters thesis and received an award for his work from SHU. He has also received many other awards during his bachelors for his contributions and performance. Imesh has done visiting lectures and supervised final year research projects at University of Moratuwa, University of Peradeniya, University of Kelaniya and University of Colombo, Sri Lanka Institute of Information Technology, Sri Lanka. Imesh enjoys playing the acoustic guitar and the piano.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An Introduction to WSO2 Configurator</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/an-introduction-to-wso2-configurator/</link>
+      <pubDate>Tue, 13 Oct 2015 14:44:13 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/an-introduction-to-wso2-configurator/</guid>
+      <description>
+
+&lt;p&gt;Product configurations can be automated with orchestration management systems such as Puppet, Chef, Salt, Ansible, etc. Most of these orchestration systems provide their own templating engine for templating configuration files. The problem with this model is that for each orchestration system a separate set of templates need to be created for the same product. Switching between different orchestration systems &amp;amp; maintaining different sets of templates files are very costly.&lt;/p&gt;
+
+&lt;p&gt;WSO2 Configurator was introduced to solve this problem by implementing a generic templating solution which can work with any orchestration system: &lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2015/10/configurator-architecture.png&#34; alt=&#34;configurator-architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;WSO2 Configurator is a python module written using &lt;a href=&#34;http://jinja.pocoo.org/docs/dev/&#34;&gt;Jinja2&lt;/a&gt; template engine which can configure a product using a set of key/value pairs. As shown in the above diagram configuration parameters can be either provided by using a set of environment variables or using the module.ini file inside the template module. The template module includes the template files, any other files that needs to be copied to the product distribution such as patches and the module.ini file.&lt;/p&gt;
+
+&lt;p&gt;WSO2 Private PaaS Cartridges releases template modules for all the WSO2 products. Currently template modules can be found for API-M, AS, BRS, DAS, ESB, G-Reg, IS &amp;amp; MB can be found here &lt;a href=&#34;https://github.com/wso2/private-paas-cartridges&#34;&gt;3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;how-to-use-configurator:b900d8a8b033f10636d5973137585398&#34;&gt;How to use Configurator:&lt;/h3&gt;
+
+&lt;h4 id=&#34;1-build-wso2-configurator:b900d8a8b033f10636d5973137585398&#34;&gt;1. Build WSO2 Configurator&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/
+git clone https://github.com/wso2/private-paas-cartridges.git
+cd private-paas-cartridges/common/configurator
+git checkout tags/v4.1.0
+mvn clean install
+cp target/ppaas-configurator-4.1.0.zip /tmp/work
+cd /tmp/work/
+unzip ppaas-configurator-4.1.0.zip
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-build-wso2-as-5-2-1-template-module:b900d8a8b033f10636d5973137585398&#34;&gt;2. Build WSO2 AS 5.2.1 Template Module&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/private-paas-cartridges/wso2as/5.2.1/template-module 
+mvn clean install
+cd target/
+unzip wso2as-5.2.1-template-module-4.1.0.zip
+cp wso2as-5.2.1-template-module-4.1.0 /tmp/work/ppaas-configurator-4.1.0/template-modules/
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-extract-wso2-as-5-2-1-distribution:b900d8a8b033f10636d5973137585398&#34;&gt;3. Extract WSO2 AS 5.2.1 Distribution&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/work/
+unzip wso2as-5.2.1.zip
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;4-update-module-ini-file:b900d8a8b033f10636d5973137585398&#34;&gt;4. Update module.ini File&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt; Update module.ini file and set CARBON_HOME to /tmp/work/wso2as-5.2.1
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;5-run-configurator:b900d8a8b033f10636d5973137585398&#34;&gt;5. Run Configurator&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt; export CONFIG_PARAM_PORT_OFFSET=2
+ cd /tmp/work/ppaas-configurator-4.1.0
+ python configurator.py
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now have a look at the carbon.xml file port offset value. It should be set to 2.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Apache Stratos Mock IaaS</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/introduction-to-apache-stratos-mock-iaas/</link>
+      <pubDate>Mon, 22 Dec 2014 18:03:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/introduction-to-apache-stratos-mock-iaas/</guid>
+      <description>&lt;p&gt;Apache Stratos supports many Infrastructure as a Service (IaaS) platforms; EC2, OpenStack, VCloud, CloudStack, Docker, etc. However setting up an IaaS or purchasing a public IaaS service is an overhead for contributors and people who would like to tryout Stratos; setting up a local IaaS needs considerable amount of hardware resources and purchasing an online IaaS account involves costs. These are some of the major barriers Stratos community had for last year or so for implementing automated integration tests, bringing in new contributors and allowing people to tryout Stratos with less effort.&lt;/p&gt;
+
+&lt;p&gt;Once Stratos introduced Linux Container support with Docker/Kubernetes this problem was solved up to some extent. Nevertheless setting up a Kubernetes cluster also requires several virtual/physical machines and setting up a puppet master (or any other orchestration platform) is an overhead. Very recently when we introduced the Composite Application feature for grouping cartridges this problem became much worse due to the complexity of the logic implemented and the time it took to verify each functionality with above IaaS platforms.&lt;/p&gt;
+
+&lt;p&gt;As a solution to this problem we introduced a Mock IaaS feature which could simulate the basic features that Stratos requires from an IaaS. The below diagram illustrates the component architecture of the Mock IaaS:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/12/Mock-IaaS-Component-Architecture-2.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/12/Mock-IaaS-Component-Architecture-2.png&#34; alt=&#34;Mock IaaS Component Architecture-2&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Figure: Mock IaaS Component Architecture&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Stratos IaaS Interface&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Stratos provides an abstraction layer for implementing support for Infrastructure as a Service platforms. This is a generic interface that includes following features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Start an instance&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Send user-data/payload parameters to instances&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Attach network interfaces to instances&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Allocate public IP addresses to network interfaces&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Attach storage (volumes) to instances&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Terminate an instance&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In Stratos 4.0.0 release this interface did not include some of the methods for interacting with the IaaS rather those were directly invoked via the jclouds compute service API. With the introduction of the Mock IaaS all the methods required to communicate with the IaaS were moved to the IaaS interface and jclouds specific logic were moved to a separate class called JcloudsIaas. Now this IaaS interface is implemented by the Mock IaaS client and Jclouds IaaS client (JcloudsIaas). Jclouds IaaS client is further extended by EC2, OpenStack, VCloud, CloudStack, Docker providers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How Mock IaaS Works&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Mock IaaS service simulates the lifecycle of an instance using a thread. Each instance will have a separate thread which publishes instance status events to message broker and health statistics to Complex Event Processor (CEP). Once a mock member thread is started it will publish Instance Started event to message broker and in several seconds it will publish the Instance Activated event. Thereafter the health statistics publisher will be started. It will read statistics from a singleton health statistics map which is updated by the health statistics generator.&lt;/p&gt;
+
+&lt;p&gt;Health statistics generator updates the health statistics map according to the statistics patterns defined in the Mock IaaS configuration. The following sample Mock IaaS configuration illustrates how these patterns could be defined for different cartridges:&lt;/p&gt;
+
+&lt;p&gt;[code]
+&lt;mock-iaas enabled=&#34;true&#34;&gt;
+   &lt;health-statistics&gt;
+       &lt;cartridge type=&#34;tomcat&#34;&gt;
+           &amp;lt;!&amp;ndash; factor:memory-consumption|load-average|request-in-flight&amp;ndash;&amp;gt;
+           &amp;lt;!&amp;ndash; mode:loop|continue|stop &amp;ndash;&amp;gt;
+           &amp;lt;!&amp;ndash; Mode defines the action needs to be taken after the last sample value:
+                loop: start from beginning
+                continue: continue the last sample value
+                stop: stop publishing statistics &amp;ndash;&amp;gt;
+           &lt;pattern factor=&#34;memory-consumption&#34; mode=&#34;continue&#34;&gt;
+               &amp;lt;!&amp;ndash; Sample values &amp;ndash;&amp;gt;
+               &lt;sampleValues&gt;20,30,40,50,60,70,50,40,30,20&lt;/sampleValues&gt;
+               &amp;lt;!&amp;ndash; Duration of each sample value in seconds &amp;ndash;&amp;gt;
+               &lt;sampleDuration&gt;60&lt;/sampleDuration&gt;
+           &lt;/pattern&gt;
+           &lt;pattern factor=&#34;load-average&#34; mode=&#34;continue&#34;&gt;
+               &amp;lt;!&amp;ndash; Sample values &amp;ndash;&amp;gt;
+               &lt;sampleValues&gt;20&lt;/sampleValues&gt;
+               &amp;lt;!&amp;ndash; Duration of each sample value in seconds &amp;ndash;&amp;gt;
+               &lt;sampleDuration&gt;60&lt;/sampleDuration&gt;
+           &lt;/pattern&gt;
+       &lt;/cartridge&gt;
+   &lt;/health-statistics&gt;
+&lt;/mock-iaas&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;In the above sample we have defined a health statistics generation pattern for tomcat cartridge. Similarly we can define multiple health statistics generation patterns for different cartridges. Under each cartridge its possible to define three different autoscaling factors: memory-consumption|load-average|request-in-flight. Mock health statistics generator will generate statistics for each factor for the given cartridge and update the central health statistics map. In each pattern mode attribute defines the action that needs to be taken once the last sample value is reached. If this is set to loop, mock health statistics generator will loop back to the first value. If it is set to continue the last sample value will be continued. If it is set to stop, health statistics generation process will be stopped and eventually health statistics publishing process will also stop. Finally the members in that cluster will become faulty.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installing A Reverse Proxy Server on Ubuntu with Apache2</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</link>
+      <pubDate>Mon, 15 Dec 2014 08:25:54 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</guid>
+      <description>&lt;p&gt;Update package lists:
+[code]
+apt-get update
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Install Apache2 with mod_proxy:
+[code]
+sudo apt-get install libapache2-mod-proxy-html
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Install libxml2 module:
+[code]
+apt-get install libxml2-dev
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Add following configuration to the /etc/apache2/apache2.conf file:
+[code]
+LoadModule  proxy_module         /usr/lib/apache2/modules/mod_proxy.so
+LoadModule  proxy_http_module    /usr/lib/apache2/modules/mod_proxy_http.so
+LoadModule  headers_module       /usr/lib/apache2/modules/mod_headers.so
+LoadModule  deflate_module       /usr/lib/apache2/modules/mod_deflate.so
+LoadFile    /usr/lib/x86_64-linux-gnu/libxml2.so
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Add a sample reverse proxy configuration to the same file:
+[code]
+ProxyPass /imesh &lt;a href=&#34;http://imesh.gunaratne.org&#34;&gt;http://imesh.gunaratne.org&lt;/a&gt;
+ProxyPassReverse /imesh &lt;a href=&#34;http://imesh.gunaratne.org&#34;&gt;http://imesh.gunaratne.org&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Restart Apache2:
+[code]
+/etc/init.d/apache2 restart
+[/code]&lt;/p&gt;
+
+&lt;p&gt;References:
+&lt;a href=&#34;http://httpd.apache.org/docs/2.2/mod/mod_proxy.html&#34;&gt;http://httpd.apache.org/docs/2.2/mod/mod_proxy.html&lt;/a&gt;
+&lt;a href=&#34;https://abhirama.wordpress.com/2008/11/03/apache-mod_proxy-in-ubuntu/&#34;&gt;https://abhirama.wordpress.com/2008/11/03/apache-mod_proxy-in-ubuntu/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</link>
+      <pubDate>Thu, 27 Nov 2014 12:57:55 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</guid>
+      <description>
+
+&lt;h2 id=&#34;what-is-a-message-processor:77974a968c24b1b07dd6068f0134deda&#34;&gt;What is a Message Processor?&lt;/h2&gt;
+
+&lt;p&gt;WSO2 ESB provides message processors for delivering messages that have been temporarily stored in a message store. This approach is useful for serving traffic to back-end services that can only accept messages at a given rate, whereas incoming traffic to the ESB arrives at different rates [1]. Please refer [2] for sample use cases of message processors.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-implement-a-mbeans-client:77974a968c24b1b07dd6068f0134deda&#34;&gt;How to Implement a MBeans Client?&lt;/h2&gt;
+
+&lt;p&gt;The below sample code demonstrates how to talk to the JMX endpoint of the ESB and actiavate and deactivate a message processor. Here update the JMX URL and the bean definition accordingly.&lt;/p&gt;
+
+&lt;p&gt;[code]
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+import java.util.HashMap;
+import java.util.Map;&lt;/p&gt;
+
+&lt;p&gt;public class Main {
+    public static void main(String[] args) {
+        try {
+            Map&lt;String, Object&gt; env = new HashMap&lt;String, Object&gt;();
+            String[] credentials = new String[]{&amp;ldquo;admin&amp;rdquo;, &amp;ldquo;admin&amp;rdquo;};
+            env.put(&amp;ldquo;jmx.remote.credentials&amp;rdquo;, credentials);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        String url = &amp;quot;service:jmx:rmi://localhost:11111/jndi/rmi://localhost:9999/jmxrmi&amp;quot;;
+        JMXServiceURL target = new JMXServiceURL(url);
+        JMXConnector connector = JMXConnectorFactory.connect(target, env);
+        MBeanServerConnection remote = connector.getMBeanServerConnection();
+
+        String beanDef = &amp;quot;org.apache.synapse:Type=Message Forwarding Processor view,Name=MessageForwardingProcessor&amp;quot;;
+        ObjectName bean = new ObjectName(beanDef);
+
+        remote.invoke(bean, &amp;quot;activate&amp;quot;, null, null);
+        connector.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://docs.wso2.com/display/ESB481/Message+Processors&#34;&gt;https://docs.wso2.com/display/ESB481/Message+Processors&lt;/a&gt;
+[2] &lt;a href=&#34;https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores&#34;&gt;https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Providing High Availability for Stratos with Pacemaker &amp; Heartbeat</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</link>
+      <pubDate>Fri, 24 Oct 2014 05:52:55 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</guid>
+      <description>
+
+&lt;p&gt;This article describes how High Availability (HA) can be configured with &lt;a href=&#34;http://clusterlabs.org/wiki/Pacemaker&#34;&gt;Pacemaker&lt;/a&gt; &amp;amp; &lt;a href=&#34;http://linux-ha.org/wiki/Heartbeat&#34;&gt;Heartbeat&lt;/a&gt; for Apache Stratos. In general this concept can be applied for any server application which needs HA and does not require any data replication. If data replication is needed you may need to consider using &lt;a href=&#34;http://www.drbd.org/home/what-is-drbd/&#34;&gt;DRBD&lt;/a&gt; with Pacemaker. First of all we will see what Pacemaker and Heartbeat are and go through a series of steps on configuring those.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-pacemaker:a154e42535fddf1ea81063e517e4edcd&#34;&gt;What is Pacemaker?&lt;/h3&gt;
+
+&lt;p&gt;Pacemaker is a Cluster Resource Manager (CRM) which can detect and recover from failures of nodes and resources. It basically can start, stop, check the status of a resource and take decisions for recovering them from failures.&lt;/p&gt;
+
+&lt;p&gt;What is a resource? A resource either can be a server application, an IP address or any other software/hardware resource that you can think of. These resources are managed through &lt;a href=&#34;http://www.linux-ha.org/wiki/Resource_agents&#34;&gt;Resource Agents&lt;/a&gt; which is an abstraction layer that Pacemaker make use of to communicate with different types of resources. Out of the box Pacemaker provides Resource Agents for OCF and LSB services. In this example we will be using LSB Resource Agent to manage Apache Stratos as an init.d service.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-heartbeat:a154e42535fddf1ea81063e517e4edcd&#34;&gt;What is Heartbeat?&lt;/h3&gt;
+
+&lt;p&gt;Heartbeat is a daemon that provides messaging infrastructure for Pacemaker. It manages the communication between nodes and allows to know the presence of resources in the cluster.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Oracle VirtualBox or any other virtualization technology&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Ubuntu 12.04 server (64-bit) virtual machine image&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Pacemaker 1.1.6 or above&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Heartbeat 3.0.5 or above&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;steps-for-configuring-pacemaker-heartbeat-for-apache-stratos:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Steps for Configuring Pacemaker &amp;amp; Heartbeat for Apache Stratos:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Start two instances of Ubuntu 12.04 server virtual machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Switch to root user:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]sudo su[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install Pacemaker and Heartbeat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]apt-get install pacemaker heartbeat[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]&lt;/p&gt;
+
+&lt;h1 id=&#34;enable-pacemaker-without-stonith:a154e42535fddf1ea81063e517e4edcd&#34;&gt;enable pacemaker, without stonith&lt;/h1&gt;
+
+&lt;p&gt;crm yes&lt;/p&gt;
+
+&lt;h1 id=&#34;define-log-file:a154e42535fddf1ea81063e517e4edcd&#34;&gt;define log file&lt;/h1&gt;
+
+&lt;p&gt;logfile /var/log/ha-log&lt;/p&gt;
+
+&lt;h1 id=&#34;warning-of-soon-be-dead:a154e42535fddf1ea81063e517e4edcd&#34;&gt;warning of soon be dead&lt;/h1&gt;
+
+&lt;p&gt;warntime 10&lt;/p&gt;
+
+&lt;h1 id=&#34;declare-a-host-the-other-node-dead-after:a154e42535fddf1ea81063e517e4edcd&#34;&gt;declare a host (the other node) dead after:&lt;/h1&gt;
+
+&lt;p&gt;deadtime 20&lt;/p&gt;
+
+&lt;h1 id=&#34;dead-time-on-boot-could-take-some-time-until-net-is-up:a154e42535fddf1ea81063e517e4edcd&#34;&gt;dead time on boot (could take some time until net is up)&lt;/h1&gt;
+
+&lt;p&gt;initdead 120&lt;/p&gt;
+
+&lt;h1 id=&#34;time-between-heartbeats:a154e42535fddf1ea81063e517e4edcd&#34;&gt;time between heartbeats&lt;/h1&gt;
+
+&lt;p&gt;keepalive 2&lt;/p&gt;
+
+&lt;h1 id=&#34;the-nodes:a154e42535fddf1ea81063e517e4edcd&#34;&gt;the nodes&lt;/h1&gt;
+
+&lt;p&gt;node node1 # set node1 hostname
+node node2 # set node2 hostname&lt;/p&gt;
+
+&lt;h1 id=&#34;heartbeats-over-dedicated-replication-interface:a154e42535fddf1ea81063e517e4edcd&#34;&gt;heartbeats, over dedicated replication interface&lt;/h1&gt;
+
+&lt;p&gt;ucast eth1 10.186.175.16 # set node1 network-interface and ip address
+ucast eth1 54.211.110.217 # set node2 network-interface and ip address
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create authentication key file and set permissions in one of the hosts:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;echo -ne &amp;quot;auth 1n1 sha1 &amp;quot;; 
+dd if=/dev/urandom bs=512 count=1 | openssl md5&#34;&gt;code&lt;/a&gt; \
+&amp;gt; /etc/ha.d/authkeys&lt;/p&gt;
+
+&lt;p&gt;chmod 0600 /etc/ha.d/authkeys
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Copy the above authkeys file to each host (/etc/ha.d/authkeys).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Restart heartbeat service:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+service heartbeat restart
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm status&lt;/p&gt;
+
+&lt;p&gt;============
+Last updated: Wed Oct 15 11:25:05 2014
+Last change: Wed Oct 15 11:21:51 2014 via crmd on ip-10-186-175-16
+Stack: Heartbeat
+Current DC: ip-10-186-175-16 (d16ccc5c-2641-42b6-b46a-57a0b32fddc9) - partition with quorum
+Version: 1.1.6-9971ebba4494012a93c03b40a2c58ec0eb60f50c
+2 Nodes configured, unknown expected votes&lt;/p&gt;
+
+&lt;h1 id=&#34;0-resources-configured:a154e42535fddf1ea81063e517e4edcd&#34;&gt;0 Resources configured.&lt;/h1&gt;
+
+&lt;p&gt;Online: [ ip-10-186-175-16 ip-10-153-165-178 ]
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Disable STONITH:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm configure property stonith-enabled=false
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a Failover IP resource to manage the virtual IP address:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm configure primitive FAILOVER-IP ocf:heartbeat:IPaddr params ip=192.168.10.20 cidr_netmask=&amp;ldquo;255.255.255.0&amp;rdquo; op monitor interval=10s
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;SCP java and Apache Stratos packages to both hosts and extract them under /opt folder.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+&lt;a href=&#34;https://gist.github.com/imesh/5256272cd71b74a06581&#34;&gt;https://gist.github.com/imesh/5256272cd71b74a06581&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;#!/bin/sh&lt;/p&gt;
+
+&lt;h3 id=&#34;begin-init-info:a154e42535fddf1ea81063e517e4edcd&#34;&gt;BEGIN INIT INFO&lt;/h3&gt;
+
+&lt;h1 id=&#34;provides-stratos:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Provides:          stratos&lt;/h1&gt;
+
+&lt;h1 id=&#34;required-start-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Required-Start:    $local_fs $remote_fs $network $syslog $named&lt;/h1&gt;
+
+&lt;h1 id=&#34;required-stop-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Required-Stop:     $local_fs $remote_fs $network $syslog $named&lt;/h1&gt;
+
+&lt;h1 id=&#34;default-start-2-3-4-5:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Default-Start:     2 3 4 5&lt;/h1&gt;
+
+&lt;h1 id=&#34;default-stop-0-1-6:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Default-Stop:      0 1 6&lt;/h1&gt;
+
+&lt;h1 id=&#34;x-interactive-true:a154e42535fddf1ea81063e517e4edcd&#34;&gt;X-Interactive:     true&lt;/h1&gt;
+
+&lt;h1 id=&#34;short-description-start-stop-stratos-server:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Short-Description: Start/stop stratos server&lt;/h1&gt;
+
+&lt;h3 id=&#34;end-init-info:a154e42535fddf1ea81063e517e4edcd&#34;&gt;END INIT INFO&lt;/h3&gt;
+
+&lt;p&gt;USER=&amp;ldquo;vagrant&amp;rdquo;
+PRODUCT_NAME=&amp;ldquo;stratos&amp;rdquo;
+JAVA_HOME=&amp;ldquo;/opt/jdk1.7.0_60&amp;rdquo;
+PRODUCT_HOME=&amp;ldquo;/opt/apache_stratos_4.1.0_SNAPSHOT&amp;rdquo;
+PID_FILE=&amp;ldquo;${PRODUCT_HOME}/wso2carbon.pid&amp;rdquo;
+CMD=&amp;ldquo;${PRODUCT_HOME}/bin/stratos.sh&amp;rdquo;&lt;/p&gt;
+
+&lt;h1 id=&#34;lsb-exit-codes:a154e42535fddf1ea81063e517e4edcd&#34;&gt;LSB exit codes:&lt;/h1&gt;
+
+&lt;h1 id=&#34;ftp-ftp-nomadlinux-com-nomad-2-dist-heartbeat-1-2-5-include-clplumbing-lsb-exitcodes-h:a154e42535fddf1ea81063e517e4edcd&#34;&gt;&lt;a href=&#34;ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h&#34;&gt;ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;LSB_EXIT_OK=0
+LSB_EXIT_GENERIC=1
+LSB_EXIT_EINVAL=2
+LSB_EXIT_ENOTSUPPORTED=3
+LSB_EXIT_EPERM=4
+LSB_EXIT_NOTINSTALLED=5
+LSB_EXIT_NOTCONFIGED=6
+LSB_EXIT_NOTRUNNING=7&lt;/p&gt;
+
+&lt;p&gt;is_service_running() {
+    if [ -e ${PID_FILE} ]; then
+        PID=&lt;code&gt;cat ${PID_FILE}&lt;/code&gt;
+        if  ps -p $PID &amp;gt;&amp;amp;- ; then
+            # service is running
+            return 0
+        else
+            # service is stopped
+            return 1
+        fi
+    else
+        # pid file was not found, may be server was not started before
+        return 1
+    fi
+}&lt;/p&gt;
+
+&lt;h1 id=&#34;status-the-service:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Status the service&lt;/h1&gt;
+
+&lt;p&gt;status() {
+    is_service_running
+    service_status=$?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if [ &amp;quot;${service_status}&amp;quot; -eq 0 ]; then
+    echo &amp;quot;${PRODUCT_NAME} service is running&amp;quot;
+    return ${LSB_EXIT_OK}
+elif [ &amp;quot;${service_status}&amp;quot; -eq 1 ]; then
+    echo &amp;quot;$PRODUCT_NAME service is stopped&amp;quot;
+    return ${LSB_EXIT_OK}
+else
+    echo &amp;quot;$PRODUCT_NAME service status is unknown&amp;quot;
+    return ${LSB_EXIT_GENERIC}
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;h1 id=&#34;start-the-service:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Start the service&lt;/h1&gt;
+
+&lt;p&gt;start() {
+    if is_service_running; then
+        echo &amp;ldquo;${PRODUCT_NAME} service is already running&amp;rdquo;
+        return ${LSB_EXIT_OK}
+    fi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;quot;starting ${PRODUCT_NAME} service...&amp;quot;
+su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&amp;quot;
+
+is_service_running
+service_status=$?
+while [ &amp;quot;$service_status&amp;quot; -ne &amp;quot;0&amp;quot; ]
+do
+    sleep 1;
+    is_service_running
+    service_status=$?
+done
+
+echo &amp;quot;${PRODUCT_NAME} service started&amp;quot;
+return ${LSB_EXIT_OK}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;h1 id=&#34;restart-the-service:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Restart the service&lt;/h1&gt;
+
+&lt;p&gt;restart() {
+    echo &amp;ldquo;restarting ${PRODUCT_NAME} service&amp;hellip;&amp;rdquo;
+    su - ${USER} -c &amp;ldquo;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&amp;rdquo;
+    echo &amp;ldquo;${PRODUCT_NAME} service restarted&amp;rdquo;
+    return ${LSB_EXIT_OK}
+}&lt;/p&gt;
+
+&lt;h1 id=&#34;stop-the-service:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Stop the service&lt;/h1&gt;
+
+&lt;p&gt;stop() {
+    if ! is_service_running; then
+        echo &amp;ldquo;${PRODUCT_NAME} service is already stopped&amp;rdquo;
+        return ${LSB_EXIT_OK}
+    fi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &amp;quot;stopping ${PRODUCT_NAME} service...&amp;quot;
+su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&amp;quot;
+
+is_service_running
+service_status=$?
+while [ &amp;quot;$service_status&amp;quot; -eq &amp;quot;0&amp;quot; ]
+do
+    sleep 1;
+    is_service_running
+    service_status=$?
+done
+
+echo &amp;quot;${PRODUCT_NAME} service stopped&amp;quot;
+return ${LSB_EXIT_OK}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;h3 id=&#34;main-logic:a154e42535fddf1ea81063e517e4edcd&#34;&gt;main logic&lt;/h3&gt;
+
+&lt;p&gt;case &amp;ldquo;$1&amp;rdquo; in
+start)
+    start
+    ;;
+stop|graceful-stop)
+    stop
+    ;;
+status)
+    status
+    ;;
+restart|reload|force-reload)
+    restart
+    ;;
+*)
+   echo $&amp;ldquo;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&amp;rdquo;
+   exit 1
+esac
+exit $?
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a CRM resource for stratos:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm configure primitive STRATOS lsb::stratos op monitor interval=15s
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a CRM resource group and add FAILOVER-IP and STRATOS resources:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm configure group FAILOVER-IP-RESOURCE-GROUP FAILOVER-IP STRATOS
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configure a colocation dependency between FAILOVER-IP and STRATOS. This will make sure that both FAILOVER-IP and STRATOS resources will stay in the same host.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code]
+crm configure colocation FAILOVER-IP-RESOURCE-GROUP-COLOCATION inf: FAILOVER-IP STRATOS
+[/code]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Re-Writing Query Parameters in WSO2 ESB</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/re-writing-query-parameters-in-wso2-esb/</link>
+      <pubDate>Wed, 27 Aug 2014 16:28:09 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/re-writing-query-parameters-in-wso2-esb/</guid>
+      <description>&lt;p&gt;The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.&lt;/p&gt;
+
+&lt;p&gt;[code]
+&lt;property name=&#34;URL&#34; value=&#34;http://host:8280?p1=abc&amp;amp;p2=qwe&#34;/&gt;
+&lt;filter source=&#34;$ctx:URL&#34; regex=&#34;.*format=.*&#34;&gt;
+    &lt;then&gt;
+         &amp;lt;!&amp;ndash; format query parameter found in URL, replace it &amp;ndash;&amp;gt;
+         &lt;property name=&#34;URL_UPDATED&#34;
+                   expression=&#34;replace($ctx:URL, &#39;format=([^&amp;amp;]*)&#39;, &#39;format=xml&#39;)&#34;/&gt;
+    &lt;/then&gt;
+    &lt;else&gt;
+         &amp;lt;!&amp;ndash; format query parameter not found in URL, add it &amp;ndash;&amp;gt;
+         &lt;property name=&#34;URL_UPDATED&#34; 
+                   expression=&#34;concat($ctx:URL, &#39;&amp;amp;format=xml&#39;)&#34;/&gt;
+    &lt;/else&gt;
+&lt;/filter&gt;
+&lt;log level=&#34;custom&#34;&gt;
+    &lt;property name=&#34;-- original --&#34; expression=&#34;$ctx:URL&#34;/&gt;
+    &lt;property name=&#34;-- updated --&#34; expression=&#34;$ctx:URL_UPDATED&#34;/&gt;
+&lt;/log&gt;
+[/code]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Stratos in One Go</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</link>
+      <pubDate>Sun, 22 Jun 2014 19:32:40 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</guid>
+      <description>
+
+&lt;p&gt;Apache Stratos 4.0.0 &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Installation+Guide&#34;&gt;installation process&lt;/a&gt; has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments.&lt;/p&gt;
+
+&lt;p&gt;As a solution to this, I implemented a script to automate the complete Stratos installation process by filling the gaps in between:&lt;/p&gt;
+
+&lt;h4 id=&#34;prerequisites:44b86b14737d76c995bb84192bc26c97&#34;&gt;Prerequisites:&lt;/h4&gt;
+
+&lt;p&gt;[code] An Ubuntu 12.04 64bit host [/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;steps-to-follow:44b86b14737d76c995bb84192bc26c97&#34;&gt;Steps to follow:&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Take a git clone of the below git repository:
+[code] git clone &lt;a href=&#34;https://github.com/imesh/stratos-dev-stack.git&#34;&gt;https://github.com/imesh/stratos-dev-stack.git&lt;/a&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update install.sh with host private IP and IaaS configuration parameters:
+[code]
+host_private_ip=&amp;ldquo;&amp;rdquo;
+ec2_identity=&amp;ldquo;identity&amp;rdquo;
+ec2_credential=&amp;ldquo;credential&amp;rdquo;
+ec2_keypair_name=&amp;ldquo;keypair-name&amp;rdquo;
+ec2_owner_id=&amp;ldquo;owner-id&amp;rdquo;
+ec2_availability_zone=&amp;ldquo;availability-zone&amp;rdquo;
+ec2_security_groups=&amp;ldquo;security-groups&amp;rdquo;
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Grant install.sh executable access:
+[code] chmod +x install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Run install.sh with root permissions:
+[code] sudo ./install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.&lt;/p&gt;
+
+&lt;p&gt;Stratos dashboard URL could be found at the below link:
+[code] https://&lt;hostname&gt;:9443/console [/code]&lt;/p&gt;
+
+&lt;p&gt;In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:&lt;/p&gt;
+
+&lt;p&gt;[code]
+cd /tmp
+wget &lt;a href=&#34;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&#34;&gt;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&lt;/a&gt;
+chmod +x cartridge-creator.sh
+sudo ./cartridge-creator.sh
+[/code]&lt;/p&gt;
+
+&lt;p&gt;During this process it will prompt you to enter the puppet master IP, puppet master hostname, and service name, for those please enter the following:&lt;/p&gt;
+
+&lt;p&gt;[code]
+Puppet master IP: IP of the Stratos host
+Puppet master hostname: puppet.stratos.org
+Service name: default
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Once cartridge creation process is completed create an image from the running VM instance. Thereafter find the image id of the created image and use it as the cartridge image id in each &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Sample+Cartridge+Definition&#34;&gt;cartridge definition&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Implementing Split Aggregate Pattern in ESB</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/</link>
+      <pubDate>Sun, 15 Jun 2014 18:30:48 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/</guid>
+      <description>
+
+&lt;p&gt;Split Aggregate is an &lt;a href=&#34;http://www.eaipatterns.com/&#34;&gt;Enterprise Integration Pattern&lt;/a&gt; (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time.&lt;/p&gt;
+
+&lt;p&gt;In this article I have designed a sample mediation flow in WSO2 ESB, by using the Iterate and Aggregate mediators to demonstrate the usage of Split Aggregate patten.&lt;/p&gt;
+
+&lt;h3 id=&#34;in-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;In Mediation Flow&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-In-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-In-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-In-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;According to the above diagram when a message is received by an API or Proxy Service in the ESB it will be delegated to the In Sequence.&lt;/li&gt;
+&lt;li&gt;Here we could validate the incoming request and implement error handling logic. What I have done is I have introduced a Response Sequence to generate an error response if the incoming request is not valid. At the same time I re-use the Response Sequence as the last step in the message out flow.&lt;/li&gt;
+&lt;li&gt;Here my approach is to generate a common response message in Response Sequence which will have attributes to detect an error.&lt;/li&gt;
+&lt;li&gt;The best part of this approach is that the API/Proxy Service will return a response in both successful and error situations.&lt;/li&gt;
+&lt;li&gt;As the next step the iterate mediator will split the message using the XPath expression given and send each sub message to the endpoint.&lt;/li&gt;
+&lt;li&gt;At this point iterate mediator set the total sub message count in the message context:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
+org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
+   private MessageContext getIteratedMessage() {
+      &amp;hellip;
+      newCtx.setProperty(
+      EIPConstants.MESSAGE_SEQUENCE + &amp;ldquo;.&amp;rdquo; + id,
+      msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
+      &amp;hellip;
+   }
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.&lt;/li&gt;
+&lt;li&gt;Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;Out Mediation Flow&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-Out-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).&lt;/li&gt;
+&lt;li&gt;In addition any messages that may get timeout by the endpoint will trigger the fault sequence.&lt;/li&gt;
+&lt;li&gt;Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.&lt;/li&gt;
+&lt;li&gt;Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.&lt;/li&gt;
+&lt;li&gt;Then the Aggregate Mediator will wait until responses to all the sub messages are received:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
+org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
+   public synchronised boolean isComplete() {
+   &amp;hellip;
+      String[] msgSequence = prop.toString().split(
+      EIPConstants.MESSAGE_SEQUENCE_DELEMITER);
+      int total = Integer.parseInt(msgSequence[1]);
+      &amp;hellip;
+      if (messages.size() &amp;gt;= total) {
+         synLog.traceOrDebug(&amp;ldquo;Aggregation complete&amp;rdquo;);
+         return true;
+      }
+      &amp;hellip;
+   }
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo;]
+&lt;aggregate&gt;
+    &lt;completeCondition&gt;
+        &lt;messageCount/&gt;
+    &lt;/completeCondition&gt;
+    &lt;onComplete xmlns:m0=&#34;http://services.samples&#34; expression=&#34;//m0:getQuoteResponse&#34;&gt;
+        &lt;send/&gt;
+    &lt;/onComplete&gt;
+&lt;/aggregate&gt;
+&lt;/code&gt;
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exposing WSO2 Identity Server Admin Services as REST APIs</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
+      <pubDate>Thu, 15 May 2014 13:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
+      <description>&lt;p&gt;WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Download WSO2 ESB 4.8.1 and IS 4.5.0.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extract ESB distribution and set the offset to 1 in carbon.xml file.
+[code] &lt;offset&gt;1&lt;/offset&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] &lt;HideAdminServiceWSDLs&gt;false&lt;/HideAdminServiceWSDLs&gt; [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now start IS with OSGi console enabled:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] sh &lt;IS-HOME&gt;/bin/wso2server.sh -DosgiConsole [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code] &lt;a href=&#34;https://localhost:9443/services/UserAdmin?wsdl&#34;&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/a&gt; [/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now create an in sequence in ESB with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersInSeq&#34;&gt;
+    &lt;payloadFactory media-type=&#34;xml&#34;&gt;
+        &lt;format&gt;
+            &lt;xsd:listAllUsers xmlns:xsd=&#34;http://org.apache.axis2/xsd&#34;&gt;
+                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
+                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
+            &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
+        &lt;/format&gt;
+        &lt;args&gt;
+            &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:filter&#34;/&gt;
+            &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:limit&#34;/&gt;
+        &lt;/args&gt;
+    &lt;/payloadFactory&gt;
+    &lt;property xmlns:ns=&#34;http://org.apache.synapse/xsd&#34; name=&#34;Authorization&#34; 
+              expression=&#34;fn:concat(&#39;Basic &#39;, base64Encode(&#39;admin:admin&#39;))&#34; scope=&#34;transport&#34; type=&#34;STRING&#34;/&gt;
+    &lt;property name=&#34;SOAPAction&#34; value=&#34;urn:listAllUsers&#34; scope=&#34;transport&#34; type=&#34;STRING&#34;/&gt;
+    &lt;property name=&#34;HTTP_METHOD&#34; value=&#34;POST&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
+    &lt;log level=&#34;full&#34;/&gt;
+    &lt;send&gt;
+        &lt;endpoint&gt;
+            &lt;address uri=&#34;https://localhost:9443/services/UserAdmin&#34; format=&#34;soap12&#34;/&gt;
+        &lt;/endpoint&gt;
+    &lt;/send&gt;
+&lt;/sequence&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an out sequence with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersOutSeq&#34;&gt;
+    &lt;log level=&#34;full&#34;/&gt;
+    &lt;property name=&#34;messageType&#34; value=&#34;application/json&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
+    &lt;send/&gt;
+&lt;/sequence&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an API with the following content:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
+&lt;api xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;listUsers&#34; context=&#34;/listUsers&#34;&gt;
+    &lt;resource methods=&#34;GET&#34; inSequence=&#34;ListUsersInSeq&#34; outSequence=&#34;ListUsersOutSeq&#34;&gt;
+        &lt;faultSequence/&gt;
+    &lt;/resource&gt;
+&lt;/api&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Send a HTTP GET request to the listUsers API:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Request:
+[code]
+curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Response:
+[code]
+{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
+   {&amp;ldquo;return&amp;rdquo;:[ {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:true,
+&amp;ldquo;itemDisplayName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;itemName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false},
+                       {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:false,
+&amp;ldquo;itemDisplayName&amp;rdquo;:null,&amp;ldquo;itemName&amp;rdquo;:false,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false}
+]}}
+[/code]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Quick-Guide for Generating a PGP Key</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/a-quick-guide-for-generating-a-pgp-key/</link>
+      <pubDate>Tue, 22 Apr 2014 04:27:26 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/a-quick-guide-for-generating-a-pgp-key/</guid>
+      <description>
+
+&lt;h4 id=&#34;1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;1. Generate a Self Signed Key&lt;/h4&gt;
+
+&lt;p&gt;[code] $ gpg &amp;ndash;gen-key [/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+gpg (GnuPG) 1.4.10; Copyright &amp;copy; 2008 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.&lt;/p&gt;
+
+&lt;p&gt;Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+[/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 4096
+Requested keysize is 4096 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N) y
+[/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    &amp;ldquo;First-Name Last-Name &lt;a href=&#34;mailto:your-id@domain.org&#34;&gt;your-id@domain.org&lt;/a&gt;&amp;ldquo;&lt;/p&gt;
+
+&lt;p&gt;Real name: Robert First-Name Last-Name
+Email address: your-id@apache.org
+Comment: CODE SIGNING KEY
+You selected this USER-ID:
+    &amp;ldquo;First-Name Last-Name (CODE SIGNING KEY) &lt;a href=&#34;mailto:your-id@apache.org&#34;&gt;your-id@apache.org&lt;/a&gt;&amp;ldquo;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+Change (N)ame, &amp;copy;omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;2-check-that-sha1-is-avoided:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;2. Check that SHA1 is Avoided&lt;/h4&gt;
+
+&lt;p&gt;[code] $ gpg &amp;ndash;edit-key KEY-ID [/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+gpg (GnuPG) 1.4.10; Copyright &amp;copy; 2008 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.&lt;/p&gt;
+
+&lt;p&gt;Secret key is available.&lt;/p&gt;
+
+&lt;p&gt;pub  4096R/&lt;KEY-ID&gt;  created: 2010-02-16  expires: never       usage: SC&lt;br /&gt;
+                     trust: ultimate      validity: ultimate
+sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E&lt;br /&gt;
+ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &lt;a href=&#34;mailto:user-id@apache.org&#34;&gt;user-id@apache.org&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;[code] Command&amp;gt; showpref [/code]&lt;/p&gt;
+
+&lt;p&gt;[code]
+ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
+&lt;a href=&#34;mailto:user-id@apache.org&#34;&gt;user-id@apache.org&lt;/a&gt;
+     Cipher: AES256, AES192, AES, CAST5, 3DES
+     Digest: SHA512, SHA384, SHA256, SHA224, SHA1
+     Compression: ZLIB, BZIP2, ZIP, Uncompressed
+     Features: MDC, Keyserver no-modify
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Here SHA1 should appear last in the Digest section. If not enter below command to correct the order:&lt;/p&gt;
+
+&lt;p&gt;[code] Command&amp;gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed [/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;3-export-the-private-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;3. Export the Private Key&lt;/h4&gt;
+
+&lt;p&gt;Export and keep the private key in a secure location:&lt;/p&gt;
+
+&lt;p&gt;[code] $ gpg &amp;ndash;export-secret-keys &amp;ndash;armor &amp;ndash;output private-key.sec [/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;4-export-the-public-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;4. Export the Public Key&lt;/h4&gt;
+
+&lt;p&gt;Export the public key:&lt;/p&gt;
+
+&lt;p&gt;[code] $ gpg &amp;ndash;export &amp;ndash;armor &amp;ndash;output public-key.asc [/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;5-send-the-public-key-to-a-server:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;5. Send the Public Key to a Server&lt;/h4&gt;
+
+&lt;p&gt;Send the public key to a preferred key server (pgp.mit.edu, pgpkeys.telering.at, pgp.surfnet.nl, etc):&lt;/p&gt;
+
+&lt;p&gt;[code] $ gpg &amp;ndash;keyserver SERVER-HOST &amp;ndash;send-keys KEY-ID [/code]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.apache.org/dev/release-signing.html&#34;&gt;http://www.apache.org/dev/release-signing.html&lt;/a&gt;
+[2] &lt;a href=&#34;http://www.pgpi.org/doc/pgpintro/&#34;&gt;http://www.pgpi.org/doc/pgpintro/&lt;/a&gt;
+[3] &lt;a href=&#34;http://www.apache.org/dev/openpgp.html&#34;&gt;http://www.apache.org/dev/openpgp.html&lt;/a&gt;
+[4] &lt;a href=&#34;http://people.apache.org/~henkp/trust/&#34;&gt;http://people.apache.org/~henkp/trust/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <description>
+
+&lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;
+
+&lt;h3 id=&#34;1-shared-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;1. Shared Scalable Load Balancing&lt;/h3&gt;
+
+&lt;p&gt;In this load balancing mode a service would get access to a scalable load balancer/cluster shared among multiple services. The resulting load balancing solution may consume less IaaS resources and will be cost efficient for the service provider.&lt;/p&gt;
+
+&lt;h3 id=&#34;2-dedicated-scalable-load-balancing-for-services:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;2. Dedicated Scalable Load Balancing for Services&lt;/h3&gt;
+
+&lt;p&gt;If a service requires a high through put and low response time in load balancing it could request a dedicated scalable load balancer/cluster for its service. This load balancer/cluster will not be shared among any other services and will only be used with the given service. As a result it will use more IaaS resources than option 1 and may cost more.&lt;/p&gt;
+
+&lt;h3 id=&#34;3-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;3. Non Scalable Load Balancing&lt;/h3&gt;
+
+&lt;p&gt;If the service provider does not need a scalable load balancing solution, they could either configure the auto-scaling policies to spawn one load balancer instance or go with a non scalable load balancer/cluster. In non scalable load balancing mode Stratos will not manage the load balancer instances rather it will provide required topology information via the message broker to configure its topology in runtime.&lt;/p&gt;
+
+&lt;p&gt;More importantly in each load balancing mode either Apache Stratos Load Balancer or any other load balancer with Apache Stratos Load Balancer Extension API could be used. I will be writing another article on the load balancer extension API and its usage soon.&lt;/p&gt;
+
+&lt;p&gt;The above load balancing modes could be configured in cartridge definition and load balancer configuration as follows:&lt;/p&gt;
+
+&lt;h3 id=&#34;cartridge-definition-configuration:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Cartridge Definition Configuration&lt;/h3&gt;
+
+&lt;h4 id=&#34;c1-cartridge-1-service-1-configured-with-shared-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C1: Cartridge 1/Service 1 Configured with Shared Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the default.load.balancer property to true in load balancer section in cartridge definition. As a result all the subscriptions made to this service will join to the default shared load balancer.&lt;/p&gt;
+
+&lt;p&gt;According to the current implementation there will be only one default load balancer instance/cluster for a given Stratos deployment.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;default.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;c2-cartridge-2-service-2-configured-with-dedicated-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C2: Cartridge 2/Service 2 Configured with Dedicated Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the &amp;ldquo;service.aware.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be a dedicated load balancer instance/cluster spawned for this service and all the subscriptions made to this service will join to this dedicated load balancer.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;service.aware.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;c3-cartridge-3-service-3-configured-with-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C3: Cartridge 3/Service 3 Configured with Non Scalable Load Balancing:&lt;/h4&gt;
+
+&lt;p&gt;Here we set the &amp;ldquo;no.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be no load balancers spawned for this service. However we could configure a static load balancer instance to serve the members spawned for the service subscriptions.&lt;/p&gt;
+
+&lt;p&gt;[code]
+{
+    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
+        &amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
+        &amp;quot;property&amp;quot;: {
+            &amp;quot;name&amp;quot;: &amp;quot;no.load.balancer&amp;quot;,
+            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Once the above cartridge configuration is done we need to configure the load balancer to identify the services which it needs to serve. This is accomplished by adding the load balancer cluster id to each member which it needs to join. Once a new member is spawned in a service cluster, Stratos Manager adds the relevant load balancer cluster id to the member instance. Subsequently when the member activated event is received by the load balancer it checks the member&amp;rsquo;s load balancer cluster id against its value. If it matches then the relevant member will get joined to that load balancer/cluster.&lt;/p&gt;
+
+&lt;h4 id=&#34;load-balancer-configuration-for-c1-c2:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Load Balancer Configuration for C1 &amp;amp; C2&lt;/h4&gt;
+
+&lt;p&gt;Once a load balancer/cluster is spawned for above C1 and C2 options, the cartridge agent will update the topology-member-filter property in loadbalancer.conf value to its own load balancer cluster id at the start up. This process will make sure that only members with the same LB Cluster ID will join to this load balancer/cluster.&lt;/p&gt;
+
+&lt;p&gt;[code]&lt;/p&gt;
+
+&lt;h1 id=&#34;topology-member-filter:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Topology member filter&lt;/h1&gt;
+
+&lt;h1 id=&#34;provide-load-balancer-cluster-ids-in-a-comma-separated-list-to-filter-incoming-topology-events-if:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Provide load balancer cluster ids in a comma separated list to filter incoming topology events if&lt;/h1&gt;
+
+&lt;h1 id=&#34;topology-event-listener-enabled-is-set-to-true-this-functionality-could-be-used-for-allowing-members:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology_event_listener_enabled is set to true. This functionality could be used for allowing members&lt;/h1&gt;
+
+&lt;h1 id=&#34;to-join-a-given-load-balancer-cluster:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;to join a given load balancer cluster.&lt;/h1&gt;
+
+&lt;h1 id=&#34;topology-member-filter-lb-cluster-id-lb-cluster-id1:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology-member-filter: lb-cluster-id=lb-cluster-id1;&lt;/h1&gt;
+
+&lt;p&gt;[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;load-balancer-configuration-for-c3:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Load Balancer Configuration for C3&lt;/h4&gt;
+
+&lt;p&gt;For non-scalable load balancers we could manually start a Stratos load balancer/cluster by commenting out the topology-member-filter property. As a result all the members in the Stratos deployment will get joined to this non-scalable load balancer/cluster.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
+      <pubDate>Fri, 27 Sep 2013 09:50:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
+      <description>
+
+&lt;p&gt;Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &amp;ldquo;x&amp;rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-to-build-from-source:ca22749167d775a2e3747beccf928b4d&#34;&gt;How to Build From Source:&lt;/h4&gt;
+
+&lt;p&gt;You could follow the below steps to build the binary distribution from source:
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;git checkout 3.0.0-incubation-x&lt;/p&gt;
+
+&lt;p&gt;cd incubator-stratos&lt;/p&gt;
+
+&lt;p&gt;mvn clean install
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:&lt;/p&gt;
+
+&lt;p&gt;[code]
+incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip&lt;/p&gt;
+
+&lt;p&gt;incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;download-binary-distributions:ca22749167d775a2e3747beccf928b4d&#34;&gt;Download Binary Distributions:&lt;/h4&gt;
+
+&lt;p&gt;Please find the official binary packages at the blow location. Select the latest RC version and download the files.&lt;/p&gt;
+
+&lt;p&gt;[code]
+&lt;a href=&#34;https://dist.apache.org/repos/dist/dev/incubator/stratos/&#34;&gt;https://dist.apache.org/repos/dist/dev/incubator/stratos/&lt;/a&gt;
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;download-openstack-cartridge-images:ca22749167d775a2e3747beccf928b4d&#34;&gt;Download Openstack Cartridge Images:&lt;/h4&gt;
+
+&lt;p&gt;Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:&lt;/p&gt;
+
+&lt;p&gt;[code]
+stratos-3.0.0-incubating-tomcat-cartridge.img.zip&lt;/p&gt;
+
+&lt;p&gt;stratos-3.0.0-incubating-php-cartridge.img.zip&lt;/p&gt;
+
+&lt;p&gt;stratos-3.0.0-incubating-mysql-cartridge.img.zip
+[/code]
+ &lt;/p&gt;
+
+&lt;h4 id=&#34;upload-cartridge-images-to-openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Upload Cartridge Images to Openstack:&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;sudo apt-get install python-novaclient python-glanceclient swift&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;source /openrc.sh&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating&amp;ndash;tomcat-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img&lt;/p&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-mysql-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img&lt;/p&gt;
+
+&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-php-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h4 id=&#34;prepare-stratos-installer:ca22749167d775a2e3747beccf928b4d&#34;&gt;Prepare Stratos Installer&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now take a copy of the Stratos installer from it’s source repository’s tools folder:
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;git checkout 3.0.0-incubation-x&lt;/p&gt;
+
+&lt;p&gt;cd incubator-stratos/tools/stratos-installer
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This folder contains scripts for installing Apache Stratos on a given environment. First configure the required settings in setup.conf file found under conf directory:&lt;/p&gt;
+
+&lt;p&gt;[code]
+vi conf/setup.conf
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Configure general information section with the below parameter values:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+export setup_path= #Folder path containing stratos_setup
+export stratos_pack_path= #Folder path containing stratos packages 
+export stratos_path= #Folder which stratos will be installed
+export JAVA_HOME= #Java home path
+export hostip=&amp;ldquo;&amp;rdquo; #Machine ip on which setup script run
+export host_user=&amp;ldquo;&amp;rdquo; #A host user account for stratos.
+export mysql_connector_jar=$stratos_pack_path/&amp;ldquo;mysql-connector-java-5.1.25.jar&amp;rdquo; #mysql connector jar file name
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]&lt;/p&gt;
+
+&lt;h1 id=&#34;openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Openstack&lt;/h1&gt;
+
+&lt;p&gt;export openstack_provider_enabled=true
+export openstack_identity=&amp;ldquo;stratos:stratos&amp;rdquo; #Openstack project name:Openstack login user
+export openstack_credential=&amp;ldquo;password&amp;rdquo; #Openstack login password
+export openstack_tenant=&amp;ldquo;stratos&amp;rdquo; #Openstack project name
+export openstack_jclouds_endpoint=&amp;ldquo;&lt;a href=&#34;http://hostname:5000/v2.0&amp;quot;&#34;&gt;http://hostname:5000/v2.0&amp;quot;&lt;/a&gt; #Openstack Keystone URL
+export openstack_scaleup_order=2
+export openstack_scaledown_order=3
+export openstack_keypair_name=&amp;ldquo;&amp;rdquo; #Create a new keypair and add the name here
+export nova_region=&amp;ldquo;RegionOne&amp;rdquo; #Openstack region used for spawning cartridge instances
+export openstack_instance_type_tiny=&amp;ldquo;RegionOne\/1&amp;rdquo;
+export openstack_instance_type_small=&amp;ldquo;RegionOne\/2&amp;rdquo;
+export openstack_security_groups=&amp;ldquo;security-groups&amp;rdquo;
+export openstack_php_cartridge_image_id=&amp;ldquo;&amp;rdquo; #Openstack PHP Cartridge Image ID
+export openstack_mysql_cartridge_image_id=&amp;ldquo;&amp;ldquo; #Openstack MySQL Cartridge Image ID
+export openstack_tomcat_cartridge_image_id=&amp;ldquo;&amp;ldquo; #Openstack Apache Tomcat Cartridge Image ID
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install following pre-requisite software:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+java -jdk1.6.x   
+Git
+facter   
+zip
+mysql-server
+Gitblits
+[/code]
+    
+5. Download WSO2 Message Broker (MB) binary distribution from &lt;a href=&#34;http://wso2.com/products/message-broker/&#34;&gt;http://wso2.com/products/message-broker/&lt;/a&gt; and copy it to stratos-pack-path. Here you could use any preferred message broker product which supports AMQP.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Extract MB distribution in stratos-path and set it&amp;rsquo;s port offset in repository/conf/carbon.xml to 5. This will set the actual MB port to 5677.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Add the following entries to the /etc/hosts file:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+&lt;ip-address&gt; stratos.apache.org        # stratos domain
+&lt;ip-address&gt; mb.stratos.apache.org     # message broker hostname
+&lt;ip-address&gt; cc.stratos.apache.org     # cloud controller hostname
+&lt;ip-address&gt; sc.stratos.apache.org     # stratos controller hostname
+&lt;ip-address&gt; elb.stratos.apache.org    # elastic load balancer hostname
+&lt;ip-address&gt; agent.stratos.apache.org  # agent hostname
+[/code]&lt;/p&gt;
+
+&lt;h4 id=&#34;install-apache-stratos:ca22749167d775a2e3747beccf928b4d&#34;&gt;Install Apache Stratos&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Once the above configuration is done, execute the below command to install Stratos at the given path (stratos_path):
+[code]
+sudo ./setup.sh -p &amp;ldquo;elb sc cc agent&amp;rdquo;
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;At the end of the installation it will prompt to start all the servers in the background, you could say no to this question and start the server manually so that you have more control over the initial Stratos environment. More importantly if any configuration errors has occurred, you should be able to rectify them more easily.
+[code]
+sh $stratos_path/&lt;module&gt;/bin/stratos.sh 
+[/code]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Now carefully watch the logs of Elastic Load Balancer (ELB), Stratos Controller (SC), Cloud Controller (CC) and Stratos Agent. Those logs could be found at the following location of each module. Each should have started successfully without any problems.
+[code]
+$stratos_path/&lt;module&gt;/repository/logs/wso2carbon.log
+[/code]
+ &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;verify-apache-stratos-installation:ca22749167d775a2e3747beccf928b4d&#34;&gt;Verify Apache Stratos Installation&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]&lt;a href=&#34;https://sc.stratos.apache.org:9445/carbon[/code&#34;&gt;https://sc.stratos.apache.org:9445/carbon[/code&lt;/a&gt;]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WSO2 CApp Deployment Verification Process</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/wso2-capp-deployment-verification-process-2/</link>
+      <pubDate>Mon, 16 Sep 2013 06:02:09 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/wso2-capp-deployment-verification-process-2/</guid>
+      <description>&lt;p&gt;WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins.&lt;/p&gt;
+
+&lt;p&gt;In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. Which means either the all the artifacts of a CApp will get deployed or none.&lt;/p&gt;
+
+&lt;p&gt;Following steps could be tried out to test this functionality with WSO2 Application Server (AS) 5.2.0:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download AS 5.2.0 binary distribution and extract to a desired location.&lt;/li&gt;
+&lt;li&gt;Set the following property to false in repository/conf/carbon.xml
+[code] &lt;hideadminservicewsdls&gt;false&lt;/hideadminservicewsdls&gt; [/code]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This will expose the Administrative Services WSDLs and we may need to access the following services:
+[code]
+1. &lt;a href=&#34;https://host-name:9443/services/AuthenticationAdmin?wsdl&#34;&gt;https://host-name:9443/services/AuthenticationAdmin?wsdl&lt;/a&gt;
+2. &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin?wsdl&#34;&gt;https://host-name:9443/services/ApplicationAdmin?wsdl&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Invoke the login() method at &lt;a href=&#34;https://host-name:9443/services/AuthenticationAdmin&#34;&gt;https://host-name:9443/services/AuthenticationAdmin&lt;/a&gt; service. This method will return a Session ID on the HTTP response header and it may look like below:
+JSESSIONID=45A850DF90CA6A009AD875CF5EF61460&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Invoke listAllApplications() method at &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin&#34;&gt;https://host-name:9443/services/ApplicationAdmin&lt;/a&gt; service while passing the Session ID on the HTTP request header as an Cookie. This request may look like below:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+– Request –
+POST &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&#34;&gt;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&lt;/a&gt; HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: “urn:listAllApplications”
+COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
+Content-Length: 238
+Host: host-name:9443
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
+
+&lt;p&gt;– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;a href=&#34;soapenv:Body&#34;&gt;soapenv:Body&lt;/a&gt;
+      &lt;ns:listAllApplicationsResponse 
+          xmlns:ns=”http://mgt.application.carbon.wso2.org” 
+          xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”&gt;
+         &lt;a href=&#34;ns:return&#34;&gt;ns:return&lt;/a&gt;HelloCar_1.0.0&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:listAllApplicationsResponse&#34;&gt;/ns:listAllApplicationsResponse&lt;/a&gt;
+   &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;On the response body you could see the available CApps listed.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now invoke getAppData() method at &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin&#34;&gt;https://host-name:9443/services/ApplicationAdmin&lt;/a&gt; service with the required CApp name and Session ID:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+– Request –
+POST &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&#34;&gt;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&lt;/a&gt; HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: “urn:getAppData”
+COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
+Content-Length: 329
+Host: host-name:9443
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
+
+&lt;p&gt;– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;a href=&#34;soapenv:Body&#34;&gt;soapenv:Body&lt;/a&gt;
+      &lt;ns:getAppDataResponse xmlns:ns=”http://mgt.application.carbon.wso2.org”&gt;
+         &lt;ns:return xsi:type=”ax27:ApplicationMetadata” 
+                    xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd” 
+                    xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”&gt;
+            &lt;a href=&#34;ax27:appName&#34;&gt;ax27:appName&lt;/a&gt;HelloCar&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:appName&#34;&gt;/ax27:appName&lt;/a&gt;
+            &lt;a href=&#34;ax27:appVersion&#34;&gt;ax27:appVersion&lt;/a&gt;1.0.0&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:appVersion&#34;&gt;/ax27:appVersion&lt;/a&gt;
+            &lt;ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”&gt;
+               &lt;a href=&#34;ax27:artifactName&#34;&gt;ax27:artifactName&lt;/a&gt;HelloCarService&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:artifactName&#34;&gt;/ax27:artifactName&lt;/a&gt;
+               &lt;a href=&#34;ax27:deploymentStatus&#34;&gt;ax27:deploymentStatus&lt;/a&gt;Deployed&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:deploymentStatus&#34;&gt;/ax27:deploymentStatus&lt;/a&gt;
+            &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:artifactsDeploymentStatus&#34;&gt;/ax27:artifactsDeploymentStatus&lt;/a&gt;
+         &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:getAppDataResponse&#34;&gt;/ns:getAppDataResponse&lt;/a&gt;
+   &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Here on the response body you could see the deployment status of the CApps and their artifacts.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Apache Stratos Single Node Installation</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</link>
+      <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Based on Apache Stratos (incubating) 4.0.0-M5]&lt;/p&gt;
+
+&lt;p&gt;Apache Stratos is an enterprise grade Platform as a Service (PaaS) solution for implementing public and private clouds. It consists of five major components. They are, the Cloud Controller (CC), Stratos Controller (SC), Elastic Load Balancer (ELB), Stratos Agent and CLI. These products could be deployed on many different deployment architectures according to different requirements. A single node deployment could be used for development and demonstration purposes. Please follow the below steps to create a Apache Stratos single node instance.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;An IaaS supported by jclouds API.&lt;/li&gt;
+&lt;li&gt;A Linux server distribution. Ubuntu Server 13.04 x64 is recommended.&lt;/li&gt;
+&lt;li&gt;Java runtime 1.6 (Oracle JDK/JRE).&lt;/li&gt;
+&lt;li&gt;MySQL Server 5.5 database server.&lt;/li&gt;
+&lt;li&gt;MySQL Connector for Java (JAR file).&lt;/li&gt;
+&lt;li&gt;Unzip utility.&lt;/li&gt;
+&lt;li&gt;A physical/virtual machine with minimum of 8GB of RAM and 20GB of disk space.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;pre-installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Pre-Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install the preferred Linux server distribution on the selected host.&lt;/li&gt;
+&lt;li&gt;Install Java runtime, MySQL Server and Unzip utility.&lt;/li&gt;
+&lt;li&gt;Connect the host to a network where the IaaS is accessible. Make sure that a VM instance in the IaaS could access the Stratos host.&lt;/li&gt;
+&lt;li&gt;Login to the IaaS and create an authentication key.&lt;/li&gt;
+&lt;li&gt;Then create a security group with all TCP, UDP and ICMP ports open. Please note that this is only used for demonstration purposes. In a production environment please ensure that only required ports are opened via the security group.&lt;/li&gt;
+&lt;li&gt;Either download cartridge images for the selected IaaS platform from the Apache Stratos website or create your own.&lt;/li&gt;
+&lt;li&gt;Upload cartridge images to the IaaS.&lt;/li&gt;
+&lt;li&gt;Create a new folder to store the binary distributions:&lt;/li&gt;
+&lt;li&gt;Download WSO2 Message Broker (MB) binary distribution from &lt;a href=&#34;http://wso2.com&#34;&gt;http://wso2.com&lt;/a&gt; and copy it to .&lt;/li&gt;
+&lt;li&gt;Download Apache Stratos binary packages from the website or build them from source.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;How to build from source:&lt;/strong&gt;
+[code]
+git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;
+cd incubator-stratos
+mvn clean install
+cp stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-.zip
+cp stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-.zip
+cp stratos/products/elb/modules/distribution/target/apache-stratos-elb-.zip
+cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-.zip
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a new MySQL database user for stratos.&lt;/li&gt;
+&lt;li&gt;Copy Stratos Installer from incubator-stratos/tools/stratos-installer to a desired path.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Extract WSO2 Message Broker (MB) on the installation path and set it’s port offset value in repository/conf/carbon.xml to 5. Once this is set message broker listening port will be 5677.&lt;/li&gt;
+&lt;li&gt;Update stratos-installer/conf/setup.conf and define all configuration parameters. This is one of the crucial steps of the installation. The configuration has divided into following sections; General, Message Broker, Cloud Controller, Stratos Controller, Elastic Load Balancer, Stratos Agent and IaaS. All these sections should be precisely configured.&lt;/li&gt;
+&lt;li&gt;Execute sudo JAVA_HOME=$JAVA_HOME stratos-installer/setup.sh -p “cc sc elb agent”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This script will extract stratos packages to the given installation path, create stratos_foundation and userstore databases and configure all four products with the given parameter values. Once it is prompted to start the servers, you may say no and start them manually. So that you have more control and visibility over the system.&lt;/p&gt;
+
+&lt;p&gt;It is recommended to start the servers on the following order; MB, CC, SC, ELB and finally the Agent. Wait until each product is started successfully to start the next. Once all servers are started, make sure that none of the server logs have errors on them. If you could see any errors, you may need to first correct them before proceeding further.&lt;/p&gt;
+
+&lt;h3 id=&#34;post-installation-verification:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Post Installation (Verification)&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Find the URL of the stratos controller from it’s log and open it on a web browser. The default URL would be https://{host-name}:9445/carbon and administrator user credentials are admin/admin.&lt;/li&gt;
+&lt;li&gt;Login to the stratos controller and create a new tenant.&lt;/li&gt;
+&lt;li&gt;Logout from the administrator account and login again to the stratos controller using the tenant user created. Here you may need to use the tenant user’s email address as the username.&lt;/li&gt;
+&lt;li&gt;Click on the Single Tenant Cartridges menu item on the navigator. Check whether you could see any cartridges populated on this page. If not there could be errors raised on cloud controller log with related to the IaaS configuration in cloud-controller.xml or cartridge definitions specified in &lt;cartridge&gt;.xml files. Please go through them and try to correct the errors.&lt;/li&gt;
+&lt;li&gt;Subscribe to an available cartridge using an external git repository. This process may take some time depending on the resources available in the IaaS. If subscription process is successful you should see the cartridge instance state as ACTIVE.&lt;/li&gt;
+&lt;li&gt;Now the applications deployed via the git repository should be available in the cloud to be accessed by a client.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;removal:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Removal&lt;/h3&gt;
+
+&lt;p&gt;[code]
+sudo ./clean.sh -a mysql-username -b mysql-password
+[/code]&lt;/p&gt;
+
+&lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

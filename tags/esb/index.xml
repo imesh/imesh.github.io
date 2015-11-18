@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Esb on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/esb/</link>
+    <description>Recent content in Esb on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Jun 2014 18:30:48 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/esb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Implementing Split Aggregate Pattern in ESB</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/</link>
+      <pubDate>Sun, 15 Jun 2014 18:30:48 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/implementing-split-aggregate-pattern-in-esb/</guid>
+      <description>
+
+&lt;p&gt;Split Aggregate is an &lt;a href=&#34;http://www.eaipatterns.com/&#34;&gt;Enterprise Integration Pattern&lt;/a&gt; (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time.&lt;/p&gt;
+
+&lt;p&gt;In this article I have designed a sample mediation flow in WSO2 ESB, by using the Iterate and Aggregate mediators to demonstrate the usage of Split Aggregate patten.&lt;/p&gt;
+
+&lt;h3 id=&#34;in-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;In Mediation Flow&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-In-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-In-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-In-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;According to the above diagram when a message is received by an API or Proxy Service in the ESB it will be delegated to the In Sequence.&lt;/li&gt;
+&lt;li&gt;Here we could validate the incoming request and implement error handling logic. What I have done is I have introduced a Response Sequence to generate an error response if the incoming request is not valid. At the same time I re-use the Response Sequence as the last step in the message out flow.&lt;/li&gt;
+&lt;li&gt;Here my approach is to generate a common response message in Response Sequence which will have attributes to detect an error.&lt;/li&gt;
+&lt;li&gt;The best part of this approach is that the API/Proxy Service will return a response in both successful and error situations.&lt;/li&gt;
+&lt;li&gt;As the next step the iterate mediator will split the message using the XPath expression given and send each sub message to the endpoint.&lt;/li&gt;
+&lt;li&gt;At this point iterate mediator set the total sub message count in the message context:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
+org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
+   private MessageContext getIteratedMessage() {
+      &amp;hellip;
+      newCtx.setProperty(
+      EIPConstants.MESSAGE_SEQUENCE + &amp;ldquo;.&amp;rdquo; + id,
+      msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
+      &amp;hellip;
+   }
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.&lt;/li&gt;
+&lt;li&gt;Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;Out Mediation Flow&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-Out-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).&lt;/li&gt;
+&lt;li&gt;In addition any messages that may get timeout by the endpoint will trigger the fault sequence.&lt;/li&gt;
+&lt;li&gt;Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.&lt;/li&gt;
+&lt;li&gt;Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.&lt;/li&gt;
+&lt;li&gt;Then the Aggregate Mediator will wait until responses to all the sub messages are received:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
+org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
+   public synchronised boolean isComplete() {
+   &amp;hellip;
+      String[] msgSequence = prop.toString().split(
+      EIPConstants.MESSAGE_SEQUENCE_DELEMITER);
+      int total = Integer.parseInt(msgSequence[1]);
+      &amp;hellip;
+      if (messages.size() &amp;gt;= total) {
+         synLog.traceOrDebug(&amp;ldquo;Aggregation complete&amp;rdquo;);
+         return true;
+      }
+      &amp;hellip;
+   }
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo;]
+&lt;aggregate&gt;
+    &lt;completeCondition&gt;
+        &lt;messageCount/&gt;
+    &lt;/completeCondition&gt;
+    &lt;onComplete xmlns:m0=&#34;http://services.samples&#34; expression=&#34;//m0:getQuoteResponse&#34;&gt;
+        &lt;send/&gt;
+    &lt;/onComplete&gt;
+&lt;/aggregate&gt;
+&lt;/code&gt;
+[/code]&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

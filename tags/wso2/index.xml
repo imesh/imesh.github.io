@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wso2 on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/wso2/</link>
+    <description>Recent content in Wso2 on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 16 Sep 2013 06:02:09 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/wso2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>WSO2 CApp Deployment Verification Process</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/wso2-capp-deployment-verification-process-2/</link>
+      <pubDate>Mon, 16 Sep 2013 06:02:09 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/wso2-capp-deployment-verification-process-2/</guid>
+      <description>&lt;p&gt;WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins.&lt;/p&gt;
+
+&lt;p&gt;In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. Which means either the all the artifacts of a CApp will get deployed or none.&lt;/p&gt;
+
+&lt;p&gt;Following steps could be tried out to test this functionality with WSO2 Application Server (AS) 5.2.0:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download AS 5.2.0 binary distribution and extract to a desired location.&lt;/li&gt;
+&lt;li&gt;Set the following property to false in repository/conf/carbon.xml
+[code] &lt;hideadminservicewsdls&gt;false&lt;/hideadminservicewsdls&gt; [/code]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This will expose the Administrative Services WSDLs and we may need to access the following services:
+[code]
+1. &lt;a href=&#34;https://host-name:9443/services/AuthenticationAdmin?wsdl&#34;&gt;https://host-name:9443/services/AuthenticationAdmin?wsdl&lt;/a&gt;
+2. &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin?wsdl&#34;&gt;https://host-name:9443/services/ApplicationAdmin?wsdl&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Invoke the login() method at &lt;a href=&#34;https://host-name:9443/services/AuthenticationAdmin&#34;&gt;https://host-name:9443/services/AuthenticationAdmin&lt;/a&gt; service. This method will return a Session ID on the HTTP response header and it may look like below:
+JSESSIONID=45A850DF90CA6A009AD875CF5EF61460&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Invoke listAllApplications() method at &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin&#34;&gt;https://host-name:9443/services/ApplicationAdmin&lt;/a&gt; service while passing the Session ID on the HTTP request header as an Cookie. This request may look like below:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+– Request –
+POST &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&#34;&gt;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&lt;/a&gt; HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: “urn:listAllApplications”
+COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
+Content-Length: 238
+Host: host-name:9443
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
+
+&lt;p&gt;– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;a href=&#34;soapenv:Body&#34;&gt;soapenv:Body&lt;/a&gt;
+      &lt;ns:listAllApplicationsResponse 
+          xmlns:ns=”http://mgt.application.carbon.wso2.org” 
+          xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”&gt;
+         &lt;a href=&#34;ns:return&#34;&gt;ns:return&lt;/a&gt;HelloCar_1.0.0&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:listAllApplicationsResponse&#34;&gt;/ns:listAllApplicationsResponse&lt;/a&gt;
+   &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;On the response body you could see the available CApps listed.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now invoke getAppData() method at &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin&#34;&gt;https://host-name:9443/services/ApplicationAdmin&lt;/a&gt; service with the required CApp name and Session ID:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[code]
+– Request –
+POST &lt;a href=&#34;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&#34;&gt;https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/&lt;/a&gt; HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: “urn:getAppData”
+COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
+Content-Length: 329
+Host: host-name:9443
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
+
+&lt;p&gt;– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;a href=&#34;soapenv:Body&#34;&gt;soapenv:Body&lt;/a&gt;
+      &lt;ns:getAppDataResponse xmlns:ns=”http://mgt.application.carbon.wso2.org”&gt;
+         &lt;ns:return xsi:type=”ax27:ApplicationMetadata” 
+                    xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd” 
+                    xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”&gt;
+            &lt;a href=&#34;ax27:appName&#34;&gt;ax27:appName&lt;/a&gt;HelloCar&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:appName&#34;&gt;/ax27:appName&lt;/a&gt;
+            &lt;a href=&#34;ax27:appVersion&#34;&gt;ax27:appVersion&lt;/a&gt;1.0.0&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:appVersion&#34;&gt;/ax27:appVersion&lt;/a&gt;
+            &lt;ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”&gt;
+               &lt;a href=&#34;ax27:artifactName&#34;&gt;ax27:artifactName&lt;/a&gt;HelloCarService&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:artifactName&#34;&gt;/ax27:artifactName&lt;/a&gt;
+               &lt;a href=&#34;ax27:deploymentStatus&#34;&gt;ax27:deploymentStatus&lt;/a&gt;Deployed&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:deploymentStatus&#34;&gt;/ax27:deploymentStatus&lt;/a&gt;
+            &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ax27:artifactsDeploymentStatus&#34;&gt;/ax27:artifactsDeploymentStatus&lt;/a&gt;
+         &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/ns:getAppDataResponse&#34;&gt;/ns:getAppDataResponse&lt;/a&gt;
+   &lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://localhost:1313/imesh/imesh.github.io.git/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+[/code]&lt;/p&gt;
+
+&lt;p&gt;Here on the response body you could see the deployment status of the CApps and their artifacts.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

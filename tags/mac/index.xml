@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on imesh.io</title>
+    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/mac/</link>
+    <description>Recent content in Mac on imesh.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 May 2013 01:28:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NTFS Write Support on Mountain Lion</title>
+      <link>http://localhost:1313/imesh/imesh.github.io.git/ntfs-write-support-on-mountain-lion/</link>
+      <pubDate>Sun, 05 May 2013 01:28:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/imesh/imesh.github.io.git/ntfs-write-support-on-mountain-lion/</guid>
+      <description>&lt;p&gt;One of the first things that you would notice if you plug-in a portable hard drive formatted in NTFS format to a Mac with Mountain Lion is that the drive is read only. Sometimes you may have not even notice it if you did not try to execute any write operations.&lt;/p&gt;
+
+&lt;p&gt;Out of the box Mountain Lion does not support write access to Windows based file system NTFS. However FAT32 is read/write supported. Mac uses it&amp;rsquo;s own set of file systems; &lt;a href=&#34;http://en.wikipedia.org/wiki/Hierarchical_File_System&#34;&gt;HFS, HFS Plus&lt;/a&gt; (Mac OS Standard, Mac OS Extended). Nevertheless there is a way to get NTFS write access on Mac OS, Mountain Lion.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theory Behind:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Mac OS has been built on top of the Linux kernel. The Linux kernel supports a feature called &lt;a href=&#34;http://en.wikipedia.org/wiki/Filesystem_in_Userspace&#34;&gt;Filesystem in Userspace&lt;/a&gt; (FUSE) which allows non-priviledged users to create their own file systems without editing the kernel code. This is simply an awesome design feature. From a software engineer&amp;rsquo;s perspective this is a vital feature for any software system, keeping space for extending a system without modifying it&amp;rsquo;s core code.&lt;/p&gt;
+
+&lt;p&gt;FUSE has been implemented by &lt;a href=&#34;http://osxfuse.github.io&#34;&gt;OSXFUSE&lt;/a&gt; for Mac OS X. This is kind of an API for implementing support for many different file systems. By make using OXSFUSE, NTFS-3G has implemented read/write support for NTFS. There we go, we could make use of these two system applications to support NTFS write access on Mountain Lion. One of the important point to note here is that this is not a dirty fix rather it is a well defined implementation for extending Mac OS&amp;rsquo;s file handling capabilities.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to Install the Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Download and install MacFUSE: &lt;a href=&#34;http://goo.gl/VdnPW&#34;&gt;http://goo.gl/VdnPW&lt;/a&gt;. &lt;a href=&#34;http://code.google.com/p/macfuse/&#34;&gt;MacFUSE&lt;/a&gt; is the base version of OSXFUSE. This might prompt you to restart the Mac once the installation is complete. I guess it would be wise to let it proceed.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download and install NTFS-3G: &lt;a href=&#34;http://goo.gl/HH0Pm&#34;&gt;http://goo.gl/HH0Pm&lt;/a&gt;. This is the implementation of FUSE API for NTFS.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download and install the NTFS-3G timeout errors fix: &lt;a href=&#34;http://goo.gl/nH5Or&#34;&gt;http://goo.gl/nH5Or&lt;/a&gt;. There seems to be some known errors in NTFS-3G so we might need this fix.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download and install OSXFUSE: &lt;a href=&#34;http://sourceforge.net/projects/osxfuse&#34;&gt;http://sourceforge.net/projects/osxfuse&lt;/a&gt;. Make sure to check the third check box on the installation configuration page which is by default un-checked.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://kennelbound.com/write-support-for-ntfs-with-mac-osx-mountain-lion/&#34;&gt;http://kennelbound.com/write-support-for-ntfs-with-mac-osx-mountain-lion/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
