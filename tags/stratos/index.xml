@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Stratos on imesh.io</title>
-    <link>http://localhost:1313/imesh/imesh.github.io.git/tags/stratos/</link>
+    <link>http://imesh.github.io:1313/tags/stratos/</link>
     <description>Recent content in Stratos on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 22 Jun 2014 19:32:40 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/imesh/imesh.github.io.git/tags/stratos/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io:1313/tags/stratos/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Install Stratos in One Go</title>
-      <link>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</link>
+      <link>http://imesh.github.io:1313/install-stratos-in-one-go/</link>
       <pubDate>Sun, 22 Jun 2014 19:32:40 +0000</pubDate>
       
-      <guid>http://localhost:1313/imesh/imesh.github.io.git/install-stratos-in-one-go/</guid>
+      <guid>http://imesh.github.io:1313/install-stratos-in-one-go/</guid>
       <description>
 
 &lt;p&gt;Apache Stratos 4.0.0 &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Installation+Guide&#34;&gt;installation process&lt;/a&gt; has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments.&lt;/p&gt;
@@ -77,10 +77,10 @@ Service name: default
     
     <item>
       <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
-      <link>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <link>http://imesh.github.io:1313/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
       <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/imesh/imesh.github.io.git/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <guid>http://imesh.github.io:1313/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
       <description>
 
 &lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;
@@ -196,10 +196,10 @@ Service name: default
     
     <item>
       <title>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</title>
-      <link>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
+      <link>http://imesh.github.io:1313/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
       <pubDate>Fri, 27 Sep 2013 09:50:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/imesh/imesh.github.io.git/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
+      <guid>http://imesh.github.io:1313/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
       <description>
 
 &lt;p&gt;Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &amp;ldquo;x&amp;rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn.&lt;/p&gt;
@@ -404,10 +404,10 @@ $stratos_path/&lt;module&gt;/repository/logs/wso2carbon.log
     
     <item>
       <title>Apache Stratos Single Node Installation</title>
-      <link>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</link>
+      <link>http://imesh.github.io:1313/apache-stratos-single-node-installation/</link>
       <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-single-node-installation/</guid>
+      <guid>http://imesh.github.io:1313/apache-stratos-single-node-installation/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
@@ -494,10 +494,10 @@ sudo ./clean.sh -a mysql-username -b mysql-password
     
     <item>
       <title>Apache Stratos in a Nutshell</title>
-      <link>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-in-a-nutshell/</link>
+      <link>http://imesh.github.io:1313/apache-stratos-in-a-nutshell/</link>
       <pubDate>Mon, 19 Aug 2013 01:42:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/imesh/imesh.github.io.git/apache-stratos-in-a-nutshell/</guid>
+      <guid>http://imesh.github.io:1313/apache-stratos-in-a-nutshell/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/images/ApacheStratos/stratos-logo.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
