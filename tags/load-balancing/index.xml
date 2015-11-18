@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Load Balancing on imesh.io</title>
-    <link>http://localhost:1313/tags/load-balancing/</link>
+    <link>http://imesh.github.io/tags/load-balancing/</link>
     <description>Recent content in Load Balancing on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Feb 2014 22:38:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/load-balancing/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io/tags/load-balancing/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
-      <link>http://localhost:1313/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <link>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
       <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <guid>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
       <description>
 
 &lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;
@@ -43,64 +43,55 @@
 
 &lt;p&gt;According to the current implementation there will be only one default load balancer instance/cluster for a given Stratos deployment.&lt;/p&gt;
 
-&lt;p&gt;[code]
-{
-    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
-        &amp;hellip;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;cartridgeDefinitionBean&amp;quot;: {
+        ...
 
-&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
-        &amp;quot;property&amp;quot;: {
-            &amp;quot;name&amp;quot;: &amp;quot;default.load.balancer&amp;quot;,
-            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        &amp;quot;loadBalancer&amp;quot;: {
+            &amp;quot;property&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;default.load.balancer&amp;quot;,
+                &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+            }
         }
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;}
-[/code]&lt;/p&gt;
 
 &lt;h4 id=&#34;c2-cartridge-2-service-2-configured-with-dedicated-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C2: Cartridge 2/Service 2 Configured with Dedicated Scalable Load Balancing:&lt;/h4&gt;
 
 &lt;p&gt;Here we set the &amp;ldquo;service.aware.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be a dedicated load balancer instance/cluster spawned for this service and all the subscriptions made to this service will join to this dedicated load balancer.&lt;/p&gt;
 
-&lt;p&gt;[code]
-{
-    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
-        &amp;hellip;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;cartridgeDefinitionBean&amp;quot;: {
+        ...
 
-&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
-        &amp;quot;property&amp;quot;: {
-            &amp;quot;name&amp;quot;: &amp;quot;service.aware.load.balancer&amp;quot;,
-            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        &amp;quot;loadBalancer&amp;quot;: {
+            &amp;quot;property&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;service.aware.load.balancer&amp;quot;,
+                &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+            }
         }
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;}
-[/code]&lt;/p&gt;
 
 &lt;h4 id=&#34;c3-cartridge-3-service-3-configured-with-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;C3: Cartridge 3/Service 3 Configured with Non Scalable Load Balancing:&lt;/h4&gt;
 
 &lt;p&gt;Here we set the &amp;ldquo;no.load.balancer&amp;rdquo; property to true in load balancer section. As a result there will be no load balancers spawned for this service. However we could configure a static load balancer instance to serve the members spawned for the service subscriptions.&lt;/p&gt;
 
-&lt;p&gt;[code]
-{
-    &amp;ldquo;cartridgeDefinitionBean&amp;rdquo;: {
-        &amp;hellip;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;cartridgeDefinitionBean&amp;quot;: {
+        ...
 
-&lt;pre&gt;&lt;code&gt;    &amp;quot;loadBalancer&amp;quot;: {
-        &amp;quot;property&amp;quot;: {
-            &amp;quot;name&amp;quot;: &amp;quot;no.load.balancer&amp;quot;,
-            &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+        &amp;quot;loadBalancer&amp;quot;: {
+            &amp;quot;property&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;no.load.balancer&amp;quot;,
+                &amp;quot;value&amp;quot;: &amp;quot;true&amp;quot;
+            }
         }
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;}
-[/code]&lt;/p&gt;
 
 &lt;p&gt;Once the above cartridge configuration is done we need to configure the load balancer to identify the services which it needs to serve. This is accomplished by adding the load balancer cluster id to each member which it needs to join. Once a new member is spawned in a service cluster, Stratos Manager adds the relevant load balancer cluster id to the member instance. Subsequently when the member activated event is received by the load balancer it checks the member&amp;rsquo;s load balancer cluster id against its value. If it matches then the relevant member will get joined to that load balancer/cluster.&lt;/p&gt;
 
@@ -108,19 +99,12 @@
 
 &lt;p&gt;Once a load balancer/cluster is spawned for above C1 and C2 options, the cartridge agent will update the topology-member-filter property in loadbalancer.conf value to its own load balancer cluster id at the start up. This process will make sure that only members with the same LB Cluster ID will join to this load balancer/cluster.&lt;/p&gt;
 
-&lt;p&gt;[code]&lt;/p&gt;
-
-&lt;h1 id=&#34;topology-member-filter:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Topology member filter&lt;/h1&gt;
-
-&lt;h1 id=&#34;provide-load-balancer-cluster-ids-in-a-comma-separated-list-to-filter-incoming-topology-events-if:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Provide load balancer cluster ids in a comma separated list to filter incoming topology events if&lt;/h1&gt;
-
-&lt;h1 id=&#34;topology-event-listener-enabled-is-set-to-true-this-functionality-could-be-used-for-allowing-members:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology_event_listener_enabled is set to true. This functionality could be used for allowing members&lt;/h1&gt;
-
-&lt;h1 id=&#34;to-join-a-given-load-balancer-cluster:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;to join a given load balancer cluster.&lt;/h1&gt;
-
-&lt;h1 id=&#34;topology-member-filter-lb-cluster-id-lb-cluster-id1:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;topology-member-filter: lb-cluster-id=lb-cluster-id1;&lt;/h1&gt;
-
-&lt;p&gt;[/code]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; # Topology member filter
+ # Provide load balancer cluster ids in a comma separated list to filter incoming topology events if
+ # topology_event_listener_enabled is set to true. This functionality could be used for allowing members
+ # to join a given load balancer cluster.
+ topology-member-filter: lb-cluster-id=lb-cluster-id1;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;load-balancer-configuration-for-c3:d65c476a376f9af57d7c8254d3a97a5a&#34;&gt;Load Balancer Configuration for C3&lt;/h4&gt;
 

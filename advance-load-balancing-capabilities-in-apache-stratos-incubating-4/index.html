@@ -8,20 +8,20 @@
 		<meta name="description" content="">
 		<meta name="generator" content="Hugo 0.14" />
 		<title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4 &middot; imesh.io</title>
-		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
-		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
-		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
-		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+		<link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="http://imesh.github.io/css/style.css">
+		<link rel="stylesheet" href="http://imesh.github.io/css/highlight.css">
+		<link href="http://imesh.github.io/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
 	</head>
     <body>
        <nav class="main-nav">
 	
 	
-		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+		<a href='http://imesh.github.io/'> <span class="arrow">←</span>Home</a>
 	
 
 	
-		<a href='http://localhost:1313/about'>About</a>
+		<a href='http://imesh.github.io/about'>About</a>
 	
 
 	
@@ -62,64 +62,55 @@
 
 <p>According to the current implementation there will be only one default load balancer instance/cluster for a given Stratos deployment.</p>
 
-<p>[code]
-{
-    &ldquo;cartridgeDefinitionBean&rdquo;: {
-        &hellip;</p>
+<pre><code>{
+    &quot;cartridgeDefinitionBean&quot;: {
+        ...
 
-<pre><code>    &quot;loadBalancer&quot;: {
-        &quot;property&quot;: {
-            &quot;name&quot;: &quot;default.load.balancer&quot;,
-            &quot;value&quot;: &quot;true&quot;
+        &quot;loadBalancer&quot;: {
+            &quot;property&quot;: {
+                &quot;name&quot;: &quot;default.load.balancer&quot;,
+                &quot;value&quot;: &quot;true&quot;
+            }
         }
     }
 }
 </code></pre>
-
-<p>}
-[/code]</p>
 
 <h4 id="c2-cartridge-2-service-2-configured-with-dedicated-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a">C2: Cartridge 2/Service 2 Configured with Dedicated Scalable Load Balancing:</h4>
 
 <p>Here we set the &ldquo;service.aware.load.balancer&rdquo; property to true in load balancer section. As a result there will be a dedicated load balancer instance/cluster spawned for this service and all the subscriptions made to this service will join to this dedicated load balancer.</p>
 
-<p>[code]
-{
-    &ldquo;cartridgeDefinitionBean&rdquo;: {
-        &hellip;</p>
+<pre><code>{
+    &quot;cartridgeDefinitionBean&quot;: {
+        ...
 
-<pre><code>    &quot;loadBalancer&quot;: {
-        &quot;property&quot;: {
-            &quot;name&quot;: &quot;service.aware.load.balancer&quot;,
-            &quot;value&quot;: &quot;true&quot;
+        &quot;loadBalancer&quot;: {
+            &quot;property&quot;: {
+                &quot;name&quot;: &quot;service.aware.load.balancer&quot;,
+                &quot;value&quot;: &quot;true&quot;
+            }
         }
     }
 }
 </code></pre>
-
-<p>}
-[/code]</p>
 
 <h4 id="c3-cartridge-3-service-3-configured-with-non-scalable-load-balancing:d65c476a376f9af57d7c8254d3a97a5a">C3: Cartridge 3/Service 3 Configured with Non Scalable Load Balancing:</h4>
 
 <p>Here we set the &ldquo;no.load.balancer&rdquo; property to true in load balancer section. As a result there will be no load balancers spawned for this service. However we could configure a static load balancer instance to serve the members spawned for the service subscriptions.</p>
 
-<p>[code]
-{
-    &ldquo;cartridgeDefinitionBean&rdquo;: {
-        &hellip;</p>
+<pre><code>{
+    &quot;cartridgeDefinitionBean&quot;: {
+        ...
 
-<pre><code>    &quot;loadBalancer&quot;: {
-        &quot;property&quot;: {
-            &quot;name&quot;: &quot;no.load.balancer&quot;,
-            &quot;value&quot;: &quot;true&quot;
+        &quot;loadBalancer&quot;: {
+            &quot;property&quot;: {
+                &quot;name&quot;: &quot;no.load.balancer&quot;,
+                &quot;value&quot;: &quot;true&quot;
+            }
         }
     }
 }
 </code></pre>
-
-<p>}
-[/code]</p>
 
 <p>Once the above cartridge configuration is done we need to configure the load balancer to identify the services which it needs to serve. This is accomplished by adding the load balancer cluster id to each member which it needs to join. Once a new member is spawned in a service cluster, Stratos Manager adds the relevant load balancer cluster id to the member instance. Subsequently when the member activated event is received by the load balancer it checks the member&rsquo;s load balancer cluster id against its value. If it matches then the relevant member will get joined to that load balancer/cluster.</p>
 
@@ -127,19 +118,12 @@
 
 <p>Once a load balancer/cluster is spawned for above C1 and C2 options, the cartridge agent will update the topology-member-filter property in loadbalancer.conf value to its own load balancer cluster id at the start up. This process will make sure that only members with the same LB Cluster ID will join to this load balancer/cluster.</p>
 
-<p>[code]</p>
-
-<h1 id="topology-member-filter:d65c476a376f9af57d7c8254d3a97a5a">Topology member filter</h1>
-
-<h1 id="provide-load-balancer-cluster-ids-in-a-comma-separated-list-to-filter-incoming-topology-events-if:d65c476a376f9af57d7c8254d3a97a5a">Provide load balancer cluster ids in a comma separated list to filter incoming topology events if</h1>
-
-<h1 id="topology-event-listener-enabled-is-set-to-true-this-functionality-could-be-used-for-allowing-members:d65c476a376f9af57d7c8254d3a97a5a">topology_event_listener_enabled is set to true. This functionality could be used for allowing members</h1>
-
-<h1 id="to-join-a-given-load-balancer-cluster:d65c476a376f9af57d7c8254d3a97a5a">to join a given load balancer cluster.</h1>
-
-<h1 id="topology-member-filter-lb-cluster-id-lb-cluster-id1:d65c476a376f9af57d7c8254d3a97a5a">topology-member-filter: lb-cluster-id=lb-cluster-id1;</h1>
-
-<p>[/code]</p>
+<pre><code> # Topology member filter
+ # Provide load balancer cluster ids in a comma separated list to filter incoming topology events if
+ # topology_event_listener_enabled is set to true. This functionality could be used for allowing members
+ # to join a given load balancer cluster.
+ topology-member-filter: lb-cluster-id=lb-cluster-id1;
+</code></pre>
 
 <h4 id="load-balancer-configuration-for-c3:d65c476a376f9af57d7c8254d3a97a5a">Load Balancer Configuration for C3</h4>
 
@@ -149,14 +133,14 @@
             </article>
             <footer id="post-meta" class="clearfix">
                 
-                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <img class="avatar" src="http://imesh.github.io/images/avatar.png">
                         <div>
                             <span class="dark"></span>
                             <span></span>
                         </div>
                     
                 <section id="sharing">
-                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fadvance-load-balancing-capabilities-in-apache-stratos-incubating-4%2f - Advance%20Load%20Balancing%20Capabilities%20in%20Apache%20Stratos%20%28incubating%29%204 "><span class="icon-twitter"> Tweet</span></a>
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fimesh.github.io%2fadvance-load-balancing-capabilities-in-apache-stratos-incubating-4%2f - Advance%20Load%20Balancing%20Capabilities%20in%20Apache%20Stratos%20%28incubating%29%204 "><span class="icon-twitter"> Tweet</span></a>
 
 <a class="facebook" href="#" onclick="
     window.open(
@@ -180,63 +164,63 @@
     
         
         <li>
-            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+            <a href="http://imesh.github.io/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+            <a href="http://imesh.github.io/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+            <a href="http://imesh.github.io/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+            <a href="http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+            <a href="http://imesh.github.io/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+            <a href="http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+            <a href="http://imesh.github.io/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+            <a href="http://imesh.github.io/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
         </li>
         
    
     
         
         <li>
-            <a href="http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+            <a href="http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
         </li>
         
    
@@ -249,8 +233,8 @@
         </section>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://localhost:1313/js/main.js"></script>
-<script src="http://localhost:1313/js/highlight.js"></script>
+<script src="http://imesh.github.io/js/main.js"></script>
+<script src="http://imesh.github.io/js/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 

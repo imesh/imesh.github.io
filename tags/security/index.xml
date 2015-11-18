@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Security on imesh.io</title>
-    <link>http://localhost:1313/tags/security/</link>
+    <link>http://imesh.github.io/tags/security/</link>
     <description>Recent content in Security on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 15 May 2014 13:36:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Exposing WSO2 Identity Server Admin Services as REST APIs</title>
-      <link>http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
+      <link>http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
       <pubDate>Thu, 15 May 2014 13:36:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
+      <guid>http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
       <description>&lt;p&gt;WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -51,9 +51,9 @@
     &lt;payloadFactory media-type=&#34;xml&#34;&gt;
         &lt;format&gt;
             &lt;xsd:listAllUsers xmlns:xsd=&#34;http://org.apache.axis2/xsd&#34;&gt;
-                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://localhost:1313/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
-                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://localhost:1313/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
-            &lt;a href=&#34;http://localhost:1313/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
+                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://imesh.github.io/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
+                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://imesh.github.io/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
+            &lt;a href=&#34;http://imesh.github.io/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
         &lt;/format&gt;
         &lt;args&gt;
             &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:filter&#34;/&gt;
@@ -120,10 +120,10 @@ curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=1
     
     <item>
       <title>A Quick-Guide for Generating a PGP Key</title>
-      <link>http://localhost:1313/a-quick-guide-for-generating-a-pgp-key/</link>
+      <link>http://imesh.github.io/a-quick-guide-for-generating-a-pgp-key/</link>
       <pubDate>Tue, 22 Apr 2014 04:27:26 +0000</pubDate>
       
-      <guid>http://localhost:1313/a-quick-guide-for-generating-a-pgp-key/</guid>
+      <guid>http://imesh.github.io/a-quick-guide-for-generating-a-pgp-key/</guid>
       <description>
 
 &lt;h4 id=&#34;1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;1. Generate a Self Signed Key&lt;/h4&gt;

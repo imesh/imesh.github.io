@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Monoscape on imesh.io</title>
-    <link>http://localhost:1313/tags/monoscape/</link>
+    <link>http://imesh.github.io/tags/monoscape/</link>
     <description>Recent content in Monoscape on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 14 Apr 2013 17:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/monoscape/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io/tags/monoscape/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Running Monoscape on OpenStack</title>
-      <link>http://localhost:1313/running-monoscape-on-openstack/</link>
+      <link>http://imesh.github.io/running-monoscape-on-openstack/</link>
       <pubDate>Sun, 14 Apr 2013 17:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/running-monoscape-on-openstack/</guid>
+      <guid>http://imesh.github.io/running-monoscape-on-openstack/</guid>
       <description>&lt;p&gt;Since it&amp;rsquo;s inception Monoscape was built on top of OpenStack IaaS. This was around early 2011. During this time OpenStack had only a minimal set of features and components like Nova - Compute, Swift - Object Storage, Glance - Image Service and a very basic web interface. It even didn&amp;rsquo;t had a proper installation process, most people used Stackops distributions. In contrast today OpenStack is a very matured product. Now it has many componenets (&lt;a href=&#34;http://docs.openstack.org/developer/ceilometer/&#34;&gt;Ceilometer&lt;/a&gt; - Billing, Cinder - Block Storage, Glance - Image Service, &lt;a href=&#34;https://wiki.openstack.org/wiki/Heat&#34;&gt;Heat&lt;/a&gt; - AWS CloudFormation, Horizon - Dashboard, Keystone - Identity Management, Nova - Compute, Quantum and Swift) including a rich set of features and a well defined installation process. Still Stackops provide easy to use distributions for OpenStack packaged with Ubuntu Server but I think they are no longer necessary. One major security issue I noticed with Stackops installation process is that they store client&amp;rsquo;s configuration information in their severs online.&lt;/p&gt;
 
 &lt;p&gt;If you are trying out OpenStack for the first time you could use a Virtual Machine (VM) on Oracle VirtualBox or any other VM platform. However you may need to make sure that you use a physical machine with at least 8GB of memory running with a high end processor. So that you could provide nearly 4 GB of memory to the VM and around 10 GB of dynamic disk space.&lt;/p&gt;

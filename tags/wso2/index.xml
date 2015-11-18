@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wso2 on imesh.io</title>
-    <link>http://localhost:1313/tags/wso2/</link>
+    <link>http://imesh.github.io/tags/wso2/</link>
     <description>Recent content in Wso2 on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 16 Sep 2013 06:02:09 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/wso2/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io/tags/wso2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>WSO2 CApp Deployment Verification Process</title>
-      <link>http://localhost:1313/wso2-capp-deployment-verification-process-2/</link>
+      <link>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</link>
       <pubDate>Mon, 16 Sep 2013 06:02:09 +0000</pubDate>
       
-      <guid>http://localhost:1313/wso2-capp-deployment-verification-process-2/</guid>
+      <guid>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</guid>
       <description>&lt;p&gt;WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins.&lt;/p&gt;
 
 &lt;p&gt;In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. Which means either the all the artifacts of a CApp will get deployed or none.&lt;/p&gt;
@@ -58,10 +58,10 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
       &lt;ns:listAllApplicationsResponse 
           xmlns:ns=”http://mgt.application.carbon.wso2.org” 
           xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”&gt;
-         &lt;a href=&#34;ns:return&#34;&gt;ns:return&lt;/a&gt;HelloCar_1.0.0&lt;a href=&#34;http://localhost:1313/ns:return&#34;&gt;/ns:return&lt;/a&gt;
-      &lt;a href=&#34;http://localhost:1313/ns:listAllApplicationsResponse&#34;&gt;/ns:listAllApplicationsResponse&lt;/a&gt;
-   &lt;a href=&#34;http://localhost:1313/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
-&lt;a href=&#34;http://localhost:1313/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+         &lt;a href=&#34;ns:return&#34;&gt;ns:return&lt;/a&gt;HelloCar_1.0.0&lt;a href=&#34;http://imesh.github.io/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://imesh.github.io/ns:listAllApplicationsResponse&#34;&gt;/ns:listAllApplicationsResponse&lt;/a&gt;
+   &lt;a href=&#34;http://imesh.github.io/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://imesh.github.io/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
 [/code]&lt;/p&gt;
 
 &lt;p&gt;On the response body you could see the available CApps listed.&lt;/p&gt;
@@ -89,16 +89,16 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)&lt;/p&gt;
          &lt;ns:return xsi:type=”ax27:ApplicationMetadata” 
                     xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd” 
                     xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”&gt;
-            &lt;a href=&#34;ax27:appName&#34;&gt;ax27:appName&lt;/a&gt;HelloCar&lt;a href=&#34;http://localhost:1313/ax27:appName&#34;&gt;/ax27:appName&lt;/a&gt;
-            &lt;a href=&#34;ax27:appVersion&#34;&gt;ax27:appVersion&lt;/a&gt;1.0.0&lt;a href=&#34;http://localhost:1313/ax27:appVersion&#34;&gt;/ax27:appVersion&lt;/a&gt;
+            &lt;a href=&#34;ax27:appName&#34;&gt;ax27:appName&lt;/a&gt;HelloCar&lt;a href=&#34;http://imesh.github.io/ax27:appName&#34;&gt;/ax27:appName&lt;/a&gt;
+            &lt;a href=&#34;ax27:appVersion&#34;&gt;ax27:appVersion&lt;/a&gt;1.0.0&lt;a href=&#34;http://imesh.github.io/ax27:appVersion&#34;&gt;/ax27:appVersion&lt;/a&gt;
             &lt;ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”&gt;
-               &lt;a href=&#34;ax27:artifactName&#34;&gt;ax27:artifactName&lt;/a&gt;HelloCarService&lt;a href=&#34;http://localhost:1313/ax27:artifactName&#34;&gt;/ax27:artifactName&lt;/a&gt;
-               &lt;a href=&#34;ax27:deploymentStatus&#34;&gt;ax27:deploymentStatus&lt;/a&gt;Deployed&lt;a href=&#34;http://localhost:1313/ax27:deploymentStatus&#34;&gt;/ax27:deploymentStatus&lt;/a&gt;
-            &lt;a href=&#34;http://localhost:1313/ax27:artifactsDeploymentStatus&#34;&gt;/ax27:artifactsDeploymentStatus&lt;/a&gt;
-         &lt;a href=&#34;http://localhost:1313/ns:return&#34;&gt;/ns:return&lt;/a&gt;
-      &lt;a href=&#34;http://localhost:1313/ns:getAppDataResponse&#34;&gt;/ns:getAppDataResponse&lt;/a&gt;
-   &lt;a href=&#34;http://localhost:1313/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
-&lt;a href=&#34;http://localhost:1313/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
+               &lt;a href=&#34;ax27:artifactName&#34;&gt;ax27:artifactName&lt;/a&gt;HelloCarService&lt;a href=&#34;http://imesh.github.io/ax27:artifactName&#34;&gt;/ax27:artifactName&lt;/a&gt;
+               &lt;a href=&#34;ax27:deploymentStatus&#34;&gt;ax27:deploymentStatus&lt;/a&gt;Deployed&lt;a href=&#34;http://imesh.github.io/ax27:deploymentStatus&#34;&gt;/ax27:deploymentStatus&lt;/a&gt;
+            &lt;a href=&#34;http://imesh.github.io/ax27:artifactsDeploymentStatus&#34;&gt;/ax27:artifactsDeploymentStatus&lt;/a&gt;
+         &lt;a href=&#34;http://imesh.github.io/ns:return&#34;&gt;/ns:return&lt;/a&gt;
+      &lt;a href=&#34;http://imesh.github.io/ns:getAppDataResponse&#34;&gt;/ns:getAppDataResponse&lt;/a&gt;
+   &lt;a href=&#34;http://imesh.github.io/soapenv:Body&#34;&gt;/soapenv:Body&lt;/a&gt;
+&lt;a href=&#34;http://imesh.github.io/soapenv:Envelope&#34;&gt;/soapenv:Envelope&lt;/a&gt;
 [/code]&lt;/p&gt;
 
 &lt;p&gt;Here on the response body you could see the deployment status of the CApps and their artifacts.&lt;/p&gt;
