@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="">
-		<meta name="description" content="">
+		<meta name="description" content="Open Source | Middleware | Cloud | Life">
 		<meta name="generator" content="Hugo 0.14" />
 		<title>WSO2 CApp Deployment Verification Process &middot; imesh.io</title>
 		<link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
@@ -77,10 +77,10 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)</p>
       <ns:listAllApplicationsResponse 
           xmlns:ns=”http://mgt.application.carbon.wso2.org” 
           xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”>
-         <a href="ns:return">ns:return</a>HelloCar_1.0.0<a href="/ns:return">/ns:return</a>
-      <a href="/ns:listAllApplicationsResponse">/ns:listAllApplicationsResponse</a>
-   <a href="/soapenv:Body">/soapenv:Body</a>
-<a href="/soapenv:Envelope">/soapenv:Envelope</a>
+         <a href="ns:return">ns:return</a>HelloCar_1.0.0<a href="http://imesh.github.io:80/ns:return">/ns:return</a>
+      <a href="http://imesh.github.io:80/ns:listAllApplicationsResponse">/ns:listAllApplicationsResponse</a>
+   <a href="http://imesh.github.io:80/soapenv:Body">/soapenv:Body</a>
+<a href="http://imesh.github.io:80/soapenv:Envelope">/soapenv:Envelope</a>
 [/code]</p>
 
 <p>On the response body you could see the available CApps listed.</p>
@@ -108,16 +108,16 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)</p>
          <ns:return xsi:type=”ax27:ApplicationMetadata” 
                     xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd” 
                     xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”>
-            <a href="ax27:appName">ax27:appName</a>HelloCar<a href="/ax27:appName">/ax27:appName</a>
-            <a href="ax27:appVersion">ax27:appVersion</a>1.0.0<a href="/ax27:appVersion">/ax27:appVersion</a>
+            <a href="ax27:appName">ax27:appName</a>HelloCar<a href="http://imesh.github.io:80/ax27:appName">/ax27:appName</a>
+            <a href="ax27:appVersion">ax27:appVersion</a>1.0.0<a href="http://imesh.github.io:80/ax27:appVersion">/ax27:appVersion</a>
             <ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”>
-               <a href="ax27:artifactName">ax27:artifactName</a>HelloCarService<a href="/ax27:artifactName">/ax27:artifactName</a>
-               <a href="ax27:deploymentStatus">ax27:deploymentStatus</a>Deployed<a href="/ax27:deploymentStatus">/ax27:deploymentStatus</a>
-            <a href="/ax27:artifactsDeploymentStatus">/ax27:artifactsDeploymentStatus</a>
-         <a href="/ns:return">/ns:return</a>
-      <a href="/ns:getAppDataResponse">/ns:getAppDataResponse</a>
-   <a href="/soapenv:Body">/soapenv:Body</a>
-<a href="/soapenv:Envelope">/soapenv:Envelope</a>
+               <a href="ax27:artifactName">ax27:artifactName</a>HelloCarService<a href="http://imesh.github.io:80/ax27:artifactName">/ax27:artifactName</a>
+               <a href="ax27:deploymentStatus">ax27:deploymentStatus</a>Deployed<a href="http://imesh.github.io:80/ax27:deploymentStatus">/ax27:deploymentStatus</a>
+            <a href="http://imesh.github.io:80/ax27:artifactsDeploymentStatus">/ax27:artifactsDeploymentStatus</a>
+         <a href="http://imesh.github.io:80/ns:return">/ns:return</a>
+      <a href="http://imesh.github.io:80/ns:getAppDataResponse">/ns:getAppDataResponse</a>
+   <a href="http://imesh.github.io:80/soapenv:Body">/soapenv:Body</a>
+<a href="http://imesh.github.io:80/soapenv:Envelope">/soapenv:Envelope</a>
 [/code]</p>
 
 <p>Here on the response body you could see the deployment status of the CApps and their artifacts.</p>
