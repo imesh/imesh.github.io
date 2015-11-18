@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wso2 Esb on imesh.io</title>
-    <link>0.0.0.0/tags/wso2-esb/</link>
+    <link>http://localhost:1313/tags/wso2-esb/</link>
     <description>Recent content in Wso2 Esb on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 27 Aug 2014 16:28:09 +0000</lastBuildDate>
-    <atom:link href="0.0.0.0/tags/wso2-esb/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/wso2-esb/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Re-Writing Query Parameters in WSO2 ESB</title>
-      <link>/0.0.0.0/re-writing-query-parameters-in-wso2-esb/</link>
+      <link>http://localhost:1313/re-writing-query-parameters-in-wso2-esb/</link>
       <pubDate>Wed, 27 Aug 2014 16:28:09 +0000</pubDate>
       
-      <guid>/0.0.0.0/re-writing-query-parameters-in-wso2-esb/</guid>
+      <guid>http://localhost:1313/re-writing-query-parameters-in-wso2-esb/</guid>
       <description>&lt;p&gt;The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.&lt;/p&gt;
 
 &lt;p&gt;[code]

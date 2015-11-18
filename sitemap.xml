@@ -2,498 +2,498 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/0.0.0.0/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2015-11-18T06:13:48+05:30</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/0.0.0.0/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2015-11-18T06:13:48+05:30</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/an-introduction-to-wso2-configurator/</loc>
+    <loc>http://localhost:1313/an-introduction-to-wso2-configurator/</loc>
     <lastmod>2015-10-13T14:44:13+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/introduction-to-apache-stratos-mock-iaas/</loc>
+    <loc>http://localhost:1313/introduction-to-apache-stratos-mock-iaas/</loc>
     <lastmod>2014-12-22T18:03:42+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</loc>
+    <loc>http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</loc>
     <lastmod>2014-12-15T08:25:54+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</loc>
+    <loc>http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</loc>
     <lastmod>2014-11-27T12:57:55+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</loc>
+    <loc>http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</loc>
     <lastmod>2014-10-24T05:52:55+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/re-writing-query-parameters-in-wso2-esb/</loc>
+    <loc>http://localhost:1313/re-writing-query-parameters-in-wso2-esb/</loc>
     <lastmod>2014-08-27T16:28:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/install-stratos-in-one-go/</loc>
+    <loc>http://localhost:1313/install-stratos-in-one-go/</loc>
     <lastmod>2014-06-22T19:32:40+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/implementing-split-aggregate-pattern-in-esb/</loc>
+    <loc>http://localhost:1313/implementing-split-aggregate-pattern-in-esb/</loc>
     <lastmod>2014-06-15T18:30:48+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/exposing-wso2-identity-server-admin-services-as-rest-apis/</loc>
+    <loc>http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/</loc>
     <lastmod>2014-05-15T13:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-quick-guide-for-generating-a-pgp-key/</loc>
+    <loc>http://localhost:1313/a-quick-guide-for-generating-a-pgp-key/</loc>
     <lastmod>2014-04-22T04:27:26+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</loc>
+    <loc>http://localhost:1313/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</loc>
     <lastmod>2014-02-05T22:38:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</loc>
+    <loc>http://localhost:1313/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</loc>
     <lastmod>2013-09-27T09:50:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/wso2-capp-deployment-verification-process-2/</loc>
+    <loc>http://localhost:1313/wso2-capp-deployment-verification-process-2/</loc>
     <lastmod>2013-09-16T06:02:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/apache-stratos-single-node-installation/</loc>
+    <loc>http://localhost:1313/apache-stratos-single-node-installation/</loc>
     <lastmod>2013-08-27T18:07:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/creating-openstack-images/</loc>
+    <loc>http://localhost:1313/creating-openstack-images/</loc>
     <lastmod>2013-08-19T09:56:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/apache-stratos-in-a-nutshell/</loc>
+    <loc>http://localhost:1313/apache-stratos-in-a-nutshell/</loc>
     <lastmod>2013-08-19T01:42:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/ntfs-write-support-on-mountain-lion/</loc>
+    <loc>http://localhost:1313/ntfs-write-support-on-mountain-lion/</loc>
     <lastmod>2013-05-05T01:28:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/running-monoscape-on-openstack/</loc>
+    <loc>http://localhost:1313/running-monoscape-on-openstack/</loc>
     <lastmod>2013-04-14T17:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/android-automated-unit-testing/</loc>
+    <loc>http://localhost:1313/android-automated-unit-testing/</loc>
     <lastmod>2013-03-26T06:18:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/tedx-colombo-2012/</loc>
+    <loc>http://localhost:1313/tedx-colombo-2012/</loc>
     <lastmod>2013-02-16T09:26:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/i-am-the-captain-of-my-ship/</loc>
+    <loc>http://localhost:1313/i-am-the-captain-of-my-ship/</loc>
     <lastmod>2013-02-16T06:19:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/google-2-step-verification/</loc>
+    <loc>http://localhost:1313/google-2-step-verification/</loc>
     <lastmod>2012-03-06T03:27:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/all-about-steve-jobs/</loc>
+    <loc>http://localhost:1313/all-about-steve-jobs/</loc>
     <lastmod>2011-11-01T17:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/using-amazon-ec2-net-sdk-for-openstack/</loc>
+    <loc>http://localhost:1313/using-amazon-ec2-net-sdk-for-openstack/</loc>
     <lastmod>2011-10-07T08:45:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/steve-jobs-1955-2011/</loc>
+    <loc>http://localhost:1313/steve-jobs-1955-2011/</loc>
     <lastmod>2011-10-07T08:33:31+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/how-to-run-a-rpm-on-ubuntu/</loc>
+    <loc>http://localhost:1313/how-to-run-a-rpm-on-ubuntu/</loc>
     <lastmod>2011-03-08T17:44:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/an-artists-impression-on-free-software/</loc>
+    <loc>http://localhost:1313/an-artists-impression-on-free-software/</loc>
     <lastmod>2011-02-27T08:53:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/aspect-oriented-programming-aop/</loc>
+    <loc>http://localhost:1313/aspect-oriented-programming-aop/</loc>
     <lastmod>2010-12-17T10:12:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/solve-a-real-world-problem-an-ieee-competition/</loc>
+    <loc>http://localhost:1313/solve-a-real-world-problem-an-ieee-competition/</loc>
     <lastmod>2010-12-05T16:07:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/apache-axis2-1-5-2-has-some-issues/</loc>
+    <loc>http://localhost:1313/apache-axis2-1-5-2-has-some-issues/</loc>
     <lastmod>2010-10-22T15:42:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/android-architecture/</loc>
+    <loc>http://localhost:1313/android-architecture/</loc>
     <lastmod>2010-08-18T05:41:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/wow-froyo-android-2-2/</loc>
+    <loc>http://localhost:1313/wow-froyo-android-2-2/</loc>
     <lastmod>2010-05-21T08:53:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/google-io-2010-keynote-speech/</loc>
+    <loc>http://localhost:1313/google-io-2010-keynote-speech/</loc>
     <lastmod>2010-05-20T11:44:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/tim-berners-lee-on-semantic-web/</loc>
+    <loc>http://localhost:1313/tim-berners-lee-on-semantic-web/</loc>
     <lastmod>2010-05-10T14:50:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/maslows-hierarchy-of-needs/</loc>
+    <loc>http://localhost:1313/maslows-hierarchy-of-needs/</loc>
     <lastmod>2010-04-19T11:14:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/how-can-an-operating-system-boot-this-fast/</loc>
+    <loc>http://localhost:1313/how-can-an-operating-system-boot-this-fast/</loc>
     <lastmod>2010-03-17T04:05:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/running-asp-net-applications-on-linux-using-mono/</loc>
+    <loc>http://localhost:1313/running-asp-net-applications-on-linux-using-mono/</loc>
     <lastmod>2010-03-15T18:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/mail-forwarding-can-make-spam/</loc>
+    <loc>http://localhost:1313/mail-forwarding-can-make-spam/</loc>
     <lastmod>2010-03-15T06:47:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/teach-kids-how-to-write-a-small-computer-program/</loc>
+    <loc>http://localhost:1313/teach-kids-how-to-write-a-small-computer-program/</loc>
     <lastmod>2010-03-08T06:25:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/enabling-desktop-cube-effect-in-ubuntu-9-04/</loc>
+    <loc>http://localhost:1313/enabling-desktop-cube-effect-in-ubuntu-9-04/</loc>
     <lastmod>2009-10-03T16:20:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-end-of-war/</loc>
+    <loc>http://localhost:1313/the-end-of-war/</loc>
     <lastmod>2009-05-18T15:39:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/introduction-to-java-micro-edition/</loc>
+    <loc>http://localhost:1313/introduction-to-java-micro-edition/</loc>
     <lastmod>2009-02-09T05:52:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-day-of-entrepreneurship/</loc>
+    <loc>http://localhost:1313/a-day-of-entrepreneurship/</loc>
     <lastmod>2008-11-27T08:01:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/national-entrepreneurship-week/</loc>
+    <loc>http://localhost:1313/national-entrepreneurship-week/</loc>
     <lastmod>2008-11-21T05:33:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/worlds-first-self-tuning-guitar/</loc>
+    <loc>http://localhost:1313/worlds-first-self-tuning-guitar/</loc>
     <lastmod>2008-11-11T08:15:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/imagegallery-1-0-released/</loc>
+    <loc>http://localhost:1313/imagegallery-1-0-released/</loc>
     <lastmod>2008-10-07T17:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/mosaic-view-in-image-gallery/</loc>
+    <loc>http://localhost:1313/mosaic-view-in-image-gallery/</loc>
     <lastmod>2008-09-30T07:39:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/image-gallery-slideshow/</loc>
+    <loc>http://localhost:1313/image-gallery-slideshow/</loc>
     <lastmod>2008-09-23T19:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/flickr-image-gallery/</loc>
+    <loc>http://localhost:1313/flickr-image-gallery/</loc>
     <lastmod>2008-09-15T07:50:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-arch-in-schmap-bristol-fifth-edition/</loc>
+    <loc>http://localhost:1313/the-arch-in-schmap-bristol-fifth-edition/</loc>
     <lastmod>2008-08-14T00:12:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-land-like-no-other/</loc>
+    <loc>http://localhost:1313/a-land-like-no-other/</loc>
     <lastmod>2008-08-11T06:23:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/888-an-auspicious-day/</loc>
+    <loc>http://localhost:1313/888-an-auspicious-day/</loc>
     <lastmod>2008-08-07T22:28:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-full-screen-3d-view-for-web-images/</loc>
+    <loc>http://localhost:1313/a-full-screen-3d-view-for-web-images/</loc>
     <lastmod>2008-08-04T22:08:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/stonehenge-in-black-and-white/</loc>
+    <loc>http://localhost:1313/stonehenge-in-black-and-white/</loc>
     <lastmod>2008-08-01T05:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/sculpture-model-at-trafalgar-square/</loc>
+    <loc>http://localhost:1313/sculpture-model-at-trafalgar-square/</loc>
     <lastmod>2008-08-01T02:49:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-london-eye-in-blue/</loc>
+    <loc>http://localhost:1313/the-london-eye-in-blue/</loc>
     <lastmod>2008-08-01T00:54:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/summer-and-the-sun/</loc>
+    <loc>http://localhost:1313/summer-and-the-sun/</loc>
     <lastmod>2008-06-22T12:39:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/nature/</loc>
+    <loc>http://localhost:1313/nature/</loc>
     <lastmod>2008-05-28T12:10:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/watch-and-learn-your-nikon/</loc>
+    <loc>http://localhost:1313/watch-and-learn-your-nikon/</loc>
     <lastmod>2008-03-24T04:05:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/ten-natural-laws/</loc>
+    <loc>http://localhost:1313/ten-natural-laws/</loc>
     <lastmod>2008-01-26T09:24:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-day-of-gnu/</loc>
+    <loc>http://localhost:1313/a-day-of-gnu/</loc>
     <lastmod>2008-01-19T08:25:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/richard-stallman-in-sri-lanka/</loc>
+    <loc>http://localhost:1313/richard-stallman-in-sri-lanka/</loc>
     <lastmod>2008-01-15T02:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/follow-your-friends-and-family/</loc>
+    <loc>http://localhost:1313/follow-your-friends-and-family/</loc>
     <lastmod>2008-01-07T19:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/wish-you-a-very-happy-new-year/</loc>
+    <loc>http://localhost:1313/wish-you-a-very-happy-new-year/</loc>
     <lastmod>2007-12-31T19:28:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/i-cant-accept-not-trying/</loc>
+    <loc>http://localhost:1313/i-cant-accept-not-trying/</loc>
     <lastmod>2007-12-25T21:48:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/how-could-you-run-a-windows-applcation-on-the-web/</loc>
+    <loc>http://localhost:1313/how-could-you-run-a-windows-applcation-on-the-web/</loc>
     <lastmod>2007-12-17T12:18:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/imap-to-your-rescue/</loc>
+    <loc>http://localhost:1313/imap-to-your-rescue/</loc>
     <lastmod>2007-12-16T09:50:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/start-learning-php/</loc>
+    <loc>http://localhost:1313/start-learning-php/</loc>
     <lastmod>2007-11-20T13:34:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-london-eye/</loc>
+    <loc>http://localhost:1313/the-london-eye/</loc>
     <lastmod>2007-11-20T12:52:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-city-of-oxford/</loc>
+    <loc>http://localhost:1313/the-city-of-oxford/</loc>
     <lastmod>2007-11-19T01:22:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/what-is-an-openid/</loc>
+    <loc>http://localhost:1313/what-is-an-openid/</loc>
     <lastmod>2007-10-01T11:44:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/bizcode-application-builder-1-3-beta-released/</loc>
+    <loc>http://localhost:1313/bizcode-application-builder-1-3-beta-released/</loc>
     <lastmod>2007-09-18T19:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/bizcode-application-builder-features-in-the-next-release/</loc>
+    <loc>http://localhost:1313/bizcode-application-builder-features-in-the-next-release/</loc>
     <lastmod>2007-09-16T00:48:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/few-cool-features-in-google-search-engine/</loc>
+    <loc>http://localhost:1313/few-cool-features-in-google-search-engine/</loc>
     <lastmod>2007-08-07T00:23:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/sharp-develop-an-open-source-ide-for-net/</loc>
+    <loc>http://localhost:1313/sharp-develop-an-open-source-ide-for-net/</loc>
     <lastmod>2007-08-06T06:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-astronaut-farmer/</loc>
+    <loc>http://localhost:1313/the-astronaut-farmer/</loc>
     <lastmod>2007-07-20T10:24:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/multiple-inheritance-in-java/</loc>
+    <loc>http://localhost:1313/multiple-inheritance-in-java/</loc>
     <lastmod>2007-07-18T06:16:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/a-desktop-on-the-web/</loc>
+    <loc>http://localhost:1313/a-desktop-on-the-web/</loc>
     <lastmod>2007-06-19T00:35:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/virtual-earth-images-in-windows-live-writer/</loc>
+    <loc>http://localhost:1313/virtual-earth-images-in-windows-live-writer/</loc>
     <lastmod>2007-06-05T11:37:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/windows-live-writer/</loc>
+    <loc>http://localhost:1313/windows-live-writer/</loc>
     <lastmod>2007-06-05T11:11:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/microsoft-has-done-a-great-job-on-surface-computing/</loc>
+    <loc>http://localhost:1313/microsoft-has-done-a-great-job-on-surface-computing/</loc>
     <lastmod>2007-06-02T05:14:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/google-has-acquired-feedburner/</loc>
+    <loc>http://localhost:1313/google-has-acquired-feedburner/</loc>
     <lastmod>2007-06-02T05:03:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/im-a-simple-way-to-donate/</loc>
+    <loc>http://localhost:1313/im-a-simple-way-to-donate/</loc>
     <lastmod>2007-05-28T00:18:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/bizcode-application-builder-1-2-beta-released/</loc>
+    <loc>http://localhost:1313/bizcode-application-builder-1-2-beta-released/</loc>
     <lastmod>2007-05-14T04:08:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/recovered-a-deleted-partition/</loc>
+    <loc>http://localhost:1313/recovered-a-deleted-partition/</loc>
     <lastmod>2007-05-02T22:11:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/all-the-best-sri-lankan-cricketers/</loc>
+    <loc>http://localhost:1313/all-the-best-sri-lankan-cricketers/</loc>
     <lastmod>2007-04-24T10:31:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/microsoft-silverlight-wpfe-for-web-presentation/</loc>
+    <loc>http://localhost:1313/microsoft-silverlight-wpfe-for-web-presentation/</loc>
     <lastmod>2007-04-24T00:28:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/matz-the-creator-of-ruby/</loc>
+    <loc>http://localhost:1313/matz-the-creator-of-ruby/</loc>
     <lastmod>2007-04-20T04:23:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/community-server-2007-has-been-released/</loc>
+    <loc>http://localhost:1313/community-server-2007-has-been-released/</loc>
     <lastmod>2007-04-18T22:45:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/bizcode-application-builder-1-1-beta-released/</loc>
+    <loc>http://localhost:1313/bizcode-application-builder-1-1-beta-released/</loc>
     <lastmod>2007-04-08T22:16:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/subsonic-a-data-access-layer-builder/</loc>
+    <loc>http://localhost:1313/subsonic-a-data-access-layer-builder/</loc>
     <lastmod>2007-04-05T11:22:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/google-tisp-free-wireless-broadband-service/</loc>
+    <loc>http://localhost:1313/google-tisp-free-wireless-broadband-service/</loc>
     <lastmod>2007-04-02T07:45:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/sri-lankan-cricketers-behavior-get-appreciated/</loc>
+    <loc>http://localhost:1313/sri-lankan-cricketers-behavior-get-appreciated/</loc>
     <lastmod>2007-03-30T02:46:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/google-adsense-for-your-website/</loc>
+    <loc>http://localhost:1313/google-adsense-for-your-website/</loc>
     <lastmod>2007-03-26T00:18:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/how-to-add-a-yahoo-account-in-gaim/</loc>
+    <loc>http://localhost:1313/how-to-add-a-yahoo-account-in-gaim/</loc>
     <lastmod>2007-03-25T21:44:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/ayubowan-by-bathiya-santhush/</loc>
+    <loc>http://localhost:1313/ayubowan-by-bathiya-santhush/</loc>
     <lastmod>2007-03-13T22:48:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/0.0.0.0/the-mono-development-environment/</loc>
+    <loc>http://localhost:1313/the-mono-development-environment/</loc>
     <lastmod>2007-03-05T22:33:00+00:00</lastmod>
   </url>
   
