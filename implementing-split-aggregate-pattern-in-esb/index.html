@@ -61,41 +61,46 @@ org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5)
       EIPConstants.MESSAGE_SEQUENCE + &ldquo;.&rdquo; + id,
       msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
       &hellip;
-   }
-[/code]</p>
+   }</p>
 
-<ul>
-<li>Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.</li>
-<li>Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.</li>
-</ul>
+<pre><code>
+- Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.
+- Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.
 
-<h3 id="out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2">Out Mediation Flow</h3>
 
-<p><a href="http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png"><img src="http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png" alt="ESB-Iterate-Aggregate-Out-Flow" /></a></p>
 
-<ul>
-<li>All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).</li>
-<li>In addition any messages that may get timeout by the endpoint will trigger the fault sequence.</li>
-<li>Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.</li>
-<li>Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.</li>
-<li>Then the Aggregate Mediator will wait until responses to all the sub messages are received:</li>
-</ul>
+### Out Mediation Flow
 
-<p>[code lang=&ldquo;java&rdquo;]
+
+  
+
+
+
+
+[![ESB-Iterate-Aggregate-Out-Flow](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)
+
+
+- All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).
+- In addition any messages that may get timeout by the endpoint will trigger the fault sequence.
+- Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.
+- Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.
+- Then the Aggregate Mediator will wait until responses to all the sub messages are received:
+
+[code lang=&quot;java&quot;]
 org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
    public synchronised boolean isComplete() {
-   &hellip;
+   ...
       String[] msgSequence = prop.toString().split(
       EIPConstants.MESSAGE_SEQUENCE_DELEMITER);
       int total = Integer.parseInt(msgSequence[1]);
-      &hellip;
-      if (messages.size() &gt;= total) {
-         synLog.traceOrDebug(&ldquo;Aggregation complete&rdquo;);
+      ...
+      if (messages.size() &amp;gt;= total) {
+         synLog.traceOrDebug(&quot;Aggregation complete&quot;);
          return true;
       }
-      &hellip;
+      ...
    }
-[/code]</p>
+</code></pre>
 
 <ul>
 <li>To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:</li>
@@ -111,7 +116,7 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
     </onComplete>
 </aggregate>
 </code>
-[/code]</p>
+````</p>
 
 <ul>
 <li>Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.</li>

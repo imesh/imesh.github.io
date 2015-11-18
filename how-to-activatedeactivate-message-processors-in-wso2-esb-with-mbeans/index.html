@@ -44,40 +44,37 @@
 
 <p>The below sample code demonstrates how to talk to the JMX endpoint of the ESB and actiavate and deactivate a message processor. Here update the JMX URL and the bean definition accordingly.</p>
 
-<p>[code]
-import javax.management.MBeanServerConnection;
+<pre><code>import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import java.util.HashMap;
-import java.util.Map;</p>
+import java.util.Map;
 
-<p>public class Main {
+public class Main {
     public static void main(String[] args) {
         try {
-            Map<String, Object> env = new HashMap<String, Object>();
-            String[] credentials = new String[]{&ldquo;admin&rdquo;, &ldquo;admin&rdquo;};
-            env.put(&ldquo;jmx.remote.credentials&rdquo;, credentials);</p>
+            Map&lt;String, Object&gt; env = new HashMap&lt;String, Object&gt;();
+            String[] credentials = new String[]{&quot;admin&quot;, &quot;admin&quot;};
+            env.put(&quot;jmx.remote.credentials&quot;, credentials);
 
-<pre><code>        String url = &quot;service:jmx:rmi://localhost:11111/jndi/rmi://localhost:9999/jmxrmi&quot;;
-        JMXServiceURL target = new JMXServiceURL(url);
-        JMXConnector connector = JMXConnectorFactory.connect(target, env);
-        MBeanServerConnection remote = connector.getMBeanServerConnection();
+            String url = &quot;service:jmx:rmi://localhost:11111/jndi/rmi://localhost:9999/jmxrmi&quot;;
+            JMXServiceURL target = new JMXServiceURL(url);
+            JMXConnector connector = JMXConnectorFactory.connect(target, env);
+            MBeanServerConnection remote = connector.getMBeanServerConnection();
 
-        String beanDef = &quot;org.apache.synapse:Type=Message Forwarding Processor view,Name=MessageForwardingProcessor&quot;;
-        ObjectName bean = new ObjectName(beanDef);
+            String beanDef = &quot;org.apache.synapse:Type=Message Forwarding Processor view,Name=MessageForwardingProcessor&quot;;
+            ObjectName bean = new ObjectName(beanDef);
 
-        remote.invoke(bean, &quot;activate&quot;, null, null);
-        connector.close();
-    } catch (Exception e) {
-        e.printStackTrace();
+            remote.invoke(bean, &quot;activate&quot;, null, null);
+            connector.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 </code></pre>
-
-<p>}
-[/code]</p>
 
 <p>[1] <a href="https://docs.wso2.com/display/ESB481/Message+Processors">https://docs.wso2.com/display/ESB481/Message+Processors</a>
 [2] <a href="https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores">https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores</a></p>

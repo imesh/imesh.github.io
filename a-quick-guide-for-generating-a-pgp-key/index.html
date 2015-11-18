@@ -38,102 +38,96 @@
 
 <h4 id="1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7">1. Generate a Self Signed Key</h4>
 
-<p>[code] $ gpg &ndash;gen-key [/code]</p>
+<p><code>$ gpg --gen-key</code></p>
 
-<p>[code]
-gpg (GnuPG) 1.4.10; Copyright &copy; 2008 Free Software Foundation, Inc.
+<pre><code>gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.</p>
+There is NO WARRANTY, to the extent permitted by law.
 
-<p>Please select what kind of key you want:
+Please select what kind of key you want:
    (1) RSA and RSA (default)
    (2) DSA and Elgamal
    (3) DSA (sign only)
    (4) RSA (sign only)
 Your selection? 1
-[/code]</p>
+</code></pre>
 
-<p>[code]
-RSA keys may be between 1024 and 4096 bits long.
+<pre><code>RSA keys may be between 1024 and 4096 bits long.
 What keysize do you want? (2048) 4096
 Requested keysize is 4096 bits
 Please specify how long the key should be valid.
          0 = key does not expire
-      <n>  = key expires in n days
-      <n>w = key expires in n weeks
-      <n>m = key expires in n months
-      <n>y = key expires in n years
-Key is valid for? (0)
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 
 Key does not expire at all
 Is this correct? (y/N) y
-[/code]</p>
+</code></pre>
 
-<p>[code]
-You need a user ID to identify your key; the software constructs the user ID
+<pre><code>You need a user ID to identify your key; the software constructs the user ID
 from the Real Name, Comment and Email Address in this form:
-    &ldquo;First-Name Last-Name <a href="mailto:your-id@domain.org">your-id@domain.org</a>&ldquo;</p>
+    &quot;First-Name Last-Name &lt;your-id@domain.org&gt;&quot;
 
-<p>Real name: Robert First-Name Last-Name
+Real name: Robert First-Name Last-Name 
 Email address: your-id@apache.org
 Comment: CODE SIGNING KEY
 You selected this USER-ID:
-    &ldquo;First-Name Last-Name (CODE SIGNING KEY) <a href="mailto:your-id@apache.org">your-id@apache.org</a>&ldquo;
-[/code]</p>
+    &quot;First-Name Last-Name (CODE SIGNING KEY) &lt;your-id@apache.org&gt;&quot;
+</code></pre>
 
-<p>[code]
-Change (N)ame, &copy;omment, (E)mail or (O)kay/(Q)uit? O
+<pre><code>Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
 You need a Passphrase to protect your secret key.
-[/code]</p>
+</code></pre>
 
 <h4 id="2-check-that-sha1-is-avoided:a55d05ad15c95240857fdd7bd1629bb7">2. Check that SHA1 is Avoided</h4>
 
-<p>[code] $ gpg &ndash;edit-key KEY-ID [/code]</p>
+<p><code>$ gpg --edit-key KEY-ID</code></p>
 
-<p>[code]
-gpg (GnuPG) 1.4.10; Copyright &copy; 2008 Free Software Foundation, Inc.
+<pre><code>gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.</p>
+There is NO WARRANTY, to the extent permitted by law.
 
-<p>Secret key is available.</p>
+Secret key is available.
 
-<p>pub  4096R/<KEY-ID>  created: 2010-02-16  expires: never       usage: SC<br />
+pub  4096R/&lt;KEY-ID&gt;  created: 2010-02-16  expires: never       usage: SC  
                      trust: ultimate      validity: ultimate
-sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E<br />
-ultimate (1). First-Name Last-Name (CODE SIGNING KEY) <a href="mailto:user-id@apache.org">user-id@apache.org</a>
-[/code]</p>
+sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E   
+ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &lt;user-id@apache.org&gt;
+</code></pre>
 
-<p>[code] Command&gt; showpref [/code]</p>
+<p><code>Command&gt; showpref</code></p>
 
-<p>[code]
-ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
-<a href="mailto:user-id@apache.org">user-id@apache.org</a>
+<pre><code>ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
+&lt;user-id@apache.org&gt;
      Cipher: AES256, AES192, AES, CAST5, 3DES
      Digest: SHA512, SHA384, SHA256, SHA224, SHA1
      Compression: ZLIB, BZIP2, ZIP, Uncompressed
      Features: MDC, Keyserver no-modify
-[/code]</p>
+</code></pre>
 
 <p>Here SHA1 should appear last in the Digest section. If not enter below command to correct the order:</p>
 
-<p>[code] Command&gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed [/code]</p>
+<p><code>Command&gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed</code></p>
 
 <h4 id="3-export-the-private-key:a55d05ad15c95240857fdd7bd1629bb7">3. Export the Private Key</h4>
 
 <p>Export and keep the private key in a secure location:</p>
 
-<p>[code] $ gpg &ndash;export-secret-keys &ndash;armor &ndash;output private-key.sec [/code]</p>
+<p><code>$ gpg --export-secret-keys --armor --output private-key.sec</code></p>
 
 <h4 id="4-export-the-public-key:a55d05ad15c95240857fdd7bd1629bb7">4. Export the Public Key</h4>
 
 <p>Export the public key:</p>
 
-<p>[code] $ gpg &ndash;export &ndash;armor &ndash;output public-key.asc [/code]</p>
+<p><code>$ gpg --export --armor --output public-key.asc</code></p>
 
 <h4 id="5-send-the-public-key-to-a-server:a55d05ad15c95240857fdd7bd1629bb7">5. Send the Public Key to a Server</h4>
 
 <p>Send the public key to a preferred key server (pgp.mit.edu, pgpkeys.telering.at, pgp.surfnet.nl, etc):</p>
 
-<p>[code] $ gpg &ndash;keyserver SERVER-HOST &ndash;send-keys KEY-ID [/code]</p>
+<p><code>$ gpg --keyserver SERVER-HOST --send-keys KEY-ID</code></p>
 
 <p><strong>References:</strong></p>
 

@@ -23,53 +23,53 @@
 
 &lt;h4 id=&#34;prerequisites:44b86b14737d76c995bb84192bc26c97&#34;&gt;Prerequisites:&lt;/h4&gt;
 
-&lt;p&gt;[code] An Ubuntu 12.04 64bit host [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;An Ubuntu 12.04 64bit host&lt;/code&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;steps-to-follow:44b86b14737d76c995bb84192bc26c97&#34;&gt;Steps to follow:&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Take a git clone of the below git repository:
-[code] git clone &lt;a href=&#34;https://github.com/imesh/stratos-dev-stack.git&#34;&gt;https://github.com/imesh/stratos-dev-stack.git&lt;/a&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;git clone https://github.com/imesh/stratos-dev-stack.git&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Update install.sh with host private IP and IaaS configuration parameters:
-[code]
-host_private_ip=&amp;ldquo;&amp;rdquo;
-ec2_identity=&amp;ldquo;identity&amp;rdquo;
-ec2_credential=&amp;ldquo;credential&amp;rdquo;
-ec2_keypair_name=&amp;ldquo;keypair-name&amp;rdquo;
-ec2_owner_id=&amp;ldquo;owner-id&amp;rdquo;
-ec2_availability_zone=&amp;ldquo;availability-zone&amp;rdquo;
-ec2_security_groups=&amp;ldquo;security-groups&amp;rdquo;
-[/code]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Update install.sh with host private IP and IaaS configuration parameters:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
+&lt;pre&gt;&lt;code&gt;host_private_ip=&amp;quot;&amp;quot;
+ec2_identity=&amp;quot;identity&amp;quot;
+ec2_credential=&amp;quot;credential&amp;quot;
+ec2_keypair_name=&amp;quot;keypair-name&amp;quot;
+ec2_owner_id=&amp;quot;owner-id&amp;quot;
+ec2_availability_zone=&amp;quot;availability-zone&amp;quot;
+ec2_security_groups=&amp;quot;security-groups&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Grant install.sh executable access:
-[code] chmod +x install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;chmod +x install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Run install.sh with root permissions:
-[code] sudo ./install.sh [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;sudo ./install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.&lt;/p&gt;
 
 &lt;p&gt;Stratos dashboard URL could be found at the below link:
-[code] https://&lt;hostname&gt;:9443/console [/code]&lt;/p&gt;
+&lt;code&gt;https://&amp;lt;hostname&amp;gt;:9443/console&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:&lt;/p&gt;
 
-&lt;p&gt;[code]
-cd /tmp
-wget &lt;a href=&#34;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&#34;&gt;https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;cd /tmp
+wget https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh 
 chmod +x cartridge-creator.sh
 sudo ./cartridge-creator.sh
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;During this process it will prompt you to enter the puppet master IP, puppet master hostname, and service name, for those please enter the following:&lt;/p&gt;
 
-&lt;p&gt;[code]
-Puppet master IP: IP of the Stratos host
+&lt;pre&gt;&lt;code&gt;Puppet master IP: IP of the Stratos host
 Puppet master hostname: puppet.stratos.org
 Service name: default
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Once cartridge creation process is completed create an image from the running VM instance. Thereafter find the image id of the created image and use it as the cartridge image id in each &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Sample+Cartridge+Definition&#34;&gt;cartridge definition&lt;/a&gt;.&lt;/p&gt;
 </description>

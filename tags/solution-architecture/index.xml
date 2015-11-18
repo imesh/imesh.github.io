@@ -50,16 +50,16 @@
 &lt;li&gt;Download Apache Stratos binary packages from the website or build them from source.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;strong&gt;How to build from source:&lt;/strong&gt;
-[code]
-git clone &lt;a href=&#34;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&#34;&gt;https://git-wip-us.apache.org/repos/asf/incubator-stratos.git&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;How to build from source:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
 cd incubator-stratos
 mvn clean install
 cp stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-.zip
 cp stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-.zip
 cp stratos/products/elb/modules/distribution/target/apache-stratos-elb-.zip
 cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-.zip
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Create a new MySQL database user for stratos.&lt;/li&gt;
@@ -91,9 +91,8 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
 
 &lt;h3 id=&#34;removal:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Removal&lt;/h3&gt;
 
-&lt;p&gt;[code]
-sudo ./clean.sh -a mysql-username -b mysql-password
-[/code]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo ./clean.sh -a mysql-username -b mysql-password
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
 </description>

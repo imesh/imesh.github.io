@@ -70,32 +70,31 @@
 
 <p>Health statistics generator updates the health statistics map according to the statistics patterns defined in the Mock IaaS configuration. The following sample Mock IaaS configuration illustrates how these patterns could be defined for different cartridges:</p>
 
-<p>[code]
-<mock-iaas enabled="true">
-   <health-statistics>
-       <cartridge type="tomcat">
-           &lt;!&ndash; factor:memory-consumption|load-average|request-in-flight&ndash;&gt;
-           &lt;!&ndash; mode:loop|continue|stop &ndash;&gt;
-           &lt;!&ndash; Mode defines the action needs to be taken after the last sample value:
+<pre><code>&lt;mock-iaas enabled=&quot;true&quot;&gt;
+   &lt;health-statistics&gt;
+       &lt;cartridge type=&quot;tomcat&quot;&gt;
+           &lt;!-- factor:memory-consumption|load-average|request-in-flight--&gt;
+           &lt;!-- mode:loop|continue|stop --&gt;
+           &lt;!-- Mode defines the action needs to be taken after the last sample value:
                 loop: start from beginning
                 continue: continue the last sample value
-                stop: stop publishing statistics &ndash;&gt;
-           <pattern factor="memory-consumption" mode="continue">
-               &lt;!&ndash; Sample values &ndash;&gt;
-               <sampleValues>20,30,40,50,60,70,50,40,30,20</sampleValues>
-               &lt;!&ndash; Duration of each sample value in seconds &ndash;&gt;
-               <sampleDuration>60</sampleDuration>
-           </pattern>
-           <pattern factor="load-average" mode="continue">
-               &lt;!&ndash; Sample values &ndash;&gt;
-               <sampleValues>20</sampleValues>
-               &lt;!&ndash; Duration of each sample value in seconds &ndash;&gt;
-               <sampleDuration>60</sampleDuration>
-           </pattern>
-       </cartridge>
-   </health-statistics>
-</mock-iaas>
-[/code]</p>
+                stop: stop publishing statistics --&gt;
+           &lt;pattern factor=&quot;memory-consumption&quot; mode=&quot;continue&quot;&gt;
+               &lt;!-- Sample values --&gt;
+               &lt;sampleValues&gt;20,30,40,50,60,70,50,40,30,20&lt;/sampleValues&gt;
+               &lt;!-- Duration of each sample value in seconds --&gt;
+               &lt;sampleDuration&gt;60&lt;/sampleDuration&gt;
+           &lt;/pattern&gt;
+           &lt;pattern factor=&quot;load-average&quot; mode=&quot;continue&quot;&gt;
+               &lt;!-- Sample values --&gt;
+               &lt;sampleValues&gt;20&lt;/sampleValues&gt;
+               &lt;!-- Duration of each sample value in seconds --&gt;
+               &lt;sampleDuration&gt;60&lt;/sampleDuration&gt;
+           &lt;/pattern&gt;
+       &lt;/cartridge&gt;
+   &lt;/health-statistics&gt;
+&lt;/mock-iaas&gt;
+</code></pre>
 
 <p>In the above sample we have defined a health statistics generation pattern for tomcat cartridge. Similarly we can define multiple health statistics generation patterns for different cartridges. Under each cartridge its possible to define three different autoscaling factors: memory-consumption|load-average|request-in-flight. Mock health statistics generator will generate statistics for each factor for the given cartridge and update the central health statistics map. In each pattern mode attribute defines the action that needs to be taken once the last sample value is reached. If this is set to loop, mock health statistics generator will loop back to the first value. If it is set to continue the last sample value will be continued. If it is set to stop, health statistics generation process will be stopped and eventually health statistics publishing process will also stop. Finally the members in that cluster will become faulty.</p>
 

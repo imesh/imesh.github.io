@@ -43,14 +43,14 @@
 <ol>
 <li>Download AS 5.2.0 binary distribution and extract to a desired location.</li>
 <li>Set the following property to false in repository/conf/carbon.xml
-[code] <hideadminservicewsdls>false</hideadminservicewsdls> [/code]</li>
+<code>&lt;hideadminservicewsdls&gt;false&lt;/hideadminservicewsdls&gt;</code></li>
 </ol>
 
-<p>This will expose the Administrative Services WSDLs and we may need to access the following services:
-[code]
-1. <a href="https://host-name:9443/services/AuthenticationAdmin?wsdl">https://host-name:9443/services/AuthenticationAdmin?wsdl</a>
-2. <a href="https://host-name:9443/services/ApplicationAdmin?wsdl">https://host-name:9443/services/ApplicationAdmin?wsdl</a>
-[/code]</p>
+<p>This will expose the Administrative Services WSDLs and we may need to access the following services:</p>
+
+<pre><code>1. https://host-name:9443/services/AuthenticationAdmin?wsdl
+2. https://host-name:9443/services/ApplicationAdmin?wsdl
+</code></pre>
 
 <ol>
 <li><p>Invoke the login() method at <a href="https://host-name:9443/services/AuthenticationAdmin">https://host-name:9443/services/AuthenticationAdmin</a> service. This method will return a Session ID on the HTTP response header and it may look like below:
@@ -59,9 +59,8 @@ JSESSIONID=45A850DF90CA6A009AD875CF5EF61460</p></li>
 <li><p>Invoke listAllApplications() method at <a href="https://host-name:9443/services/ApplicationAdmin">https://host-name:9443/services/ApplicationAdmin</a> service while passing the Session ID on the HTTP request header as an Cookie. This request may look like below:</p></li>
 </ol>
 
-<p>[code]
-– Request –
-POST <a href="https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/">https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/</a> HTTP/1.1
+<pre><code>– Request –
+POST https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/ HTTP/1.1
 Accept-Encoding: gzip,deflate
 Content-Type: text/xml;charset=UTF-8
 SOAPAction: “urn:listAllApplications”
@@ -69,19 +68,19 @@ COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
 Content-Length: 238
 Host: host-name:9443
 Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)</p>
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-<p>– Response –
-<soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”>
-   <a href="soapenv:Body">soapenv:Body</a>
-      <ns:listAllApplicationsResponse 
+– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;soapenv:Body&gt;
+      &lt;ns:listAllApplicationsResponse 
           xmlns:ns=”http://mgt.application.carbon.wso2.org” 
-          xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”>
-         <a href="ns:return">ns:return</a>HelloCar_1.0.0<a href="http://imesh.github.io:80/ns:return">/ns:return</a>
-      <a href="http://imesh.github.io:80/ns:listAllApplicationsResponse">/ns:listAllApplicationsResponse</a>
-   <a href="http://imesh.github.io:80/soapenv:Body">/soapenv:Body</a>
-<a href="http://imesh.github.io:80/soapenv:Envelope">/soapenv:Envelope</a>
-[/code]</p>
+          xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd”&gt;
+         &lt;ns:return&gt;HelloCar_1.0.0&lt;/ns:return&gt;
+      &lt;/ns:listAllApplicationsResponse&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</code></pre>
 
 <p>On the response body you could see the available CApps listed.</p>
 
@@ -89,9 +88,8 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)</p>
 <li>Now invoke getAppData() method at <a href="https://host-name:9443/services/ApplicationAdmin">https://host-name:9443/services/ApplicationAdmin</a> service with the required CApp name and Session ID:</li>
 </ol>
 
-<p>[code]
-– Request –
-POST <a href="https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/">https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/</a> HTTP/1.1
+<pre><code>– Request –
+POST https://host-name:9443/services/ApplicationAdmin.ApplicationAdminHttpsSoap11Endpoint/ HTTP/1.1
 Accept-Encoding: gzip,deflate
 Content-Type: text/xml;charset=UTF-8
 SOAPAction: “urn:getAppData”
@@ -99,26 +97,26 @@ COOKIE: JSESSIONID=45A850DF90CA6A009AD875CF5EF61460
 Content-Length: 329
 Host: host-name:9443
 Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)</p>
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-<p>– Response –
-<soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”>
-   <a href="soapenv:Body">soapenv:Body</a>
-      <ns:getAppDataResponse xmlns:ns=”http://mgt.application.carbon.wso2.org”>
-         <ns:return xsi:type=”ax27:ApplicationMetadata” 
+– Response –
+&lt;soapenv:Envelope xmlns:soapenv=”http://schemas.xmlsoap.org/soap/envelope/”&gt;
+   &lt;soapenv:Body&gt;
+      &lt;ns:getAppDataResponse xmlns:ns=”http://mgt.application.carbon.wso2.org”&gt;
+         &lt;ns:return xsi:type=”ax27:ApplicationMetadata” 
                     xmlns:ax27=”http://mgt.application.carbon.wso2.org/xsd” 
-                    xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”>
-            <a href="ax27:appName">ax27:appName</a>HelloCar<a href="http://imesh.github.io:80/ax27:appName">/ax27:appName</a>
-            <a href="ax27:appVersion">ax27:appVersion</a>1.0.0<a href="http://imesh.github.io:80/ax27:appVersion">/ax27:appVersion</a>
-            <ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”>
-               <a href="ax27:artifactName">ax27:artifactName</a>HelloCarService<a href="http://imesh.github.io:80/ax27:artifactName">/ax27:artifactName</a>
-               <a href="ax27:deploymentStatus">ax27:deploymentStatus</a>Deployed<a href="http://imesh.github.io:80/ax27:deploymentStatus">/ax27:deploymentStatus</a>
-            <a href="http://imesh.github.io:80/ax27:artifactsDeploymentStatus">/ax27:artifactsDeploymentStatus</a>
-         <a href="http://imesh.github.io:80/ns:return">/ns:return</a>
-      <a href="http://imesh.github.io:80/ns:getAppDataResponse">/ns:getAppDataResponse</a>
-   <a href="http://imesh.github.io:80/soapenv:Body">/soapenv:Body</a>
-<a href="http://imesh.github.io:80/soapenv:Envelope">/soapenv:Envelope</a>
-[/code]</p>
+                    xmlns:xsi=”http://www.w3.org/2001/XMLSchema-instance”&gt;
+            &lt;ax27:appName&gt;HelloCar&lt;/ax27:appName&gt;
+            &lt;ax27:appVersion&gt;1.0.0&lt;/ax27:appVersion&gt;
+            &lt;ax27:artifactsDeploymentStatus xsi:type=”ax27:ArtifactDeploymentStatus”&gt;
+               &lt;ax27:artifactName&gt;HelloCarService&lt;/ax27:artifactName&gt;
+               &lt;ax27:deploymentStatus&gt;Deployed&lt;/ax27:deploymentStatus&gt;
+            &lt;/ax27:artifactsDeploymentStatus&gt;
+         &lt;/ns:return&gt;
+      &lt;/ns:getAppDataResponse&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+</code></pre>
 
 <p>Here on the response body you could see the deployment status of the CApps and their artifacts.</p>
 

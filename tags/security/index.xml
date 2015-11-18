@@ -21,18 +21,18 @@
 &lt;li&gt;&lt;p&gt;Download WSO2 ESB 4.8.1 and IS 4.5.0.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Extract ESB distribution and set the offset to 1 in carbon.xml file.
-[code] &lt;offset&gt;1&lt;/offset&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;&amp;lt;offset&amp;gt;1&amp;lt;/offset&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] &lt;HideAdminServiceWSDLs&gt;false&lt;/HideAdminServiceWSDLs&gt; [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;HideAdminServiceWSDLs&amp;gt;false&amp;lt;/HideAdminServiceWSDLs&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Now start IS with OSGi console enabled:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] sh &lt;IS-HOME&gt;/bin/wso2server.sh -DosgiConsole [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sh &amp;lt;IS-HOME&amp;gt;/bin/wso2server.sh -DosgiConsole&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.&lt;/p&gt;&lt;/li&gt;
@@ -40,7 +40,7 @@
 &lt;li&gt;&lt;p&gt;In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] &lt;a href=&#34;https://localhost:9443/services/UserAdmin?wsdl&#34;&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/a&gt; [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Now create an in sequence in ESB with the following content:&lt;/li&gt;
@@ -70,20 +70,18 @@
             &lt;address uri=&#34;https://localhost:9443/services/UserAdmin&#34; format=&#34;soap12&#34;/&gt;
         &lt;/endpoint&gt;
     &lt;/send&gt;
-&lt;/sequence&gt;
-[/code]&lt;/p&gt;
+&lt;/sequence&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Create an out sequence with the following content:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+8. Create an out sequence with the following content:
 
-&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
-&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersOutSeq&#34;&gt;
-    &lt;log level=&#34;full&#34;/&gt;
-    &lt;property name=&#34;messageType&#34; value=&#34;application/json&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
-    &lt;send/&gt;
-&lt;/sequence&gt;
-[/code]&lt;/p&gt;
+[code lang=&amp;quot;xml&amp;quot; escaped=&amp;quot;true&amp;quot;]
+&amp;lt;sequence xmlns=&amp;quot;http://ws.apache.org/ns/synapse&amp;quot; name=&amp;quot;ListUsersOutSeq&amp;quot;&amp;gt;
+    &amp;lt;log level=&amp;quot;full&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;messageType&amp;quot; value=&amp;quot;application/json&amp;quot; scope=&amp;quot;axis2&amp;quot; type=&amp;quot;STRING&amp;quot;/&amp;gt;
+    &amp;lt;send/&amp;gt;
+&amp;lt;/sequence&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Create an API with the following content:&lt;/li&gt;
@@ -94,27 +92,27 @@
     &lt;resource methods=&#34;GET&#34; inSequence=&#34;ListUsersInSeq&#34; outSequence=&#34;ListUsersOutSeq&#34;&gt;
         &lt;faultSequence/&gt;
     &lt;/resource&gt;
-&lt;/api&gt;
-[/code]&lt;/p&gt;
+&lt;/api&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Send a HTTP GET request to the listUsers API:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+10. Send a HTTP GET request to the listUsers API:
 
-&lt;p&gt;Request:
-[code]
-curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;
-[/code]&lt;/p&gt;
+Request:
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Response:
-[code]
-{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
+&lt;p&gt;curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+Response:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
    {&amp;ldquo;return&amp;rdquo;:[ {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:true,
 &amp;ldquo;itemDisplayName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;itemName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false},
                        {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:false,
 &amp;ldquo;itemDisplayName&amp;rdquo;:null,&amp;ldquo;itemName&amp;rdquo;:false,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false}
 ]}}
-[/code]&lt;/p&gt;
+````&lt;/p&gt;
 </description>
     </item>
     
@@ -128,102 +126,96 @@ curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=1
 
 &lt;h4 id=&#34;1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;1. Generate a Self Signed Key&lt;/h4&gt;
 
-&lt;p&gt;[code] $ gpg &amp;ndash;gen-key [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ gpg --gen-key&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;[code]
-gpg (GnuPG) 1.4.10; Copyright &amp;copy; 2008 Free Software Foundation, Inc.
+&lt;pre&gt;&lt;code&gt;gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.&lt;/p&gt;
+There is NO WARRANTY, to the extent permitted by law.
 
-&lt;p&gt;Please select what kind of key you want:
+Please select what kind of key you want:
    (1) RSA and RSA (default)
    (2) DSA and Elgamal
    (3) DSA (sign only)
    (4) RSA (sign only)
 Your selection? 1
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;[code]
-RSA keys may be between 1024 and 4096 bits long.
+&lt;pre&gt;&lt;code&gt;RSA keys may be between 1024 and 4096 bits long.
 What keysize do you want? (2048) 4096
 Requested keysize is 4096 bits
 Please specify how long the key should be valid.
          0 = key does not expire
-      &lt;n&gt;  = key expires in n days
-      &lt;n&gt;w = key expires in n weeks
-      &lt;n&gt;m = key expires in n months
-      &lt;n&gt;y = key expires in n years
-Key is valid for? (0)
+      &amp;lt;n&amp;gt;  = key expires in n days
+      &amp;lt;n&amp;gt;w = key expires in n weeks
+      &amp;lt;n&amp;gt;m = key expires in n months
+      &amp;lt;n&amp;gt;y = key expires in n years
+Key is valid for? (0) 
 Key does not expire at all
 Is this correct? (y/N) y
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;[code]
-You need a user ID to identify your key; the software constructs the user ID
+&lt;pre&gt;&lt;code&gt;You need a user ID to identify your key; the software constructs the user ID
 from the Real Name, Comment and Email Address in this form:
-    &amp;ldquo;First-Name Last-Name &lt;a href=&#34;mailto:your-id@domain.org&#34;&gt;your-id@domain.org&lt;/a&gt;&amp;ldquo;&lt;/p&gt;
+    &amp;quot;First-Name Last-Name &amp;lt;your-id@domain.org&amp;gt;&amp;quot;
 
-&lt;p&gt;Real name: Robert First-Name Last-Name
+Real name: Robert First-Name Last-Name 
 Email address: your-id@apache.org
 Comment: CODE SIGNING KEY
 You selected this USER-ID:
-    &amp;ldquo;First-Name Last-Name (CODE SIGNING KEY) &lt;a href=&#34;mailto:your-id@apache.org&#34;&gt;your-id@apache.org&lt;/a&gt;&amp;ldquo;
-[/code]&lt;/p&gt;
+    &amp;quot;First-Name Last-Name (CODE SIGNING KEY) &amp;lt;your-id@apache.org&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;[code]
-Change (N)ame, &amp;copy;omment, (E)mail or (O)kay/(Q)uit? O
+&lt;pre&gt;&lt;code&gt;Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
 You need a Passphrase to protect your secret key.
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;2-check-that-sha1-is-avoided:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;2. Check that SHA1 is Avoided&lt;/h4&gt;
 
-&lt;p&gt;[code] $ gpg &amp;ndash;edit-key KEY-ID [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ gpg --edit-key KEY-ID&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;[code]
-gpg (GnuPG) 1.4.10; Copyright &amp;copy; 2008 Free Software Foundation, Inc.
+&lt;pre&gt;&lt;code&gt;gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.&lt;/p&gt;
+There is NO WARRANTY, to the extent permitted by law.
 
-&lt;p&gt;Secret key is available.&lt;/p&gt;
+Secret key is available.
 
-&lt;p&gt;pub  4096R/&lt;KEY-ID&gt;  created: 2010-02-16  expires: never       usage: SC&lt;br /&gt;
+pub  4096R/&amp;lt;KEY-ID&amp;gt;  created: 2010-02-16  expires: never       usage: SC  
                      trust: ultimate      validity: ultimate
-sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E&lt;br /&gt;
-ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &lt;a href=&#34;mailto:user-id@apache.org&#34;&gt;user-id@apache.org&lt;/a&gt;
-[/code]&lt;/p&gt;
+sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E   
+ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &amp;lt;user-id@apache.org&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;[code] Command&amp;gt; showpref [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Command&amp;gt; showpref&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;[code]
-ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
-&lt;a href=&#34;mailto:user-id@apache.org&#34;&gt;user-id@apache.org&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
+&amp;lt;user-id@apache.org&amp;gt;
      Cipher: AES256, AES192, AES, CAST5, 3DES
      Digest: SHA512, SHA384, SHA256, SHA224, SHA1
      Compression: ZLIB, BZIP2, ZIP, Uncompressed
      Features: MDC, Keyserver no-modify
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Here SHA1 should appear last in the Digest section. If not enter below command to correct the order:&lt;/p&gt;
 
-&lt;p&gt;[code] Command&amp;gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Command&amp;gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed&lt;/code&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;3-export-the-private-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;3. Export the Private Key&lt;/h4&gt;
 
 &lt;p&gt;Export and keep the private key in a secure location:&lt;/p&gt;
 
-&lt;p&gt;[code] $ gpg &amp;ndash;export-secret-keys &amp;ndash;armor &amp;ndash;output private-key.sec [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ gpg --export-secret-keys --armor --output private-key.sec&lt;/code&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;4-export-the-public-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;4. Export the Public Key&lt;/h4&gt;
 
 &lt;p&gt;Export the public key:&lt;/p&gt;
 
-&lt;p&gt;[code] $ gpg &amp;ndash;export &amp;ndash;armor &amp;ndash;output public-key.asc [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ gpg --export --armor --output public-key.asc&lt;/code&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;5-send-the-public-key-to-a-server:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;5. Send the Public Key to a Server&lt;/h4&gt;
 
 &lt;p&gt;Send the public key to a preferred key server (pgp.mit.edu, pgpkeys.telering.at, pgp.surfnet.nl, etc):&lt;/p&gt;
 
-&lt;p&gt;[code] $ gpg &amp;ndash;keyserver SERVER-HOST &amp;ndash;send-keys KEY-ID [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ gpg --keyserver SERVER-HOST --send-keys KEY-ID&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
 

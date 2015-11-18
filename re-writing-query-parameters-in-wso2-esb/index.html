@@ -36,25 +36,24 @@
                 <section id="post-body">
                     <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.</p>
 
-<p>[code]
-<property name="URL" value="http://host:8280?p1=abc&amp;p2=qwe"/>
-<filter source="$ctx:URL" regex=".*format=.*">
-    <then>
-         &lt;!&ndash; format query parameter found in URL, replace it &ndash;&gt;
-         <property name="URL_UPDATED"
-                   expression="replace($ctx:URL, 'format=([^&amp;]*)', 'format=xml')"/>
-    </then>
-    <else>
-         &lt;!&ndash; format query parameter not found in URL, add it &ndash;&gt;
-         <property name="URL_UPDATED" 
-                   expression="concat($ctx:URL, '&amp;format=xml')"/>
-    </else>
-</filter>
-<log level="custom">
-    <property name="-- original --" expression="$ctx:URL"/>
-    <property name="-- updated --" expression="$ctx:URL_UPDATED"/>
-</log>
-[/code]</p>
+<pre><code>&lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt;
+&lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt;
+    &lt;then&gt;
+         &lt;!-- format query parameter found in URL, replace it --&gt;
+         &lt;property name=&quot;URL_UPDATED&quot;
+                   expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt;
+    &lt;/then&gt;
+    &lt;else&gt;
+         &lt;!-- format query parameter not found in URL, add it --&gt;
+         &lt;property name=&quot;URL_UPDATED&quot; 
+                   expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt;
+    &lt;/else&gt;
+&lt;/filter&gt;
+&lt;log level=&quot;custom&quot;&gt;
+    &lt;property name=&quot;-- original --&quot; expression=&quot;$ctx:URL&quot;/&gt;
+    &lt;property name=&quot;-- updated --&quot; expression=&quot;$ctx:URL_UPDATED&quot;/&gt;
+&lt;/log&gt;
+</code></pre>
 
                 </section>
             </article>

@@ -21,18 +21,18 @@
 &lt;li&gt;&lt;p&gt;Download WSO2 ESB 4.8.1 and IS 4.5.0.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Extract ESB distribution and set the offset to 1 in carbon.xml file.
-[code] &lt;offset&gt;1&lt;/offset&gt; [/code]&lt;/p&gt;&lt;/li&gt;
+&lt;code&gt;&amp;lt;offset&amp;gt;1&amp;lt;/offset&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] &lt;HideAdminServiceWSDLs&gt;false&lt;/HideAdminServiceWSDLs&gt; [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;HideAdminServiceWSDLs&amp;gt;false&amp;lt;/HideAdminServiceWSDLs&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Now start IS with OSGi console enabled:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] sh &lt;IS-HOME&gt;/bin/wso2server.sh -DosgiConsole [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sh &amp;lt;IS-HOME&amp;gt;/bin/wso2server.sh -DosgiConsole&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.&lt;/p&gt;&lt;/li&gt;
@@ -40,7 +40,7 @@
 &lt;li&gt;&lt;p&gt;In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;[code] &lt;a href=&#34;https://localhost:9443/services/UserAdmin?wsdl&#34;&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/a&gt; [/code]&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://localhost:9443/services/UserAdmin?wsdl&lt;/code&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Now create an in sequence in ESB with the following content:&lt;/li&gt;
@@ -70,20 +70,18 @@
             &lt;address uri=&#34;https://localhost:9443/services/UserAdmin&#34; format=&#34;soap12&#34;/&gt;
         &lt;/endpoint&gt;
     &lt;/send&gt;
-&lt;/sequence&gt;
-[/code]&lt;/p&gt;
+&lt;/sequence&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Create an out sequence with the following content:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+8. Create an out sequence with the following content:
 
-&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo; escaped=&amp;ldquo;true&amp;rdquo;]
-&lt;sequence xmlns=&#34;http://ws.apache.org/ns/synapse&#34; name=&#34;ListUsersOutSeq&#34;&gt;
-    &lt;log level=&#34;full&#34;/&gt;
-    &lt;property name=&#34;messageType&#34; value=&#34;application/json&#34; scope=&#34;axis2&#34; type=&#34;STRING&#34;/&gt;
-    &lt;send/&gt;
-&lt;/sequence&gt;
-[/code]&lt;/p&gt;
+[code lang=&amp;quot;xml&amp;quot; escaped=&amp;quot;true&amp;quot;]
+&amp;lt;sequence xmlns=&amp;quot;http://ws.apache.org/ns/synapse&amp;quot; name=&amp;quot;ListUsersOutSeq&amp;quot;&amp;gt;
+    &amp;lt;log level=&amp;quot;full&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;messageType&amp;quot; value=&amp;quot;application/json&amp;quot; scope=&amp;quot;axis2&amp;quot; type=&amp;quot;STRING&amp;quot;/&amp;gt;
+    &amp;lt;send/&amp;gt;
+&amp;lt;/sequence&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Create an API with the following content:&lt;/li&gt;
@@ -94,27 +92,27 @@
     &lt;resource methods=&#34;GET&#34; inSequence=&#34;ListUsersInSeq&#34; outSequence=&#34;ListUsersOutSeq&#34;&gt;
         &lt;faultSequence/&gt;
     &lt;/resource&gt;
-&lt;/api&gt;
-[/code]&lt;/p&gt;
+&lt;/api&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Send a HTTP GET request to the listUsers API:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+10. Send a HTTP GET request to the listUsers API:
 
-&lt;p&gt;Request:
-[code]
-curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;
-[/code]&lt;/p&gt;
+Request:
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Response:
-[code]
-{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
+&lt;p&gt;curl -v &lt;a href=&#34;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&#34;&gt;http://localhost:8281/listUsers?filter=*&amp;amp;limit=10&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+Response:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;{&amp;ldquo;listAllUsersResponse&amp;rdquo;:
    {&amp;ldquo;return&amp;rdquo;:[ {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:true,
 &amp;ldquo;itemDisplayName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;itemName&amp;rdquo;:&amp;ldquo;admin&amp;rdquo;,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false},
                        {&amp;ldquo;@type&amp;rdquo;:&amp;ldquo;ax2629:FlaggedName&amp;rdquo;,&amp;ldquo;dn&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;domainName&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;editable&amp;rdquo;:false,
 &amp;ldquo;itemDisplayName&amp;rdquo;:null,&amp;ldquo;itemName&amp;rdquo;:false,&amp;ldquo;readOnly&amp;rdquo;:false,&amp;ldquo;roleType&amp;rdquo;:{&amp;ldquo;@nil&amp;rdquo;:&amp;ldquo;true&amp;rdquo;},&amp;ldquo;selected&amp;rdquo;:false,&amp;ldquo;shared&amp;rdquo;:false}
 ]}}
-[/code]&lt;/p&gt;
+````&lt;/p&gt;
 </description>
     </item>
     

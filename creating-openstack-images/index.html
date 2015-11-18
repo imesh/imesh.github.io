@@ -44,31 +44,31 @@
 
 <p>Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. If its a different operating system please refer <a href="http://docs.openstack.org/user-guide/content/install_clients.html">OpenStack documentation</a> for details.</p>
 
-<p>[code] sudo apt-get install python-novaclient python-glanceclient swift [/code]</p>
+<p><code>sudo apt-get install python-novaclient python-glanceclient swift</code></p>
 
 <h4 id="list-running-instances:6fae9e073b885600c760dbaf63796078">List Running Instances:</h4>
 
 <p>Next execute the below command to list the running instances.</p>
 
-<p>[code] nova list [/code]</p>
+<p><code>nova list</code></p>
 
 <h4 id="create-an-image-from-a-running-instance:6fae9e073b885600c760dbaf63796078">Create an Image from a Running Instance:</h4>
 
 <p>Select the instance that needs to be exported as an image and execute the below command.</p>
 
-<p>[code] nova create-image <image-id> <new-image-name> [/code]</p>
+<p><code>nova create-image &lt;image-id&gt; &lt;new-image-name&gt;</code></p>
 
 <h4 id="download-an-image-to-disk:6fae9e073b885600c760dbaf63796078">Download an Image to Disk:</h4>
 
 <p>Execute the below command to download the created image as a file.</p>
 
-<p>[code] glance image-download <image-id> &ndash;file <file-name>.img [/code]</p>
+<p><code>glance image-download &lt;image-id&gt; --file &lt;file-name&gt;.img</code></p>
 
 <h4 id="create-an-image-from-an-image-file:6fae9e073b885600c760dbaf63796078">Create an Image from an Image File:</h4>
 
 <p>Now if you want to upload an existing image file to an OpenStack instance execute the below command.</p>
 
-<p>[code] glance image-create &ndash;name=&ldquo;image-name&rdquo; &ndash;is-public=false &ndash;container-format=ami &ndash;disk-format=ami &lt; file-name.img [/code]</p>
+<p><code>glance image-create --name=&quot;image-name&quot; --is-public=false --container-format=ami --disk-format=ami &lt; file-name.img</code></p>
 
 <p><strong>Notes:</strong>
 OpenStack Grizzly release has following components: Object Store (Swift), Image Store (Glance), Compute (Nova), Dashboard (Horizon), Identity (Keystone), Network (Quantum) and Block Storage (Cinder).</p>

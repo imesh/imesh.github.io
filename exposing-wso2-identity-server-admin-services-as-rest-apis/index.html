@@ -40,18 +40,18 @@
 <li><p>Download WSO2 ESB 4.8.1 and IS 4.5.0.</p></li>
 
 <li><p>Extract ESB distribution and set the offset to 1 in carbon.xml file.
-[code] <offset>1</offset> [/code]</p></li>
+<code>&lt;offset&gt;1&lt;/offset&gt;</code></p></li>
 
 <li><p>Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.</p></li>
 </ol>
 
-<p>[code] <HideAdminServiceWSDLs>false</HideAdminServiceWSDLs> [/code]</p>
+<p><code>&lt;HideAdminServiceWSDLs&gt;false&lt;/HideAdminServiceWSDLs&gt;</code></p>
 
 <ol>
 <li>Now start IS with OSGi console enabled:</li>
 </ol>
 
-<p>[code] sh <IS-HOME>/bin/wso2server.sh -DosgiConsole [/code]</p>
+<p><code>sh &lt;IS-HOME&gt;/bin/wso2server.sh -DosgiConsole</code></p>
 
 <ol>
 <li><p>Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.</p></li>
@@ -59,7 +59,7 @@
 <li><p>In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:</p></li>
 </ol>
 
-<p>[code] <a href="https://localhost:9443/services/UserAdmin?wsdl">https://localhost:9443/services/UserAdmin?wsdl</a> [/code]</p>
+<p><code>https://localhost:9443/services/UserAdmin?wsdl</code></p>
 
 <ol>
 <li>Now create an in sequence in ESB with the following content:</li>
@@ -89,20 +89,18 @@
             <address uri="https://localhost:9443/services/UserAdmin" format="soap12"/>
         </endpoint>
     </send>
-</sequence>
-[/code]</p>
+</sequence></p>
 
-<ol>
-<li>Create an out sequence with the following content:</li>
-</ol>
+<pre><code>
+8. Create an out sequence with the following content:
 
-<p>[code lang=&ldquo;xml&rdquo; escaped=&ldquo;true&rdquo;]
-<sequence xmlns="http://ws.apache.org/ns/synapse" name="ListUsersOutSeq">
-    <log level="full"/>
-    <property name="messageType" value="application/json" scope="axis2" type="STRING"/>
-    <send/>
-</sequence>
-[/code]</p>
+[code lang=&quot;xml&quot; escaped=&quot;true&quot;]
+&lt;sequence xmlns=&quot;http://ws.apache.org/ns/synapse&quot; name=&quot;ListUsersOutSeq&quot;&gt;
+    &lt;log level=&quot;full&quot;/&gt;
+    &lt;property name=&quot;messageType&quot; value=&quot;application/json&quot; scope=&quot;axis2&quot; type=&quot;STRING&quot;/&gt;
+    &lt;send/&gt;
+&lt;/sequence&gt;
+</code></pre>
 
 <ol>
 <li>Create an API with the following content:</li>
@@ -113,27 +111,27 @@
     <resource methods="GET" inSequence="ListUsersInSeq" outSequence="ListUsersOutSeq">
         <faultSequence/>
     </resource>
-</api>
-[/code]</p>
+</api></p>
 
-<ol>
-<li>Send a HTTP GET request to the listUsers API:</li>
-</ol>
+<pre><code>
+10. Send a HTTP GET request to the listUsers API:
 
-<p>Request:
-[code]
-curl -v <a href="http://localhost:8281/listUsers?filter=*&amp;limit=10">http://localhost:8281/listUsers?filter=*&amp;limit=10</a>
-[/code]</p>
+Request:
+</code></pre>
 
-<p>Response:
-[code]
-{&ldquo;listAllUsersResponse&rdquo;:
+<p>curl -v <a href="http://localhost:8281/listUsers?filter=*&amp;limit=10">http://localhost:8281/listUsers?filter=*&amp;limit=10</a></p>
+
+<pre><code>
+Response:
+</code></pre>
+
+<p>{&ldquo;listAllUsersResponse&rdquo;:
    {&ldquo;return&rdquo;:[ {&ldquo;@type&rdquo;:&ldquo;ax2629:FlaggedName&rdquo;,&ldquo;dn&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;domainName&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;editable&rdquo;:true,
 &ldquo;itemDisplayName&rdquo;:&ldquo;admin&rdquo;,&ldquo;itemName&rdquo;:&ldquo;admin&rdquo;,&ldquo;readOnly&rdquo;:false,&ldquo;roleType&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;selected&rdquo;:false,&ldquo;shared&rdquo;:false},
                        {&ldquo;@type&rdquo;:&ldquo;ax2629:FlaggedName&rdquo;,&ldquo;dn&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;domainName&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;editable&rdquo;:false,
 &ldquo;itemDisplayName&rdquo;:null,&ldquo;itemName&rdquo;:false,&ldquo;readOnly&rdquo;:false,&ldquo;roleType&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;selected&rdquo;:false,&ldquo;shared&rdquo;:false}
 ]}}
-[/code]</p>
+````</p>
 
                 </section>
             </article>

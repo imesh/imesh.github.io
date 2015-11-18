@@ -42,41 +42,46 @@ org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5)
       EIPConstants.MESSAGE_SEQUENCE + &amp;ldquo;.&amp;rdquo; + id,
       msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
       &amp;hellip;
-   }
-[/code]&lt;/p&gt;
+   }&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.&lt;/li&gt;
-&lt;li&gt;Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;
+- Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.
+- Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.
 
-&lt;h3 id=&#34;out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;Out Mediation Flow&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-Out-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).&lt;/li&gt;
-&lt;li&gt;In addition any messages that may get timeout by the endpoint will trigger the fault sequence.&lt;/li&gt;
-&lt;li&gt;Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.&lt;/li&gt;
-&lt;li&gt;Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.&lt;/li&gt;
-&lt;li&gt;Then the Aggregate Mediator will wait until responses to all the sub messages are received:&lt;/li&gt;
-&lt;/ul&gt;
+### Out Mediation Flow
 
-&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
+
+  
+
+
+
+
+[![ESB-Iterate-Aggregate-Out-Flow](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)
+
+
+- All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).
+- In addition any messages that may get timeout by the endpoint will trigger the fault sequence.
+- Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.
+- Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.
+- Then the Aggregate Mediator will wait until responses to all the sub messages are received:
+
+[code lang=&amp;quot;java&amp;quot;]
 org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
    public synchronised boolean isComplete() {
-   &amp;hellip;
+   ...
       String[] msgSequence = prop.toString().split(
       EIPConstants.MESSAGE_SEQUENCE_DELEMITER);
       int total = Integer.parseInt(msgSequence[1]);
-      &amp;hellip;
-      if (messages.size() &amp;gt;= total) {
-         synLog.traceOrDebug(&amp;ldquo;Aggregation complete&amp;rdquo;);
+      ...
+      if (messages.size() &amp;amp;gt;= total) {
+         synLog.traceOrDebug(&amp;quot;Aggregation complete&amp;quot;);
          return true;
       }
-      &amp;hellip;
+      ...
    }
-[/code]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
 &lt;li&gt;To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:&lt;/li&gt;
@@ -92,7 +97,7 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
     &lt;/onComplete&gt;
 &lt;/aggregate&gt;
 &lt;/code&gt;
-[/code]&lt;/p&gt;
+````&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.&lt;/li&gt;

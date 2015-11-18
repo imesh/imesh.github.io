@@ -42,53 +42,53 @@
 
 <h4 id="prerequisites:44b86b14737d76c995bb84192bc26c97">Prerequisites:</h4>
 
-<p>[code] An Ubuntu 12.04 64bit host [/code]</p>
+<p><code>An Ubuntu 12.04 64bit host</code></p>
 
 <h4 id="steps-to-follow:44b86b14737d76c995bb84192bc26c97">Steps to follow:</h4>
 
 <ol>
 <li><p>Take a git clone of the below git repository:
-[code] git clone <a href="https://github.com/imesh/stratos-dev-stack.git">https://github.com/imesh/stratos-dev-stack.git</a> [/code]</p></li>
+<code>git clone https://github.com/imesh/stratos-dev-stack.git</code></p></li>
 
-<li><p>Update install.sh with host private IP and IaaS configuration parameters:
-[code]
-host_private_ip=&ldquo;&rdquo;
-ec2_identity=&ldquo;identity&rdquo;
-ec2_credential=&ldquo;credential&rdquo;
-ec2_keypair_name=&ldquo;keypair-name&rdquo;
-ec2_owner_id=&ldquo;owner-id&rdquo;
-ec2_availability_zone=&ldquo;availability-zone&rdquo;
-ec2_security_groups=&ldquo;security-groups&rdquo;
-[/code]</p></li>
+<li><p>Update install.sh with host private IP and IaaS configuration parameters:</p></li>
+</ol>
 
+<pre><code>host_private_ip=&quot;&quot;
+ec2_identity=&quot;identity&quot;
+ec2_credential=&quot;credential&quot;
+ec2_keypair_name=&quot;keypair-name&quot;
+ec2_owner_id=&quot;owner-id&quot;
+ec2_availability_zone=&quot;availability-zone&quot;
+ec2_security_groups=&quot;security-groups&quot;
+</code></pre>
+
+<ol>
 <li><p>Grant install.sh executable access:
-[code] chmod +x install.sh [/code]</p></li>
+<code>chmod +x install.sh</code></p></li>
 
 <li><p>Run install.sh with root permissions:
-[code] sudo ./install.sh [/code]</p></li>
+<code>sudo ./install.sh</code></p></li>
 </ol>
 
 <p>This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.</p>
 
 <p>Stratos dashboard URL could be found at the below link:
-[code] https://<hostname>:9443/console [/code]</p>
+<code>https://&lt;hostname&gt;:9443/console</code></p>
 
 <p>In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:</p>
 
-<p>[code]
-cd /tmp
-wget <a href="https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh">https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh</a>
+<pre><code>cd /tmp
+wget https://gist.githubusercontent.com/imesh/f8fd7a40d89dd4b60898/raw/48087c76b853632cf12474ba909bc355fe861666/cartridge-creator.sh 
 chmod +x cartridge-creator.sh
 sudo ./cartridge-creator.sh
-[/code]</p>
+</code></pre>
 
 <p>During this process it will prompt you to enter the puppet master IP, puppet master hostname, and service name, for those please enter the following:</p>
 
-<p>[code]
-Puppet master IP: IP of the Stratos host
+<pre><code>Puppet master IP: IP of the Stratos host
 Puppet master hostname: puppet.stratos.org
 Service name: default
-[/code]</p>
+</code></pre>
 
 <p>Once cartridge creation process is completed create an image from the running VM instance. Thereafter find the image id of the created image and use it as the cartridge image id in each <a href="https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Sample+Cartridge+Definition">cartridge definition</a>.</p>
 

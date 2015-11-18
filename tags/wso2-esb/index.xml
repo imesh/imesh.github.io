@@ -17,25 +17,24 @@
       <guid>http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/</guid>
       <description>&lt;p&gt;The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.&lt;/p&gt;
 
-&lt;p&gt;[code]
-&lt;property name=&#34;URL&#34; value=&#34;http://host:8280?p1=abc&amp;amp;p2=qwe&#34;/&gt;
-&lt;filter source=&#34;$ctx:URL&#34; regex=&#34;.*format=.*&#34;&gt;
-    &lt;then&gt;
-         &amp;lt;!&amp;ndash; format query parameter found in URL, replace it &amp;ndash;&amp;gt;
-         &lt;property name=&#34;URL_UPDATED&#34;
-                   expression=&#34;replace($ctx:URL, &#39;format=([^&amp;amp;]*)&#39;, &#39;format=xml&#39;)&#34;/&gt;
-    &lt;/then&gt;
-    &lt;else&gt;
-         &amp;lt;!&amp;ndash; format query parameter not found in URL, add it &amp;ndash;&amp;gt;
-         &lt;property name=&#34;URL_UPDATED&#34; 
-                   expression=&#34;concat($ctx:URL, &#39;&amp;amp;format=xml&#39;)&#34;/&gt;
-    &lt;/else&gt;
-&lt;/filter&gt;
-&lt;log level=&#34;custom&#34;&gt;
-    &lt;property name=&#34;-- original --&#34; expression=&#34;$ctx:URL&#34;/&gt;
-    &lt;property name=&#34;-- updated --&#34; expression=&#34;$ctx:URL_UPDATED&#34;/&gt;
-&lt;/log&gt;
-[/code]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;property name=&amp;quot;URL&amp;quot; value=&amp;quot;http://host:8280?p1=abc&amp;amp;amp;p2=qwe&amp;quot;/&amp;gt;
+&amp;lt;filter source=&amp;quot;$ctx:URL&amp;quot; regex=&amp;quot;.*format=.*&amp;quot;&amp;gt;
+    &amp;lt;then&amp;gt;
+         &amp;lt;!-- format query parameter found in URL, replace it --&amp;gt;
+         &amp;lt;property name=&amp;quot;URL_UPDATED&amp;quot;
+                   expression=&amp;quot;replace($ctx:URL, &#39;format=([^&amp;amp;amp;]*)&#39;, &#39;format=xml&#39;)&amp;quot;/&amp;gt;
+    &amp;lt;/then&amp;gt;
+    &amp;lt;else&amp;gt;
+         &amp;lt;!-- format query parameter not found in URL, add it --&amp;gt;
+         &amp;lt;property name=&amp;quot;URL_UPDATED&amp;quot; 
+                   expression=&amp;quot;concat($ctx:URL, &#39;&amp;amp;amp;format=xml&#39;)&amp;quot;/&amp;gt;
+    &amp;lt;/else&amp;gt;
+&amp;lt;/filter&amp;gt;
+&amp;lt;log level=&amp;quot;custom&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;-- original --&amp;quot; expression=&amp;quot;$ctx:URL&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;-- updated --&amp;quot; expression=&amp;quot;$ctx:URL_UPDATED&amp;quot;/&amp;gt;
+&amp;lt;/log&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
