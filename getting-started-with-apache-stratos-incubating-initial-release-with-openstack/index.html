@@ -1,0 +1,347 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
+		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</h1>
+                    <h2 class="headline">September 27, 2013</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p>Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &ldquo;x&rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn.</p>
+
+<h4 id="how-to-build-from-source:ca22749167d775a2e3747beccf928b4d">How to Build From Source:</h4>
+
+<p>You could follow the below steps to build the binary distribution from source:
+[code]
+git clone <a href="https://git-wip-us.apache.org/repos/asf/incubator-stratos.git">https://git-wip-us.apache.org/repos/asf/incubator-stratos.git</a></p>
+
+<p>git checkout 3.0.0-incubation-x</p>
+
+<p>cd incubator-stratos</p>
+
+<p>mvn clean install
+[/code]</p>
+
+<p>This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:</p>
+
+<p>[code]
+incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip</p>
+
+<p>incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip</p>
+
+<p>incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip</p>
+
+<p>incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip</p>
+
+<p>incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
+[/code]
+ </p>
+
+<h4 id="download-binary-distributions:ca22749167d775a2e3747beccf928b4d">Download Binary Distributions:</h4>
+
+<p>Please find the official binary packages at the blow location. Select the latest RC version and download the files.</p>
+
+<p>[code]
+<a href="https://dist.apache.org/repos/dist/dev/incubator/stratos/">https://dist.apache.org/repos/dist/dev/incubator/stratos/</a>
+[/code]
+ </p>
+
+<h4 id="download-openstack-cartridge-images:ca22749167d775a2e3747beccf928b4d">Download Openstack Cartridge Images:</h4>
+
+<p>Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:</p>
+
+<p>[code]
+stratos-3.0.0-incubating-tomcat-cartridge.img.zip</p>
+
+<p>stratos-3.0.0-incubating-php-cartridge.img.zip</p>
+
+<p>stratos-3.0.0-incubating-mysql-cartridge.img.zip
+[/code]
+ </p>
+
+<h4 id="upload-cartridge-images-to-openstack:ca22749167d775a2e3747beccf928b4d">Upload Cartridge Images to Openstack:</h4>
+
+<ol>
+<li>The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:</li>
+</ol>
+
+<p>sudo apt-get install python-novaclient python-glanceclient swift</p>
+
+<ol>
+<li>Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:</li>
+</ol>
+
+<p>source /openrc.sh</p>
+
+<ol>
+<li>Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.</li>
+</ol>
+
+<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating&ndash;tomcat-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-tomcat-cartridge.img</p>
+
+<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating-mysql-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-mysql-cartridge.img</p>
+
+<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating-php-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-php-cartridge.img</p>
+
+<p> </p>
+
+<h4 id="prepare-stratos-installer:ca22749167d775a2e3747beccf928b4d">Prepare Stratos Installer</h4>
+
+<ol>
+<li>Now take a copy of the Stratos installer from it’s source repository’s tools folder:
+[code]
+git clone <a href="https://git-wip-us.apache.org/repos/asf/incubator-stratos.git">https://git-wip-us.apache.org/repos/asf/incubator-stratos.git</a></li>
+</ol>
+
+<p>git checkout 3.0.0-incubation-x</p>
+
+<p>cd incubator-stratos/tools/stratos-installer
+[/code]</p>
+
+<p>This folder contains scripts for installing Apache Stratos on a given environment. First configure the required settings in setup.conf file found under conf directory:</p>
+
+<p>[code]
+vi conf/setup.conf
+[/code]</p>
+
+<ol>
+<li>Configure general information section with the below parameter values:</li>
+</ol>
+
+<p>[code]
+export setup_path= #Folder path containing stratos_setup
+export stratos_pack_path= #Folder path containing stratos packages 
+export stratos_path= #Folder which stratos will be installed
+export JAVA_HOME= #Java home path
+export hostip=&ldquo;&rdquo; #Machine ip on which setup script run
+export host_user=&ldquo;&rdquo; #A host user account for stratos.
+export mysql_connector_jar=$stratos_pack_path/&ldquo;mysql-connector-java-5.1.25.jar&rdquo; #mysql connector jar file name
+[/code]</p>
+
+<ol>
+<li>Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.</li>
+</ol>
+
+<p>[code]</p>
+
+<h1 id="openstack:ca22749167d775a2e3747beccf928b4d">Openstack</h1>
+
+<p>export openstack_provider_enabled=true
+export openstack_identity=&ldquo;stratos:stratos&rdquo; #Openstack project name:Openstack login user
+export openstack_credential=&ldquo;password&rdquo; #Openstack login password
+export openstack_tenant=&ldquo;stratos&rdquo; #Openstack project name
+export openstack_jclouds_endpoint=&ldquo;<a href="http://hostname:5000/v2.0&quot;">http://hostname:5000/v2.0&quot;</a> #Openstack Keystone URL
+export openstack_scaleup_order=2
+export openstack_scaledown_order=3
+export openstack_keypair_name=&ldquo;&rdquo; #Create a new keypair and add the name here
+export nova_region=&ldquo;RegionOne&rdquo; #Openstack region used for spawning cartridge instances
+export openstack_instance_type_tiny=&ldquo;RegionOne\/1&rdquo;
+export openstack_instance_type_small=&ldquo;RegionOne\/2&rdquo;
+export openstack_security_groups=&ldquo;security-groups&rdquo;
+export openstack_php_cartridge_image_id=&ldquo;&rdquo; #Openstack PHP Cartridge Image ID
+export openstack_mysql_cartridge_image_id=&ldquo;&ldquo; #Openstack MySQL Cartridge Image ID
+export openstack_tomcat_cartridge_image_id=&ldquo;&ldquo; #Openstack Apache Tomcat Cartridge Image ID
+[/code]</p>
+
+<ol>
+<li>Install following pre-requisite software:</li>
+</ol>
+
+<p>[code]
+java -jdk1.6.x   
+Git
+facter   
+zip
+mysql-server
+Gitblits
+[/code]
+    
+5. Download WSO2 Message Broker (MB) binary distribution from <a href="http://wso2.com/products/message-broker/">http://wso2.com/products/message-broker/</a> and copy it to stratos-pack-path. Here you could use any preferred message broker product which supports AMQP.</p>
+
+<ol>
+<li><p>Extract MB distribution in stratos-path and set it&rsquo;s port offset in repository/conf/carbon.xml to 5. This will set the actual MB port to 5677.</p></li>
+
+<li><p>Add the following entries to the /etc/hosts file:</p></li>
+</ol>
+
+<p>[code]
+<ip-address> stratos.apache.org        # stratos domain
+<ip-address> mb.stratos.apache.org     # message broker hostname
+<ip-address> cc.stratos.apache.org     # cloud controller hostname
+<ip-address> sc.stratos.apache.org     # stratos controller hostname
+<ip-address> elb.stratos.apache.org    # elastic load balancer hostname
+<ip-address> agent.stratos.apache.org  # agent hostname
+[/code]</p>
+
+<h4 id="install-apache-stratos:ca22749167d775a2e3747beccf928b4d">Install Apache Stratos</h4>
+
+<ol>
+<li><p>Once the above configuration is done, execute the below command to install Stratos at the given path (stratos_path):
+[code]
+sudo ./setup.sh -p &ldquo;elb sc cc agent&rdquo;
+[/code]</p></li>
+
+<li><p>At the end of the installation it will prompt to start all the servers in the background, you could say no to this question and start the server manually so that you have more control over the initial Stratos environment. More importantly if any configuration errors has occurred, you should be able to rectify them more easily.
+[code]
+sh $stratos_path/<module>/bin/stratos.sh 
+[/code]</p></li>
+
+<li><p>Now carefully watch the logs of Elastic Load Balancer (ELB), Stratos Controller (SC), Cloud Controller (CC) and Stratos Agent. Those logs could be found at the following location of each module. Each should have started successfully without any problems.
+[code]
+$stratos_path/<module>/repository/logs/wso2carbon.log
+[/code]
+ </p></li>
+</ol>
+
+<h4 id="verify-apache-stratos-installation:ca22749167d775a2e3747beccf928b4d">Verify Apache Stratos Installation</h4>
+
+<ol>
+<li>Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:</li>
+</ol>
+
+<p>[code]<a href="https://sc.stratos.apache.org:9445/carbon[/code">https://sc.stratos.apache.org:9445/carbon[/code</a>]</p>
+
+<ol>
+<li>Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.</li>
+</ol>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fgetting-started-with-apache-stratos-incubating-initial-release-with-openstack%2f - Getting%20Started%20with%20Apache%20Stratos%20%28Incubating%29%20Initial%20Release%20with%20Openstack "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/js/main.js"></script>
+<script src="http://localhost:1313/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

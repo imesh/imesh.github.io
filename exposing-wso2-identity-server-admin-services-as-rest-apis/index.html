@@ -1,0 +1,244 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Exposing WSO2 Identity Server Admin Services as REST APIs &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
+		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Exposing WSO2 Identity Server Admin Services as REST APIs</h1>
+                    <h2 class="headline">May 15, 2014</h2>
+                </header>
+                <section id="post-body">
+                    <p>WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this:</p>
+
+<ol>
+<li><p>Download WSO2 ESB 4.8.1 and IS 4.5.0.</p></li>
+
+<li><p>Extract ESB distribution and set the offset to 1 in carbon.xml file.
+[code] <offset>1</offset> [/code]</p></li>
+
+<li><p>Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. This will expose administrative services WSDLs.</p></li>
+</ol>
+
+<p>[code] <HideAdminServiceWSDLs>false</HideAdminServiceWSDLs> [/code]</p>
+
+<ol>
+<li>Now start IS with OSGi console enabled:</li>
+</ol>
+
+<p>[code] sh <IS-HOME>/bin/wso2server.sh -DosgiConsole [/code]</p>
+
+<ol>
+<li><p>Enter listAdminServices command in OSGi console and retrieve the list of administrative services available and their WSDLs.</p></li>
+
+<li><p>In this article I will use listAllUsers() method available in UserAdmin service to demonstrate how to convert SOAP based services to REST. UserAdmin service WSDL could be found at:</p></li>
+</ol>
+
+<p>[code] <a href="https://localhost:9443/services/UserAdmin?wsdl">https://localhost:9443/services/UserAdmin?wsdl</a> [/code]</p>
+
+<ol>
+<li>Now create an in sequence in ESB with the following content:</li>
+</ol>
+
+<p>[code lang=&ldquo;xml&rdquo; escaped=&ldquo;true&rdquo;]
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="ListUsersInSeq">
+    <payloadFactory media-type="xml">
+        <format>
+            <xsd:listAllUsers xmlns:xsd="http://org.apache.axis2/xsd">
+                <a href="xsd:filter">xsd:filter</a>$1<a href="/xsd:filter">/xsd:filter</a>
+                <a href="xsd:limit">xsd:limit</a>$2<a href="/xsd:limit">/xsd:limit</a>
+            <a href="/xsd:listAllUsers">/xsd:listAllUsers</a>
+        </format>
+        <args>
+            <arg xmlns:m0="http://services.samples" evaluator="xml" expression="$url:filter"/>
+            <arg xmlns:m0="http://services.samples" evaluator="xml" expression="$url:limit"/>
+        </args>
+    </payloadFactory>
+    <property xmlns:ns="http://org.apache.synapse/xsd" name="Authorization" 
+              expression="fn:concat('Basic ', base64Encode('admin:admin'))" scope="transport" type="STRING"/>
+    <property name="SOAPAction" value="urn:listAllUsers" scope="transport" type="STRING"/>
+    <property name="HTTP_METHOD" value="POST" scope="axis2" type="STRING"/>
+    <log level="full"/>
+    <send>
+        <endpoint>
+            <address uri="https://localhost:9443/services/UserAdmin" format="soap12"/>
+        </endpoint>
+    </send>
+</sequence>
+[/code]</p>
+
+<ol>
+<li>Create an out sequence with the following content:</li>
+</ol>
+
+<p>[code lang=&ldquo;xml&rdquo; escaped=&ldquo;true&rdquo;]
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="ListUsersOutSeq">
+    <log level="full"/>
+    <property name="messageType" value="application/json" scope="axis2" type="STRING"/>
+    <send/>
+</sequence>
+[/code]</p>
+
+<ol>
+<li>Create an API with the following content:</li>
+</ol>
+
+<p>[code lang=&ldquo;xml&rdquo; escaped=&ldquo;true&rdquo;]
+<api xmlns="http://ws.apache.org/ns/synapse" name="listUsers" context="/listUsers">
+    <resource methods="GET" inSequence="ListUsersInSeq" outSequence="ListUsersOutSeq">
+        <faultSequence/>
+    </resource>
+</api>
+[/code]</p>
+
+<ol>
+<li>Send a HTTP GET request to the listUsers API:</li>
+</ol>
+
+<p>Request:
+[code]
+curl -v <a href="http://localhost:8281/listUsers?filter=*&amp;limit=10">http://localhost:8281/listUsers?filter=*&amp;limit=10</a>
+[/code]</p>
+
+<p>Response:
+[code]
+{&ldquo;listAllUsersResponse&rdquo;:
+   {&ldquo;return&rdquo;:[ {&ldquo;@type&rdquo;:&ldquo;ax2629:FlaggedName&rdquo;,&ldquo;dn&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;domainName&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;editable&rdquo;:true,
+&ldquo;itemDisplayName&rdquo;:&ldquo;admin&rdquo;,&ldquo;itemName&rdquo;:&ldquo;admin&rdquo;,&ldquo;readOnly&rdquo;:false,&ldquo;roleType&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;selected&rdquo;:false,&ldquo;shared&rdquo;:false},
+                       {&ldquo;@type&rdquo;:&ldquo;ax2629:FlaggedName&rdquo;,&ldquo;dn&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;domainName&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;editable&rdquo;:false,
+&ldquo;itemDisplayName&rdquo;:null,&ldquo;itemName&rdquo;:false,&ldquo;readOnly&rdquo;:false,&ldquo;roleType&rdquo;:{&ldquo;@nil&rdquo;:&ldquo;true&rdquo;},&ldquo;selected&rdquo;:false,&ldquo;shared&rdquo;:false}
+]}}
+[/code]</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fexposing-wso2-identity-server-admin-services-as-rest-apis%2f - Exposing%20WSO2%20Identity%20Server%20Admin%20Services%20as%20REST%20APIs "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/js/main.js"></script>
+<script src="http://localhost:1313/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

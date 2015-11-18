@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mac on imesh.io</title>
-    <link>http://imesh.github.io/tags/mac/</link>
+    <link>http://localhost:1313/tags/mac/</link>
     <description>Recent content in Mac on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 05 May 2013 01:28:00 +0000</lastBuildDate>
-    <atom:link href="http://imesh.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/mac/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>NTFS Write Support on Mountain Lion</title>
-      <link>http://imesh.github.io/ntfs-write-support-on-mountain-lion/</link>
+      <link>http://localhost:1313/ntfs-write-support-on-mountain-lion/</link>
       <pubDate>Sun, 05 May 2013 01:28:00 +0000</pubDate>
       
-      <guid>http://imesh.github.io/ntfs-write-support-on-mountain-lion/</guid>
+      <guid>http://localhost:1313/ntfs-write-support-on-mountain-lion/</guid>
       <description>&lt;p&gt;One of the first things that you would notice if you plug-in a portable hard drive formatted in NTFS format to a Mac with Mountain Lion is that the drive is read only. Sometimes you may have not even notice it if you did not try to execute any write operations.&lt;/p&gt;
 
 &lt;p&gt;Out of the box Mountain Lion does not support write access to Windows based file system NTFS. However FAT32 is read/write supported. Mac uses it&amp;rsquo;s own set of file systems; &lt;a href=&#34;http://en.wikipedia.org/wiki/Hierarchical_File_System&#34;&gt;HFS, HFS Plus&lt;/a&gt; (Mac OS Standard, Mac OS Extended). Nevertheless there is a way to get NTFS write access on Mac OS, Mountain Lion.&lt;/p&gt;

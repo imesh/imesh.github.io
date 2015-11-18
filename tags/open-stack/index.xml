@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Open Stack on imesh.io</title>
-    <link>http://imesh.github.io/tags/open-stack/</link>
+    <link>http://localhost:1313/tags/open-stack/</link>
     <description>Recent content in Open Stack on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Aug 2013 09:56:00 +0000</lastBuildDate>
-    <atom:link href="http://imesh.github.io/tags/open-stack/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/open-stack/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Creating OpenStack Images</title>
-      <link>http://imesh.github.io/creating-openstack-images/</link>
+      <link>http://localhost:1313/creating-openstack-images/</link>
       <pubDate>Mon, 19 Aug 2013 09:56:00 +0000</pubDate>
       
-      <guid>http://imesh.github.io/creating-openstack-images/</guid>
+      <guid>http://localhost:1313/creating-openstack-images/</guid>
       <description>
 
 &lt;p&gt;The official documentation for creating OpenStack images from an ISO can be found &lt;a href=&#34;http://docs.openstack.org/image-guide/content/ch_creating_images_manually.html&#34;&gt;here&lt;/a&gt;. In this article we will discuss how to create an image from a running instance and how to upload an existing image file to an OpenStack instance.&lt;/p&gt;

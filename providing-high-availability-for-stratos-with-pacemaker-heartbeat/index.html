@@ -1,0 +1,475 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Providing High Availability for Stratos with Pacemaker &amp; Heartbeat &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
+		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Providing High Availability for Stratos with Pacemaker &amp; Heartbeat</h1>
+                    <h2 class="headline">October 24, 2014</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p>This article describes how High Availability (HA) can be configured with <a href="http://clusterlabs.org/wiki/Pacemaker">Pacemaker</a> &amp; <a href="http://linux-ha.org/wiki/Heartbeat">Heartbeat</a> for Apache Stratos. In general this concept can be applied for any server application which needs HA and does not require any data replication. If data replication is needed you may need to consider using <a href="http://www.drbd.org/home/what-is-drbd/">DRBD</a> with Pacemaker. First of all we will see what Pacemaker and Heartbeat are and go through a series of steps on configuring those.</p>
+
+<h3 id="what-is-pacemaker:a154e42535fddf1ea81063e517e4edcd">What is Pacemaker?</h3>
+
+<p>Pacemaker is a Cluster Resource Manager (CRM) which can detect and recover from failures of nodes and resources. It basically can start, stop, check the status of a resource and take decisions for recovering them from failures.</p>
+
+<p>What is a resource? A resource either can be a server application, an IP address or any other software/hardware resource that you can think of. These resources are managed through <a href="http://www.linux-ha.org/wiki/Resource_agents">Resource Agents</a> which is an abstraction layer that Pacemaker make use of to communicate with different types of resources. Out of the box Pacemaker provides Resource Agents for OCF and LSB services. In this example we will be using LSB Resource Agent to manage Apache Stratos as an init.d service.</p>
+
+<h3 id="what-is-heartbeat:a154e42535fddf1ea81063e517e4edcd">What is Heartbeat?</h3>
+
+<p>Heartbeat is a daemon that provides messaging infrastructure for Pacemaker. It manages the communication between nodes and allows to know the presence of resources in the cluster.</p>
+
+<h3 id="prerequisites:a154e42535fddf1ea81063e517e4edcd">Prerequisites</h3>
+
+<ul>
+<li><p>Oracle VirtualBox or any other virtualization technology</p></li>
+
+<li><p>Ubuntu 12.04 server (64-bit) virtual machine image</p></li>
+
+<li><p>Pacemaker 1.1.6 or above</p></li>
+
+<li><p>Heartbeat 3.0.5 or above</p></li>
+</ul>
+
+<h3 id="steps-for-configuring-pacemaker-heartbeat-for-apache-stratos:a154e42535fddf1ea81063e517e4edcd">Steps for Configuring Pacemaker &amp; Heartbeat for Apache Stratos:</h3>
+
+<ul>
+<li><p>Start two instances of Ubuntu 12.04 server virtual machines.</p></li>
+
+<li><p>Switch to root user:</p></li>
+</ul>
+
+<p>[code]sudo su[/code]</p>
+
+<ul>
+<li>Install Pacemaker and Heartbeat</li>
+</ul>
+
+<p>[code]apt-get install pacemaker heartbeat[/code]</p>
+
+<ul>
+<li>Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf</li>
+</ul>
+
+<p>[code]</p>
+
+<h1 id="enable-pacemaker-without-stonith:a154e42535fddf1ea81063e517e4edcd">enable pacemaker, without stonith</h1>
+
+<p>crm yes</p>
+
+<h1 id="define-log-file:a154e42535fddf1ea81063e517e4edcd">define log file</h1>
+
+<p>logfile /var/log/ha-log</p>
+
+<h1 id="warning-of-soon-be-dead:a154e42535fddf1ea81063e517e4edcd">warning of soon be dead</h1>
+
+<p>warntime 10</p>
+
+<h1 id="declare-a-host-the-other-node-dead-after:a154e42535fddf1ea81063e517e4edcd">declare a host (the other node) dead after:</h1>
+
+<p>deadtime 20</p>
+
+<h1 id="dead-time-on-boot-could-take-some-time-until-net-is-up:a154e42535fddf1ea81063e517e4edcd">dead time on boot (could take some time until net is up)</h1>
+
+<p>initdead 120</p>
+
+<h1 id="time-between-heartbeats:a154e42535fddf1ea81063e517e4edcd">time between heartbeats</h1>
+
+<p>keepalive 2</p>
+
+<h1 id="the-nodes:a154e42535fddf1ea81063e517e4edcd">the nodes</h1>
+
+<p>node node1 # set node1 hostname
+node node2 # set node2 hostname</p>
+
+<h1 id="heartbeats-over-dedicated-replication-interface:a154e42535fddf1ea81063e517e4edcd">heartbeats, over dedicated replication interface</h1>
+
+<p>ucast eth1 10.186.175.16 # set node1 network-interface and ip address
+ucast eth1 54.211.110.217 # set node2 network-interface and ip address
+[/code]</p>
+
+<ul>
+<li>Create authentication key file and set permissions in one of the hosts:</li>
+</ul>
+
+<p><a href="echo -ne &quot;auth 1n1 sha1 &quot;; 
+dd if=/dev/urandom bs=512 count=1 | openssl md5">code</a> \
+&gt; /etc/ha.d/authkeys</p>
+
+<p>chmod 0600 /etc/ha.d/authkeys
+[/code]</p>
+
+<ul>
+<li><p>Copy the above authkeys file to each host (/etc/ha.d/authkeys).</p></li>
+
+<li><p>Restart heartbeat service:</p></li>
+</ul>
+
+<p>[code]
+service heartbeat restart
+[/code]</p>
+
+<ul>
+<li>Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.</li>
+</ul>
+
+<p>[code]
+crm status</p>
+
+<p>============
+Last updated: Wed Oct 15 11:25:05 2014
+Last change: Wed Oct 15 11:21:51 2014 via crmd on ip-10-186-175-16
+Stack: Heartbeat
+Current DC: ip-10-186-175-16 (d16ccc5c-2641-42b6-b46a-57a0b32fddc9) - partition with quorum
+Version: 1.1.6-9971ebba4494012a93c03b40a2c58ec0eb60f50c
+2 Nodes configured, unknown expected votes</p>
+
+<h1 id="0-resources-configured:a154e42535fddf1ea81063e517e4edcd">0 Resources configured.</h1>
+
+<p>Online: [ ip-10-186-175-16 ip-10-153-165-178 ]
+[/code]</p>
+
+<ul>
+<li>Disable STONITH:</li>
+</ul>
+
+<p>[code]
+crm configure property stonith-enabled=false
+[/code]</p>
+
+<ul>
+<li>Create a Failover IP resource to manage the virtual IP address:</li>
+</ul>
+
+<p>[code]
+crm configure primitive FAILOVER-IP ocf:heartbeat:IPaddr params ip=192.168.10.20 cidr_netmask=&ldquo;255.255.255.0&rdquo; op monitor interval=10s
+[/code]</p>
+
+<ul>
+<li><p>SCP java and Apache Stratos packages to both hosts and extract them under /opt folder.</p></li>
+
+<li><p>Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:</p></li>
+</ul>
+
+<p>[code]
+<a href="https://gist.github.com/imesh/5256272cd71b74a06581">https://gist.github.com/imesh/5256272cd71b74a06581</a></p>
+
+<p>#!/bin/sh</p>
+
+<h3 id="begin-init-info:a154e42535fddf1ea81063e517e4edcd">BEGIN INIT INFO</h3>
+
+<h1 id="provides-stratos:a154e42535fddf1ea81063e517e4edcd">Provides:          stratos</h1>
+
+<h1 id="required-start-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd">Required-Start:    $local_fs $remote_fs $network $syslog $named</h1>
+
+<h1 id="required-stop-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd">Required-Stop:     $local_fs $remote_fs $network $syslog $named</h1>
+
+<h1 id="default-start-2-3-4-5:a154e42535fddf1ea81063e517e4edcd">Default-Start:     2 3 4 5</h1>
+
+<h1 id="default-stop-0-1-6:a154e42535fddf1ea81063e517e4edcd">Default-Stop:      0 1 6</h1>
+
+<h1 id="x-interactive-true:a154e42535fddf1ea81063e517e4edcd">X-Interactive:     true</h1>
+
+<h1 id="short-description-start-stop-stratos-server:a154e42535fddf1ea81063e517e4edcd">Short-Description: Start/stop stratos server</h1>
+
+<h3 id="end-init-info:a154e42535fddf1ea81063e517e4edcd">END INIT INFO</h3>
+
+<p>USER=&ldquo;vagrant&rdquo;
+PRODUCT_NAME=&ldquo;stratos&rdquo;
+JAVA_HOME=&ldquo;/opt/jdk1.7.0_60&rdquo;
+PRODUCT_HOME=&ldquo;/opt/apache_stratos_4.1.0_SNAPSHOT&rdquo;
+PID_FILE=&ldquo;${PRODUCT_HOME}/wso2carbon.pid&rdquo;
+CMD=&ldquo;${PRODUCT_HOME}/bin/stratos.sh&rdquo;</p>
+
+<h1 id="lsb-exit-codes:a154e42535fddf1ea81063e517e4edcd">LSB exit codes:</h1>
+
+<h1 id="ftp-ftp-nomadlinux-com-nomad-2-dist-heartbeat-1-2-5-include-clplumbing-lsb-exitcodes-h:a154e42535fddf1ea81063e517e4edcd"><a href="ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h">ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h</a></h1>
+
+<p>LSB_EXIT_OK=0
+LSB_EXIT_GENERIC=1
+LSB_EXIT_EINVAL=2
+LSB_EXIT_ENOTSUPPORTED=3
+LSB_EXIT_EPERM=4
+LSB_EXIT_NOTINSTALLED=5
+LSB_EXIT_NOTCONFIGED=6
+LSB_EXIT_NOTRUNNING=7</p>
+
+<p>is_service_running() {
+    if [ -e ${PID_FILE} ]; then
+        PID=<code>cat ${PID_FILE}</code>
+        if  ps -p $PID &gt;&amp;- ; then
+            # service is running
+            return 0
+        else
+            # service is stopped
+            return 1
+        fi
+    else
+        # pid file was not found, may be server was not started before
+        return 1
+    fi
+}</p>
+
+<h1 id="status-the-service:a154e42535fddf1ea81063e517e4edcd">Status the service</h1>
+
+<p>status() {
+    is_service_running
+    service_status=$?</p>
+
+<pre><code>if [ &quot;${service_status}&quot; -eq 0 ]; then
+    echo &quot;${PRODUCT_NAME} service is running&quot;
+    return ${LSB_EXIT_OK}
+elif [ &quot;${service_status}&quot; -eq 1 ]; then
+    echo &quot;$PRODUCT_NAME service is stopped&quot;
+    return ${LSB_EXIT_OK}
+else
+    echo &quot;$PRODUCT_NAME service status is unknown&quot;
+    return ${LSB_EXIT_GENERIC}
+fi
+</code></pre>
+
+<p>}</p>
+
+<h1 id="start-the-service:a154e42535fddf1ea81063e517e4edcd">Start the service</h1>
+
+<p>start() {
+    if is_service_running; then
+        echo &ldquo;${PRODUCT_NAME} service is already running&rdquo;
+        return ${LSB_EXIT_OK}
+    fi</p>
+
+<pre><code>echo &quot;starting ${PRODUCT_NAME} service...&quot;
+su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&quot;
+
+is_service_running
+service_status=$?
+while [ &quot;$service_status&quot; -ne &quot;0&quot; ]
+do
+    sleep 1;
+    is_service_running
+    service_status=$?
+done
+
+echo &quot;${PRODUCT_NAME} service started&quot;
+return ${LSB_EXIT_OK}
+</code></pre>
+
+<p>}</p>
+
+<h1 id="restart-the-service:a154e42535fddf1ea81063e517e4edcd">Restart the service</h1>
+
+<p>restart() {
+    echo &ldquo;restarting ${PRODUCT_NAME} service&hellip;&rdquo;
+    su - ${USER} -c &ldquo;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&rdquo;
+    echo &ldquo;${PRODUCT_NAME} service restarted&rdquo;
+    return ${LSB_EXIT_OK}
+}</p>
+
+<h1 id="stop-the-service:a154e42535fddf1ea81063e517e4edcd">Stop the service</h1>
+
+<p>stop() {
+    if ! is_service_running; then
+        echo &ldquo;${PRODUCT_NAME} service is already stopped&rdquo;
+        return ${LSB_EXIT_OK}
+    fi</p>
+
+<pre><code>echo &quot;stopping ${PRODUCT_NAME} service...&quot;
+su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&quot;
+
+is_service_running
+service_status=$?
+while [ &quot;$service_status&quot; -eq &quot;0&quot; ]
+do
+    sleep 1;
+    is_service_running
+    service_status=$?
+done
+
+echo &quot;${PRODUCT_NAME} service stopped&quot;
+return ${LSB_EXIT_OK}
+</code></pre>
+
+<p>}</p>
+
+<h3 id="main-logic:a154e42535fddf1ea81063e517e4edcd">main logic</h3>
+
+<p>case &ldquo;$1&rdquo; in
+start)
+    start
+    ;;
+stop|graceful-stop)
+    stop
+    ;;
+status)
+    status
+    ;;
+restart|reload|force-reload)
+    restart
+    ;;
+*)
+   echo $&ldquo;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&rdquo;
+   exit 1
+esac
+exit $?
+[/code]</p>
+
+<ul>
+<li>Create a CRM resource for stratos:</li>
+</ul>
+
+<p>[code]
+crm configure primitive STRATOS lsb::stratos op monitor interval=15s
+[/code]</p>
+
+<ul>
+<li>Create a CRM resource group and add FAILOVER-IP and STRATOS resources:</li>
+</ul>
+
+<p>[code]
+crm configure group FAILOVER-IP-RESOURCE-GROUP FAILOVER-IP STRATOS
+[/code]</p>
+
+<ul>
+<li>Configure a colocation dependency between FAILOVER-IP and STRATOS. This will make sure that both FAILOVER-IP and STRATOS resources will stay in the same host.</li>
+</ul>
+
+<p>[code]
+crm configure colocation FAILOVER-IP-RESOURCE-GROUP-COLOCATION inf: FAILOVER-IP STRATOS
+[/code]</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fproviding-high-availability-for-stratos-with-pacemaker-heartbeat%2f - Providing%20High%20Availability%20for%20Stratos%20with%20Pacemaker%20%26%20Heartbeat "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/js/main.js"></script>
+<script src="http://localhost:1313/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

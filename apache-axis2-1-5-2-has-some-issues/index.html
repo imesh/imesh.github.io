@@ -1,0 +1,153 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Apache Axis2 1.5.2 Has Some Issues &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
+		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Apache Axis2 1.5.2 Has Some Issues</h1>
+                    <h2 class="headline">October 22, 2010</h2>
+                </header>
+                <section id="post-body">
+                    <p>There is an issue in Apache Axis2 1.5.2 release (including 1.5, 1.5.1). The classes AxisServlet and AxisAdminServlet have been referred from <strong>org.apache.axis2.transport.http</strong> package in the web.xml file. I guess these have been moved to <strong>org.apache.axis2.webapp</strong> package after version 1.5.</p>
+
+<p>Trace:</p>
+
+<p>SEVERE: Error loading WebappClassLoader   context: /WebApp5   delegate: false   repositories:     /WEB-INF/classes/ &mdash;&mdash;&mdash;-&gt; Parent Classloader: org.apache.catalina.loader.StandardClassLoader@11ddcde org.apache.axis2.transport.http.AxisAdminServlet  java.lang.ClassNotFoundException: org.apache.axis2.transport.http.AxisAdminServlet     at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1645)  at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1491)  at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1095)  at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:993)  at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4350)    at org.apache.catalina.core.StandardContext.start(StandardContext.java:4659)    at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)    at org.apache.catalina.core.StandardHost.start(StandardHost.java:785)   at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)    at org.apache.catalina.core.StandardEngine.start(StandardEngine.java:445)   at org.apache.catalina.core.StandardService.start(StandardService.java:519)     at org.apache.catalina.core.StandardServer.start(StandardServer.java:710)   at org.apache.catalina.startup.Catalina.start(Catalina.java:581)    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)  at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)  at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)  at java.lang.reflect.Method.invoke(Unknown Source)  at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:289)  at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:414)</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2fapache-axis2-1-5-2-has-some-issues%2f - Apache%20Axis2%201.5.2%20Has%20Some%20Issues "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/js/main.js"></script>
+<script src="http://localhost:1313/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

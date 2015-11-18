@@ -1,0 +1,191 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<meta name="description" content="">
+		<meta name="generator" content="Hugo 0.14" />
+		<title>Running ASP.NET Applications On Linux Using Mono &middot; imesh.io</title>
+		<link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+		<link rel="stylesheet" href="http://localhost:1313/css/style.css">
+		<link rel="stylesheet" href="http://localhost:1313/css/highlight.css">
+		<link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+	</head>
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://localhost:1313/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://localhost:1313/about'>About</a>
+	
+
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Running ASP.NET Applications On Linux Using Mono</h1>
+                    <h2 class="headline">March 15, 2010</h2>
+                </header>
+                <section id="post-body">
+                    <p>ASP.NET is a Windows based web technology. However it&rsquo;s no more true, now we can run ASP.NET applications on a Linux environment using Mono Framework. Mono has developed a stand alone web server called Mono XSP for running ASP.NET applications on C# which can be run using Mono. Moreover it can be run on Apache web server using mod-mono Apache module.</p>
+
+<p>At the moment Mono XSP2 supports ASP.NET 1.0 and 2.0 versions. Mono-Develop IDE can be used to design and implement web applications using C# and VB.NET. I tested Image Gallery on Mono XSP2 and noticed that the master page was not loaded due to the two upper case letters used. So I had to rename the master page ImageGallery.master to imagegallery.master to make it work. I&rsquo;m not too sure why that happened may be the master page references are case sensitive.</p>
+
+<p>Now with Mono XSP2 we have a complete software stack for running .NET Applications on Linux:</p>
+
+<ol>
+<li><p>.NET Console Applications can run on Mono without doing any modifications.</p></li>
+
+<li><p>.NET Windows Applications can be ported to GTK (Mono uses GTK for GUI implementation) and run on Mono.</p></li>
+
+<li><p>ASP.NET Applications (including Web Services) can be directly run on Mono XSP2 without any modifications.</p></li>
+</ol>
+
+<p>How to install Mono XSP2 on Ubuntu:</p>
+
+<p>[code] sudo apt-get install mono-xsp2 mono-xsp2-base [/code]</p>
+
+<p>Install Sample Web Applications:</p>
+
+<p>[code] sudo apt-get install asp.net2-examples [/code]</p>
+
+<p>Run The Web Server:</p>
+
+<p>[code] xsp2 &ndash;root /usr/share/asp.net2-demos/ [/code]</p>
+
+<p>Listening on address: 0.0.0.0</p>
+
+<p>Root directory: /usr/share/asp.net2-demos</p>
+
+<p>Listening on port: 8080 (non-secure)</p>
+
+<p>Hit Return to stop the server.</p>
+
+<p>Test On A Web Browser:</p>
+
+<p>Open a web browser and go to <a href="http://localhost:8080">http://localhost:8080</a>. This should open asp.net2-demos web application.</p>
+
+<p>References:</p>
+
+<p><a href="http://www.mono-project.com/ASP.NET">http://www.mono-project.com/ASP.NET</a></p>
+
+<p><a href="http://www.howtogeek.com/howto/ubuntu/run-aspnet-applications-on-ubuntu-for-developers/">http://www.howtogeek.com/howto/ubuntu/run-aspnet-applications-on-ubuntu-for-developers/</a></p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                
+                        <img class="avatar" src="http://localhost:1313/images/avatar.png">
+                        <div>
+                            <span class="dark"></span>
+                            <span></span>
+                        </div>
+                    
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2flocalhost%3a1313%2frunning-asp-net-applications-on-linux-using-mono%2f - Running%20ASP.NET%20Applications%20On%20Linux%20Using%20Mono "><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://localhost:1313/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    <p class="small">
+        © Copyright 2015 
+    </p>
+</footer>
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://localhost:1313/js/main.js"></script>
+<script src="http://localhost:1313/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>
