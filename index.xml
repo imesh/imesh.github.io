@@ -90,131 +90,6 @@ unzip wso2as-5.2.1.zip
     </item>
     
     <item>
-      <title>Search</title>
-      <link>http://imesh.github.io/search/</link>
-      <pubDate>Thu, 11 Jun 2015 16:03:09 -0400</pubDate>
-      
-      <guid>http://imesh.github.io/search/</guid>
-      <description>&lt;form method=&#34;GET&#34; id=&#34;searchForm&#34; action=&#34;/search&#34;&gt;
-&lt;div class=&#34;row&#34;&gt;
-    &lt;!-- search form --&gt;
-    &lt;div class=&#34;col-md-12&#34;&gt;
-            &lt;div id=&#34;custom-search-input&#34;&gt;
-                &lt;div class=&#34;input-group col-md-6 col-md-offset-3&#34;&gt;
-                    &lt;input id=&#34;page&#34; name=&#34;p&#34; value=&#34;1&#34; type=&#34;hidden&#34;/&gt;
-                    &lt;input id=&#34;query&#34; name=&#34;q&#34; type=&#34;text&#34; class=&#34;form-control input-lg&#34; placeholder=&#34;Search&#34; /&gt;
-                    &lt;span class=&#34;input-group-btn&#34;&gt;
-                        &lt;button id=&#34;searchButton&#34; class=&#34;btn btn-info btn-lg&#34; type=&#34;submit&#34;&gt;
-                            &lt;i class=&#34;glyphicon glyphicon-search&#34;&gt;&lt;/i&gt;
-                        &lt;/button&gt;
-                    &lt;/span&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;!-- search results --&gt;
-    &lt;div id=&#34;searchResultsArea&#34; class=&#34;col-md-12&#34;&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/form&gt;
-
-&lt;script id=&#34;searchResultsTmpl&#34; type=&#34;text/x-handlebars-template&#34;&gt;
-
-    &lt;h5&gt;
-        {{#hasMultiplePages}}Page {{page}} of {{/hasMultiplePages}}
-        {{total_hits}} results ({{searchTime}})
-    &lt;/h5&gt;
-
-    &lt;div class=&#34;col-md-8&#34;&gt;
-    {{#hits}}
-        &lt;div&gt;
-            &lt;b&gt;
-                &lt;a class=&#34;resultLink&#34; href=&#34;{{id}}&#34;&gt;{{fields.title}}&lt;/a&gt;
-            &lt;/b&gt;
-                     
-            &lt;span class=&#34;badge pull-right&#34;&gt;{{roundScore}}&lt;/span&gt;
-                    
-            &lt;div class=&#34;panel panel-default&#34;&gt;
-                &lt;div class=&#34;panel-heading&#34;&gt;
-
-                    &lt;b&gt;{{fields.author}}&lt;/b&gt; on {{fields.date}}
-                &lt;/div&gt;
-
-                &lt;div class=&#34;panel-body&#34;&gt;
-                    {{#fragments}}
-                        &lt;div&gt;
-                            {{#content}}
-                                &lt;div&gt;{{{.}}}&lt;/div&gt;
-                            {{/content}}
-                        &lt;/div&gt;
-                    {{/fragments}}
-                &lt;/div&gt;
-
-            &lt;/div&gt;
-        &lt;/div&gt;
-    {{/hits}}
-    &lt;/div&gt;
-
-    &lt;div class=&#34;col-md-3 col-md-offset-1&#34;&gt;
-        &lt;h3&gt;Refine Results&lt;/h3&gt;
-        {{#each facets}}
-            &lt;div class=&#34;panel panel-default&#34;&gt;
-                &lt;div class=&#34;panel-heading&#34;&gt;&lt;b&gt;{{@key}}&lt;/b&gt;&lt;/div&gt;
-                &lt;div class=&#34;panel-body&#34;&gt;
-                    {{#each terms}}
-                    &lt;div class=&#34;checkbox&#34;&gt;
-                      &lt;label&gt;
-                        &lt;input name=&#34;f{{@../key}}&#34; type=&#34;checkbox&#34; value=&#34;{{term}}&#34; onclick=&#34;toggleFilter(&#39;{{@../key}}&#39;,&#39;{{term}}&#39;,event);&#34; {{checked isChecked}}&gt;
-                        {{term}} ({{count}})
-                      &lt;/label&gt;
-                    &lt;/div&gt;
-                    {{/each}}
-                    {{#each date_ranges}}
-                    &lt;div class=&#34;checkbox&#34;&gt;
-                      &lt;label&gt;
-                        &lt;input name=&#34;f{{@../key}}&#34; type=&#34;checkbox&#34; value=&#34;{{name}}&#34; onclick=&#34;toggleFilter(&#39;{{@../key}}&#39;,&#39;{{name}}&#39;,event);&#34; {{checked isChecked}}&gt;
-                        {{name}} ({{count}})
-                      &lt;/label&gt;
-                    &lt;/div&gt;
-                    {{/each}}
-                &lt;/div&gt;
-            &lt;/div&gt;
-        {{/each}}
-    &lt;/div&gt;
-
-
-    {{#hasMultiplePages}}
-        &lt;div class=&#34;col-md-4 col-md-offset-4&#34;&gt;
-            &lt;ul class=&#34;pagination&#34;&gt;
-                {{#notOnFirstPage}}
-                    &lt;li&gt;
-                        &lt;a onclick=&#34;jumpToPage({{prevPage}})&#34; href=&#34;&#34;&gt;&amp;laquo;&lt;/a&gt;
-
-                {{/notOnFirstPage}}
-
-                {{#validPages}}
-                    &lt;li class=&#34;{{clazz}}&#34;&gt;
-                        &lt;a href=&#34;&#34; onclick=&#34;jumpToPage({{index}}, event)&#34;&gt;{{index}}&lt;/a&gt;
-                    &lt;/li&gt;
-                {{/validPages}}
-                
-                {{#notOnLastPage}}
-                    &lt;li&gt;
-                        &lt;a onclick=&#34;jumpToPage(nextPage)&#34; href=&#34;&#34;&gt;&amp;raquo;&lt;/a&gt;
-                    &lt;/li&gt;
-                {{/notOnLastPage}}
-            &lt;/ul&gt;
-        &lt;/div&gt;
-    {{/hasMultiplePages}}
-&lt;/script&gt;
-&lt;script id=&#34;noHitsTmpl&#34; type=&#34;text/x-handlebars-template&#34;&gt;
-    &lt;h5&gt;Your search - {{userQuery}} - did not match any documents.&lt;/h5&gt;
-&lt;/script&gt;
-&lt;script id=&#34;searchErrorTmpl&#34; type=&#34;text/x-handlebars-template&#34;&gt;
-    &lt;h5&gt;Error executing search: {{msg}}&lt;/h5&gt;
-&lt;/script&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Introduction to Apache Stratos Mock IaaS</title>
       <link>http://imesh.github.io/introduction-to-apache-stratos-mock-iaas/</link>
       <pubDate>Mon, 22 Dec 2014 18:03:42 +0000</pubDate>
@@ -1488,6 +1363,95 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Here on the response body you could see the deployment status of the CApps and their artifacts.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Apache Stratos Single Node Installation</title>
+      <link>http://imesh.github.io/apache-stratos-single-node-installation/</link>
+      <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
+      
+      <guid>http://imesh.github.io/apache-stratos-single-node-installation/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Based on Apache Stratos (incubating) 4.0.0-M5]&lt;/p&gt;
+
+&lt;p&gt;Apache Stratos is an enterprise grade Platform as a Service (PaaS) solution for implementing public and private clouds. It consists of five major components. They are, the Cloud Controller (CC), Stratos Controller (SC), Elastic Load Balancer (ELB), Stratos Agent and CLI. These products could be deployed on many different deployment architectures according to different requirements. A single node deployment could be used for development and demonstration purposes. Please follow the below steps to create a Apache Stratos single node instance.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisites:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;An IaaS supported by jclouds API.&lt;/li&gt;
+&lt;li&gt;A Linux server distribution. Ubuntu Server 13.04 x64 is recommended.&lt;/li&gt;
+&lt;li&gt;Java runtime 1.6 (Oracle JDK/JRE).&lt;/li&gt;
+&lt;li&gt;MySQL Server 5.5 database server.&lt;/li&gt;
+&lt;li&gt;MySQL Connector for Java (JAR file).&lt;/li&gt;
+&lt;li&gt;Unzip utility.&lt;/li&gt;
+&lt;li&gt;A physical/virtual machine with minimum of 8GB of RAM and 20GB of disk space.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;pre-installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Pre-Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Install the preferred Linux server distribution on the selected host.&lt;/li&gt;
+&lt;li&gt;Install Java runtime, MySQL Server and Unzip utility.&lt;/li&gt;
+&lt;li&gt;Connect the host to a network where the IaaS is accessible. Make sure that a VM instance in the IaaS could access the Stratos host.&lt;/li&gt;
+&lt;li&gt;Login to the IaaS and create an authentication key.&lt;/li&gt;
+&lt;li&gt;Then create a security group with all TCP, UDP and ICMP ports open. Please note that this is only used for demonstration purposes. In a production environment please ensure that only required ports are opened via the security group.&lt;/li&gt;
+&lt;li&gt;Either download cartridge images for the selected IaaS platform from the Apache Stratos website or create your own.&lt;/li&gt;
+&lt;li&gt;Upload cartridge images to the IaaS.&lt;/li&gt;
+&lt;li&gt;Create a new folder to store the binary distributions:&lt;/li&gt;
+&lt;li&gt;Download WSO2 Message Broker (MB) binary distribution from &lt;a href=&#34;http://wso2.com&#34;&gt;http://wso2.com&lt;/a&gt; and copy it to .&lt;/li&gt;
+&lt;li&gt;Download Apache Stratos binary packages from the website or build them from source.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;How to build from source:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
+cd incubator-stratos
+mvn clean install
+cp stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-.zip
+cp stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-.zip
+cp stratos/products/elb/modules/distribution/target/apache-stratos-elb-.zip
+cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-.zip
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a new MySQL database user for stratos.&lt;/li&gt;
+&lt;li&gt;Copy Stratos Installer from incubator-stratos/tools/stratos-installer to a desired path.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;installation:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Installation&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Extract WSO2 Message Broker (MB) on the installation path and set it’s port offset value in repository/conf/carbon.xml to 5. Once this is set message broker listening port will be 5677.&lt;/li&gt;
+&lt;li&gt;Update stratos-installer/conf/setup.conf and define all configuration parameters. This is one of the crucial steps of the installation. The configuration has divided into following sections; General, Message Broker, Cloud Controller, Stratos Controller, Elastic Load Balancer, Stratos Agent and IaaS. All these sections should be precisely configured.&lt;/li&gt;
+&lt;li&gt;Execute sudo JAVA_HOME=$JAVA_HOME stratos-installer/setup.sh -p “cc sc elb agent”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This script will extract stratos packages to the given installation path, create stratos_foundation and userstore databases and configure all four products with the given parameter values. Once it is prompted to start the servers, you may say no and start them manually. So that you have more control and visibility over the system.&lt;/p&gt;
+
+&lt;p&gt;It is recommended to start the servers on the following order; MB, CC, SC, ELB and finally the Agent. Wait until each product is started successfully to start the next. Once all servers are started, make sure that none of the server logs have errors on them. If you could see any errors, you may need to first correct them before proceeding further.&lt;/p&gt;
+
+&lt;h3 id=&#34;post-installation-verification:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Post Installation (Verification)&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Find the URL of the stratos controller from it’s log and open it on a web browser. The default URL would be https://{host-name}:9445/carbon and administrator user credentials are admin/admin.&lt;/li&gt;
+&lt;li&gt;Login to the stratos controller and create a new tenant.&lt;/li&gt;
+&lt;li&gt;Logout from the administrator account and login again to the stratos controller using the tenant user created. Here you may need to use the tenant user’s email address as the username.&lt;/li&gt;
+&lt;li&gt;Click on the Single Tenant Cartridges menu item on the navigator. Check whether you could see any cartridges populated on this page. If not there could be errors raised on cloud controller log with related to the IaaS configuration in cloud-controller.xml or cartridge definitions specified in &lt;cartridge&gt;.xml files. Please go through them and try to correct the errors.&lt;/li&gt;
+&lt;li&gt;Subscribe to an available cartridge using an external git repository. This process may take some time depending on the resources available in the IaaS. If subscription process is successful you should see the cartridge instance state as ACTIVE.&lt;/li&gt;
+&lt;li&gt;Now the applications deployed via the git repository should be available in the cloud to be accessed by a client.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;removal:81be374f6f5053b2a42b7dac6fc6f31f&#34;&gt;Removal&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo ./clean.sh -a mysql-username -b mysql-password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
 </description>
     </item>
     

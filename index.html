@@ -296,8 +296,6 @@
     
         
     
-        
-    
 
     
         
@@ -362,17 +360,6 @@
     </footer>
 </article>
 
-    
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/search">Search</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>{{#hasMultiplePages}}Page {{page}} of {{/hasMultiplePages}} {{total_hits}} results ({{searchTime}}) {{#hits}} {{fields.title}} {{roundScore}} {{fields.author}} on {{fields.date}} {{#fragments}} {{#content}} {{{.}}} {{/content}} {{/fragments}} {{/hits}} Refine Results {{#each facets}} {{@key}} {{#each terms}} {{term}} ({{count}}) {{/each}} {{#each date_ranges}} {{name}} ({{count}}) {{/each}} {{/each}} {{#hasMultiplePages}} {{#notOnFirstPage}} &laquo; {{/notOnFirstPage}} {{#validPages}} {{index}} {{/validPages}} {{#notOnLastPage}} &raquo; {{/notOnLastPage}} {{/hasMultiplePages}} Your search - {{userQuery}} - did not match any documents. Error executing search: {{msg}} <a class="read-more" href="http://imesh.github.io:80/search">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
     
         
 <article class="post ">
@@ -544,6 +531,35 @@
         
         <time class="post-date" datetime="2014-06-15T18:30:48Z">
             15 Jun 2014
+        </time>
+    </footer>
+</article>
+
+    
+        
+<article class="post ">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">Exposing WSO2 Identity Server Admin Services as REST APIs</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this: Download WSO2 ESB 4.8.1 and IS 4.5.0. Extract ESB distribution and set the offset to 1 in carbon.xml file. &lt;offset&gt;1&lt;/offset&gt; Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. <a class="read-more" href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+        
+        
+            
+        
+        on
+            
+                <a href="http://imesh.github.io/tags/identity/">#identity</a>,
+            
+                <a href="http://imesh.github.io/tags/security/">#security</a>,
+            
+        
+        <time class="post-date" datetime="2014-05-15T13:36:00Z">
+            15 May 2014
         </time>
     </footer>
 </article>
