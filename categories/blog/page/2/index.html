@@ -57,6 +57,16 @@
         
         
         
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://imesh.github.io:80/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://imesh.github.io:80/about/">About Me</a>
+            </li>
+        
     </ul>
     
     
@@ -76,9 +86,7 @@
     <nav class="main-nav overlay clearfix">
       
       
-        
-          <a class="menu-button icon-feed" href="http://imesh.github.io:80/categories/blog/index.xml">&nbsp;&nbsp;Subscribe</a>
-        
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
       
     </nav>
     <div class="vertical">
@@ -99,7 +107,7 @@
 	
 	    <a class="newer-posts" href="http://imesh.github.io:80/categories/blog/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 2 of 10</span>
+	<span class="page-number">Page 2 of 20</span>
 	
 	    <a class="older-posts" href="http://imesh.github.io:80/categories/blog/page/3/">Older Posts &rarr;</a>
 	
@@ -111,10 +119,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/advance-load-balancing-capabilities-in-apache-stratos-incubating-4">Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">Re-Writing Query Parameters in WSO2 ESB</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services. 1. Shared Scalable Load Balancing In this load balancing mode a service would get access to a scalable load balancer/cluster shared among multiple services. The resulting load balancing solution may consume less IaaS resources and will be cost efficient for the service provider. <a class="read-more" href="http://imesh.github.io:80/advance-load-balancing-capabilities-in-apache-stratos-incubating-4">&raquo;</a></p>
+        <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs. &lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt; &lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt; &lt;then&gt; &lt;!-- format query parameter found in URL, replace it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt; &lt;/then&gt; &lt;else&gt; &lt;!-- format query parameter not found in URL, add it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt; &lt;/else&gt; &lt;/filter&gt; &lt;log level=&quot;custom&quot;&gt; <a class="read-more" href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -125,13 +133,11 @@
         
         on
             
-                <a href="http://imesh.github.io/tags/load-balancing/">#load-balancing</a>,
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
+                <a href="http://imesh.github.io/tags/wso2-esb/">#wso2-esb</a>,
             
         
-        <time class="post-date" datetime="2014-02-05T22:38:00Z">
-            5 Feb 2014
+        <time class="post-date" datetime="2014-08-27T16:28:09Z">
+            27 Aug 2014
         </time>
     </footer>
 </article>
@@ -140,10 +146,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/getting-started-with-apache-stratos-incubating-initial-release-with-openstack">Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/install-stratos-in-one-go">Install Stratos in One Go</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &ldquo;x&rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn. <a class="read-more" href="http://imesh.github.io:80/getting-started-with-apache-stratos-incubating-initial-release-with-openstack">&raquo;</a></p>
+        <p>Apache Stratos 4.0.0 installation process has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments. As a solution to this, I implemented a script to automate the complete Stratos installation process by filling the gaps in between: Prerequisites: An Ubuntu 12.04 64bit host Steps to follow: Take a git clone of the below git repository: git clone https://github.com/imesh/stratos-dev-stack.git Update install.sh with host private IP and IaaS configuration parameters: host_private_ip=&quot;&quot; ec2_identity=&quot;identity&quot; ec2_credential=&quot;credential&quot; ec2_keypair_name=&quot;keypair-name&quot; ec2_owner_id=&quot;owner-id&quot; ec2_availability_zone=&quot;availability-zone&quot; ec2_security_groups=&quot;security-groups&quot; Grant install.sh executable access: chmod +x install.sh Run install.sh with root permissions: sudo ./install.sh This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. <a class="read-more" href="http://imesh.github.io:80/install-stratos-in-one-go">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -153,128 +159,14 @@
             
         
         on
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
-            
-        
-        <time class="post-date" datetime="2013-09-27T09:50:00Z">
-            27 Sep 2013
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/wso2-capp-deployment-verification-process-2">WSO2 CApp Deployment Verification Process</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins. In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. <a class="read-more" href="http://imesh.github.io:80/wso2-capp-deployment-verification-process-2">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/capp/">#capp</a>,
-            
-                <a href="http://imesh.github.io/tags/wso2/">#wso2</a>,
-            
-        
-        <time class="post-date" datetime="2013-09-16T06:02:09Z">
-            16 Sep 2013
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/apache-stratos-single-node-installation">Apache Stratos Single Node Installation</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>[Based on Apache Stratos (incubating) 4.0.0-M5] Apache Stratos is an enterprise grade Platform as a Service (PaaS) solution for implementing public and private clouds. It consists of five major components. They are, the Cloud Controller (CC), Stratos Controller (SC), Elastic Load Balancer (ELB), Stratos Agent and CLI. These products could be deployed on many different deployment architectures according to different requirements. A single node deployment could be used for development and demonstration purposes. <a class="read-more" href="http://imesh.github.io:80/apache-stratos-single-node-installation">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/solution-architecture/">#solution-architecture</a>,
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
-            
-        
-        <time class="post-date" datetime="2013-08-27T18:07:00Z">
-            27 Aug 2013
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/creating-openstack-images">Creating OpenStack Images</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The official documentation for creating OpenStack images from an ISO can be found here. In this article we will discuss how to create an image from a running instance and how to upload an existing image file to an OpenStack instance. To create a new VM image from a running VM instance we first need to install client tools. Install Client Tools for Nova, Glance &amp; Swift: Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. <a class="read-more" href="http://imesh.github.io:80/creating-openstack-images">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/open-stack/">#open-stack</a>,
-            
-        
-        <time class="post-date" datetime="2013-08-19T09:56:00Z">
-            19 Aug 2013
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/apache-stratos-in-a-nutshell">Apache Stratos in a Nutshell</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>[Based on Apache Stratos 3.0.0] Apache Stratos is an open source, enterprise grade Platform as a Service (PaaS) cloud platform built with open standards. Stratos was originally developed by WSO2 and very recently donated to Apache Software Foundation (ASF) with the vision of making it the most open PaaS framework in the market by involving a wide range of organizations and individuals to design and implement it’s features at their best [1]. <a class="read-more" href="http://imesh.github.io:80/apache-stratos-in-a-nutshell">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/cloud/">#cloud</a>,
             
                 <a href="http://imesh.github.io/tags/paas/">#paas</a>,
             
                 <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
             
         
-        <time class="post-date" datetime="2013-08-19T01:42:00Z">
-            19 Aug 2013
+        <time class="post-date" datetime="2014-06-22T19:32:40Z">
+            22 Jun 2014
         </time>
     </footer>
 </article>
@@ -283,10 +175,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/ntfs-write-support-on-mountain-lion">NTFS Write Support on Mountain Lion</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">Implementing Split Aggregate Pattern in ESB</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>One of the first things that you would notice if you plug-in a portable hard drive formatted in NTFS format to a Mac with Mountain Lion is that the drive is read only. Sometimes you may have not even notice it if you did not try to execute any write operations. Out of the box Mountain Lion does not support write access to Windows based file system NTFS. However FAT32 is read/write supported. <a class="read-more" href="http://imesh.github.io:80/ntfs-write-support-on-mountain-lion">&raquo;</a></p>
+        <p>Split Aggregate is an Enterprise Integration Pattern (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time. In this article I have designed a sample mediation flow in WSO2 ESB, by using the Iterate and Aggregate mediators to demonstrate the usage of Split Aggregate patten. <a class="read-more" href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -297,11 +189,11 @@
         
         on
             
-                <a href="http://imesh.github.io/tags/mac/">#mac</a>,
+                <a href="http://imesh.github.io/tags/esb/">#esb</a>,
             
         
-        <time class="post-date" datetime="2013-05-05T01:28:00Z">
-            5 May 2013
+        <time class="post-date" datetime="2014-06-15T18:30:48Z">
+            15 Jun 2014
         </time>
     </footer>
 </article>
@@ -310,10 +202,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/running-monoscape-on-openstack">Running Monoscape on OpenStack</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">Exposing WSO2 Identity Server Admin Services as REST APIs</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>Since it&rsquo;s inception Monoscape was built on top of OpenStack IaaS. This was around early 2011. During this time OpenStack had only a minimal set of features and components like Nova - Compute, Swift - Object Storage, Glance - Image Service and a very basic web interface. It even didn&rsquo;t had a proper installation process, most people used Stackops distributions. In contrast today OpenStack is a very matured product. Now it has many componenets (Ceilometer - Billing, Cinder - Block Storage, Glance - Image Service, Heat - AWS CloudFormation, Horizon - Dashboard, Keystone - Identity Management, Nova - Compute, Quantum and Swift) including a rich set of features and a well defined installation process. <a class="read-more" href="http://imesh.github.io:80/running-monoscape-on-openstack">&raquo;</a></p>
+        <p>WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this: Download WSO2 ESB 4.8.1 and IS 4.5.0. Extract ESB distribution and set the offset to 1 in carbon.xml file. &lt;offset&gt;1&lt;/offset&gt; Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. <a class="read-more" href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -324,13 +216,13 @@
         
         on
             
-                <a href="http://imesh.github.io/tags/monoscape/">#monoscape</a>,
+                <a href="http://imesh.github.io/tags/identity/">#identity</a>,
             
-                <a href="http://imesh.github.io/tags/openstack/">#openstack</a>,
+                <a href="http://imesh.github.io/tags/security/">#security</a>,
             
         
-        <time class="post-date" datetime="2013-04-14T17:00:00Z">
-            14 Apr 2013
+        <time class="post-date" datetime="2014-05-15T13:36:00Z">
+            15 May 2014
         </time>
     </footer>
 </article>
@@ -339,10 +231,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/android-automated-unit-testing">Android Automated Unit Testing</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/a-quick-guide-for-generating-a-pgp-key">A Quick-Guide for Generating a PGP Key</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>I did some experiments with Android Unit Testing features to implement a custom automated unit testing framework recently. Android itself has a unit testing framework built in. This has been written using JUnit and has implemented new functionality to test Android specific features such as Activities, Services and Content Providers. The basic concept behind Android Unit Test framework is to implement an Android test application similar to a standard Android application and define required meta data to identify the application to be tested and test steps. <a class="read-more" href="http://imesh.github.io:80/android-automated-unit-testing">&raquo;</a></p>
+        <p>1. Generate a Self Signed Key $ gpg --gen-key gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. Please select what kind of key you want: (1) RSA and RSA (default) (2) DSA and Elgamal (3) DSA (sign only) (4) RSA (sign only) Your selection? 1 RSA keys may be between 1024 and 4096 bits long. <a class="read-more" href="http://imesh.github.io:80/a-quick-guide-for-generating-a-pgp-key">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -353,34 +245,11 @@
         
         on
             
-                <a href="http://imesh.github.io/tags/android/">#android</a>,
+                <a href="http://imesh.github.io/tags/security/">#security</a>,
             
         
-        <time class="post-date" datetime="2013-03-26T06:18:00Z">
-            26 Mar 2013
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/tedx-colombo-2012">TEDx Colombo 2012</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>For someone who is passionate about TED having a local TED event in his or her area is facinating. I&rsquo;m not sure whether this is the first TED event held in Sri Lanka, however for the time I was following TED this is the first. I couldn&rsquo;t attend the event by my self. Nevertheless I found most of the talks published on Youtube and TED very interesting. Following are some of them. <a class="read-more" href="http://imesh.github.io:80/tedx-colombo-2012">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        
-        <time class="post-date" datetime="2013-02-16T09:26:00Z">
-            16 Feb 2013
+        <time class="post-date" datetime="2014-04-22T04:27:26Z">
+            22 Apr 2014
         </time>
     </footer>
 </article>
@@ -391,7 +260,7 @@
 	
 	    <a class="newer-posts" href="http://imesh.github.io:80/categories/blog/">&larr; Newer Posts</a>
 	
-	<span class="page-number">Page 2 of 10</span>
+	<span class="page-number">Page 2 of 20</span>
 	
 	    <a class="older-posts" href="http://imesh.github.io:80/categories/blog/page/3/">Older Posts &rarr;</a>
 	

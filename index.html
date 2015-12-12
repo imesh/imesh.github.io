@@ -55,6 +55,16 @@
         
         
         
+            
+            <li class="nav-opened nav-current" role="presentation">
+            	<a href="http://imesh.github.io:80/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://imesh.github.io:80/about/">About Me</a>
+            </li>
+        
     </ul>
     
     
@@ -74,9 +84,7 @@
     <nav class="main-nav overlay clearfix">
         
         
-            
-              <a class="menu-button icon-feed" href="http://imesh.github.io:80/index.xml">&nbsp;&nbsp;Subscribe</a>
-            
+            <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
         
     </nav>
     <div class="vertical">
@@ -307,7 +315,7 @@
     <div class="extra-pagination inner">
         <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 10</span>
+	<span class="page-number">Page 1 of 20</span>
 	
 	    <a class="older-posts" href="http://imesh.github.io:80/page/2/">Older Posts &rarr;</a>
 	
@@ -430,145 +438,10 @@
 </article>
 
     
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/providing-high-availability-for-stratos-with-pacemaker-heartbeat">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>This article describes how High Availability (HA) can be configured with Pacemaker &amp; Heartbeat for Apache Stratos. In general this concept can be applied for any server application which needs HA and does not require any data replication. If data replication is needed you may need to consider using DRBD with Pacemaker. First of all we will see what Pacemaker and Heartbeat are and go through a series of steps on configuring those. <a class="read-more" href="http://imesh.github.io:80/providing-high-availability-for-stratos-with-pacemaker-heartbeat">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        
-        <time class="post-date" datetime="2014-10-24T05:52:55Z">
-            24 Oct 2014
-        </time>
-    </footer>
-</article>
-
-    
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">Re-Writing Query Parameters in WSO2 ESB</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs. &lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt; &lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt; &lt;then&gt; &lt;!-- format query parameter found in URL, replace it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt; &lt;/then&gt; &lt;else&gt; &lt;!-- format query parameter not found in URL, add it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt; &lt;/else&gt; &lt;/filter&gt; &lt;log level=&quot;custom&quot;&gt; <a class="read-more" href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/wso2-esb/">#wso2-esb</a>,
-            
-        
-        <time class="post-date" datetime="2014-08-27T16:28:09Z">
-            27 Aug 2014
-        </time>
-    </footer>
-</article>
-
-    
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/install-stratos-in-one-go">Install Stratos in One Go</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Apache Stratos 4.0.0 installation process has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments. As a solution to this, I implemented a script to automate the complete Stratos installation process by filling the gaps in between: Prerequisites: An Ubuntu 12.04 64bit host Steps to follow: Take a git clone of the below git repository: git clone https://github.com/imesh/stratos-dev-stack.git Update install.sh with host private IP and IaaS configuration parameters: host_private_ip=&quot;&quot; ec2_identity=&quot;identity&quot; ec2_credential=&quot;credential&quot; ec2_keypair_name=&quot;keypair-name&quot; ec2_owner_id=&quot;owner-id&quot; ec2_availability_zone=&quot;availability-zone&quot; ec2_security_groups=&quot;security-groups&quot; Grant install.sh executable access: chmod +x install.sh Run install.sh with root permissions: sudo ./install.sh This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. <a class="read-more" href="http://imesh.github.io:80/install-stratos-in-one-go">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/paas/">#paas</a>,
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
-            
-        
-        <time class="post-date" datetime="2014-06-22T19:32:40Z">
-            22 Jun 2014
-        </time>
-    </footer>
-</article>
-
-    
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">Implementing Split Aggregate Pattern in ESB</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>Split Aggregate is an Enterprise Integration Pattern (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time. In this article I have designed a sample mediation flow in WSO2 ESB, by using the Iterate and Aggregate mediators to demonstrate the usage of Split Aggregate patten. <a class="read-more" href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/esb/">#esb</a>,
-            
-        
-        <time class="post-date" datetime="2014-06-15T18:30:48Z">
-            15 Jun 2014
-        </time>
-    </footer>
-</article>
-
-    
-        
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">Exposing WSO2 Identity Server Admin Services as REST APIs</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this: Download WSO2 ESB 4.8.1 and IS 4.5.0. Extract ESB distribution and set the offset to 1 in carbon.xml file. &lt;offset&gt;1&lt;/offset&gt; Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. <a class="read-more" href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/identity/">#identity</a>,
-            
-                <a href="http://imesh.github.io/tags/security/">#security</a>,
-            
-        
-        <time class="post-date" datetime="2014-05-15T13:36:00Z">
-            15 May 2014
-        </time>
-    </footer>
-</article>
-
-    
 
     <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 10</span>
+	<span class="page-number">Page 1 of 20</span>
 	
 	    <a class="older-posts" href="http://imesh.github.io:80/page/2/">Older Posts &rarr;</a>
 	
