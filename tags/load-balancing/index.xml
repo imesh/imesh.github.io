@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Load Balancing on imesh.io</title>
-    <link>http://localhost:8080/tags/load-balancing/</link>
+    <link>http://imesh.github.io:80/tags/load-balancing/</link>
     <description>Recent content in Load Balancing on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Feb 2014 22:38:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:8080/tags/load-balancing/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io:80/tags/load-balancing/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
-      <link>http://localhost:8080/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <link>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
       <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
       
-      <guid>http://localhost:8080/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <guid>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
       <description>
 
 &lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>imesh.io</title>
-    <link>http://localhost:8080/</link>
+    <link>http://imesh.github.io:80/</link>
     <description>Recent content on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Nov 2015 06:13:48 +0530</lastBuildDate>
-    <atom:link href="http://localhost:8080/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://imesh.github.io:80/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>about</title>
-      <link>http://localhost:8080/about/</link>
+      <link>http://imesh.github.io/about/</link>
       <pubDate>Wed, 18 Nov 2015 06:13:48 +0530</pubDate>
       
-      <guid>http://localhost:8080/about/</guid>
+      <guid>http://imesh.github.io/about/</guid>
       <description>&lt;p&gt;About Imesh&lt;/p&gt;
 
 &lt;p&gt;Imesh is a Senior Technical Lead at WSO2 and the Product Lead of WSO2 Private PaaS. He is a committer and Project Management Committee (PMC) member of Apache Stratos project. Imesh has provided technical consultancy for many customers on designing and implementing Enterprise Integration, API Management, Identity Management and Platform as a Service (PaaS) solutions at WSO2.&lt;/p&gt;
@@ -25,10 +25,10 @@
     
     <item>
       <title>An Introduction to WSO2 Configurator</title>
-      <link>http://localhost:8080/an-introduction-to-wso2-configurator/</link>
+      <link>http://imesh.github.io/an-introduction-to-wso2-configurator/</link>
       <pubDate>Tue, 13 Oct 2015 14:44:13 +0000</pubDate>
       
-      <guid>http://localhost:8080/an-introduction-to-wso2-configurator/</guid>
+      <guid>http://imesh.github.io/an-introduction-to-wso2-configurator/</guid>
       <description>
 
 &lt;p&gt;Product configurations can be automated with orchestration management systems such as Puppet, Chef, Salt, Ansible, etc. Most of these orchestration systems provide their own templating engine for templating configuration files. The problem with this model is that for each orchestration system a separate set of templates need to be created for the same product. Switching between different orchestration systems &amp;amp; maintaining different sets of templates files are very costly.&lt;/p&gt;
@@ -91,10 +91,10 @@ unzip wso2as-5.2.1.zip
     
     <item>
       <title>Introduction to Apache Stratos Mock IaaS</title>
-      <link>http://localhost:8080/introduction-to-apache-stratos-mock-iaas/</link>
+      <link>http://imesh.github.io/introduction-to-apache-stratos-mock-iaas/</link>
       <pubDate>Mon, 22 Dec 2014 18:03:42 +0000</pubDate>
       
-      <guid>http://localhost:8080/introduction-to-apache-stratos-mock-iaas/</guid>
+      <guid>http://imesh.github.io/introduction-to-apache-stratos-mock-iaas/</guid>
       <description>&lt;p&gt;Apache Stratos supports many Infrastructure as a Service (IaaS) platforms; EC2, OpenStack, VCloud, CloudStack, Docker, etc. However setting up an IaaS or purchasing a public IaaS service is an overhead for contributors and people who would like to tryout Stratos; setting up a local IaaS needs considerable amount of hardware resources and purchasing an online IaaS account involves costs. These are some of the major barriers Stratos community had for last year or so for implementing automated integration tests, bringing in new contributors and allowing people to tryout Stratos with less effort.&lt;/p&gt;
 
 &lt;p&gt;Once Stratos introduced Linux Container support with Docker/Kubernetes this problem was solved up to some extent. Nevertheless setting up a Kubernetes cluster also requires several virtual/physical machines and setting up a puppet master (or any other orchestration platform) is an overhead. Very recently when we introduced the Composite Application feature for grouping cartridges this problem became much worse due to the complexity of the logic implemented and the time it took to verify each functionality with above IaaS platforms.&lt;/p&gt;
@@ -163,10 +163,10 @@ unzip wso2as-5.2.1.zip
     
     <item>
       <title>Installing A Reverse Proxy Server on Ubuntu with Apache2</title>
-      <link>http://localhost:8080/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</link>
+      <link>http://imesh.github.io/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</link>
       <pubDate>Mon, 15 Dec 2014 08:25:54 +0000</pubDate>
       
-      <guid>http://localhost:8080/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</guid>
+      <guid>http://imesh.github.io/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/</guid>
       <description>&lt;p&gt;Update package lists:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;apt-get update
@@ -210,10 +210,10 @@ ProxyPassReverse /imesh http://imesh.gunaratne.org
     
     <item>
       <title>How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans</title>
-      <link>http://localhost:8080/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</link>
+      <link>http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</link>
       <pubDate>Thu, 27 Nov 2014 12:57:55 +0000</pubDate>
       
-      <guid>http://localhost:8080/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</guid>
+      <guid>http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</guid>
       <description>
 
 &lt;h2 id=&#34;what-is-a-message-processor:77974a968c24b1b07dd6068f0134deda&#34;&gt;What is a Message Processor?&lt;/h2&gt;
@@ -263,10 +263,10 @@ public class Main {
     
     <item>
       <title>Providing High Availability for Stratos with Pacemaker &amp; Heartbeat</title>
-      <link>http://localhost:8080/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</link>
+      <link>http://imesh.github.io/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</link>
       <pubDate>Fri, 24 Oct 2014 05:52:55 +0000</pubDate>
       
-      <guid>http://localhost:8080/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</guid>
+      <guid>http://imesh.github.io/providing-high-availability-for-stratos-with-pacemaker-heartbeat/</guid>
       <description>
 
 &lt;p&gt;This article describes how High Availability (HA) can be configured with &lt;a href=&#34;http://clusterlabs.org/wiki/Pacemaker&#34;&gt;Pacemaker&lt;/a&gt; &amp;amp; &lt;a href=&#34;http://linux-ha.org/wiki/Heartbeat&#34;&gt;Heartbeat&lt;/a&gt; for Apache Stratos. In general this concept can be applied for any server application which needs HA and does not require any data replication. If data replication is needed you may need to consider using &lt;a href=&#34;http://www.drbd.org/home/what-is-drbd/&#34;&gt;DRBD&lt;/a&gt; with Pacemaker. First of all we will see what Pacemaker and Heartbeat are and go through a series of steps on configuring those.&lt;/p&gt;
@@ -556,10 +556,10 @@ exit $?
     
     <item>
       <title>Re-Writing Query Parameters in WSO2 ESB</title>
-      <link>http://localhost:8080/re-writing-query-parameters-in-wso2-esb/</link>
+      <link>http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/</link>
       <pubDate>Wed, 27 Aug 2014 16:28:09 +0000</pubDate>
       
-      <guid>http://localhost:8080/re-writing-query-parameters-in-wso2-esb/</guid>
+      <guid>http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/</guid>
       <description>&lt;p&gt;The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;property name=&amp;quot;URL&amp;quot; value=&amp;quot;http://host:8280?p1=abc&amp;amp;amp;p2=qwe&amp;quot;/&amp;gt;
@@ -585,10 +585,10 @@ exit $?
     
     <item>
       <title>Install Stratos in One Go</title>
-      <link>http://localhost:8080/install-stratos-in-one-go/</link>
+      <link>http://imesh.github.io/install-stratos-in-one-go/</link>
       <pubDate>Sun, 22 Jun 2014 19:32:40 +0000</pubDate>
       
-      <guid>http://localhost:8080/install-stratos-in-one-go/</guid>
+      <guid>http://imesh.github.io/install-stratos-in-one-go/</guid>
       <description>
 
 &lt;p&gt;Apache Stratos 4.0.0 &lt;a href=&#34;https://cwiki.apache.org/confluence/display/STRATOS/4.0.0+Installation+Guide&#34;&gt;installation process&lt;/a&gt; has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments.&lt;/p&gt;
@@ -651,10 +651,10 @@ Service name: default
     
     <item>
       <title>Implementing Split Aggregate Pattern in ESB</title>
-      <link>http://localhost:8080/implementing-split-aggregate-pattern-in-esb/</link>
+      <link>http://imesh.github.io/implementing-split-aggregate-pattern-in-esb/</link>
       <pubDate>Sun, 15 Jun 2014 18:30:48 +0000</pubDate>
       
-      <guid>http://localhost:8080/implementing-split-aggregate-pattern-in-esb/</guid>
+      <guid>http://imesh.github.io/implementing-split-aggregate-pattern-in-esb/</guid>
       <description>
 
 &lt;p&gt;Split Aggregate is an &lt;a href=&#34;http://www.eaipatterns.com/&#34;&gt;Enterprise Integration Pattern&lt;/a&gt; (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time.&lt;/p&gt;
@@ -747,10 +747,10 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
     
     <item>
       <title>Exposing WSO2 Identity Server Admin Services as REST APIs</title>
-      <link>http://localhost:8080/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
+      <link>http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/</link>
       <pubDate>Thu, 15 May 2014 13:36:00 +0000</pubDate>
       
-      <guid>http://localhost:8080/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
+      <guid>http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/</guid>
       <description>&lt;p&gt;WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -787,9 +787,9 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
     &lt;payloadFactory media-type=&#34;xml&#34;&gt;
         &lt;format&gt;
             &lt;xsd:listAllUsers xmlns:xsd=&#34;http://org.apache.axis2/xsd&#34;&gt;
-                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://localhost:8080/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
-                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://localhost:8080/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
-            &lt;a href=&#34;http://localhost:8080/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
+                &lt;a href=&#34;xsd:filter&#34;&gt;xsd:filter&lt;/a&gt;$1&lt;a href=&#34;http://imesh.github.io:80/xsd:filter&#34;&gt;/xsd:filter&lt;/a&gt;
+                &lt;a href=&#34;xsd:limit&#34;&gt;xsd:limit&lt;/a&gt;$2&lt;a href=&#34;http://imesh.github.io:80/xsd:limit&#34;&gt;/xsd:limit&lt;/a&gt;
+            &lt;a href=&#34;http://imesh.github.io:80/xsd:listAllUsers&#34;&gt;/xsd:listAllUsers&lt;/a&gt;
         &lt;/format&gt;
         &lt;args&gt;
             &lt;arg xmlns:m0=&#34;http://services.samples&#34; evaluator=&#34;xml&#34; expression=&#34;$url:filter&#34;/&gt;
@@ -854,10 +854,10 @@ Response:
     
     <item>
       <title>A Quick-Guide for Generating a PGP Key</title>
-      <link>http://localhost:8080/a-quick-guide-for-generating-a-pgp-key/</link>
+      <link>http://imesh.github.io/a-quick-guide-for-generating-a-pgp-key/</link>
       <pubDate>Tue, 22 Apr 2014 04:27:26 +0000</pubDate>
       
-      <guid>http://localhost:8080/a-quick-guide-for-generating-a-pgp-key/</guid>
+      <guid>http://imesh.github.io/a-quick-guide-for-generating-a-pgp-key/</guid>
       <description>
 
 &lt;h4 id=&#34;1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7&#34;&gt;1. Generate a Self Signed Key&lt;/h4&gt;
@@ -964,10 +964,10 @@ ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &amp;lt;user-id@apache.org
     
     <item>
       <title>Advance Load Balancing Capabilities in Apache Stratos (incubating) 4</title>
-      <link>http://localhost:8080/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
+      <link>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</link>
       <pubDate>Wed, 05 Feb 2014 22:38:00 +0000</pubDate>
       
-      <guid>http://localhost:8080/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
+      <guid>http://imesh.github.io/advance-load-balancing-capabilities-in-apache-stratos-incubating-4/</guid>
       <description>
 
 &lt;p&gt;In Apache Stratos (incubating) 4 architecture there are three different ways to configure load balancers for services. The idea of this functionality is to provide more optimized load balancing capabilities in a single PaaS deployment as required by different services.&lt;/p&gt;
@@ -1067,10 +1067,10 @@ ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &amp;lt;user-id@apache.org
     
     <item>
       <title>Getting Started with Apache Stratos (Incubating) Initial Release with Openstack</title>
-      <link>http://localhost:8080/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
+      <link>http://imesh.github.io/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</link>
       <pubDate>Fri, 27 Sep 2013 09:50:00 +0000</pubDate>
       
-      <guid>http://localhost:8080/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
+      <guid>http://imesh.github.io/getting-started-with-apache-stratos-incubating-initial-release-with-openstack/</guid>
       <description>
 
 &lt;p&gt;Apache Stratos (incubating) is now ready with it’s initial release. A new Git branch has been created for this release with the name “3.0.0-incubating-x”. Please note that &amp;ldquo;x&amp;rdquo; refers to the RC version. Please refer the project wiki for detailed information about this release. To start with, first we need to get the binary distribution of Apache Stratos. We could either build it from source or download the officially released files from svn.&lt;/p&gt;
@@ -1274,10 +1274,10 @@ Gitblits
     
     <item>
       <title>WSO2 CApp Deployment Verification Process</title>
-      <link>http://localhost:8080/wso2-capp-deployment-verification-process-2/</link>
+      <link>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</link>
       <pubDate>Mon, 16 Sep 2013 06:02:09 +0000</pubDate>
       
-      <guid>http://localhost:8080/wso2-capp-deployment-verification-process-2/</guid>
+      <guid>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</guid>
       <description>&lt;p&gt;WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins.&lt;/p&gt;
 
 &lt;p&gt;In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. Which means either the all the artifacts of a CApp will get deployed or none.&lt;/p&gt;
@@ -1368,10 +1368,10 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
     
     <item>
       <title>Apache Stratos Single Node Installation</title>
-      <link>http://localhost:8080/apache-stratos-single-node-installation/</link>
+      <link>http://imesh.github.io/apache-stratos-single-node-installation/</link>
       <pubDate>Tue, 27 Aug 2013 18:07:00 +0000</pubDate>
       
-      <guid>http://localhost:8080/apache-stratos-single-node-installation/</guid>
+      <guid>http://imesh.github.io/apache-stratos-single-node-installation/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;

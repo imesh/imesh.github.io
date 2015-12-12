@@ -7,7 +7,7 @@
 
   	<meta property="og:title" content=" Wso2 Esb &middot;  imesh.io" />
   	<meta property="og:site_name" content="imesh.io" />
-  	<meta property="og:url" content="http://localhost:8080/tags/wso2-esb/" />
+  	<meta property="og:url" content="http://imesh.github.io:80/tags/wso2-esb/" />
 
     
     <meta property="og:type" content="website" />
@@ -22,25 +22,25 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="http://localhost:8080/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://localhost:8080/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/screen.css" />
-    <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/nav.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
     
       
-          <link href="http://localhost:8080/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+          <link href="http://imesh.github.io/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
       
       
-        <link href="http://localhost:8080/tags/wso2-esb/index.xml" rel="alternate" type="application/rss+xml" title="Wso2 Esb &middot; imesh.io" />
+        <link href="http://imesh.github.io:80/tags/wso2-esb/index.xml" rel="alternate" type="application/rss+xml" title="Wso2 Esb &middot; imesh.io" />
       
     
     <meta name="generator" content="Hugo 0.14" />
 
-    <link rel="canonical" href="http://localhost:8080/tags/wso2-esb/" />
+    <link rel="canonical" href="http://imesh.github.io:80/tags/wso2-esb/" />
 
     
 
@@ -59,18 +59,18 @@
         
             
             <li class="nav-opened" role="presentation">
-            	<a href="http://localhost:8080/">Home</a>
+            	<a href="http://imesh.github.io:80/">Home</a>
             </li>
         
             
             <li class="nav-opened" role="presentation">
-            	<a href="http://localhost:8080/about/">About Me</a>
+            	<a href="http://imesh.github.io:80/about/">About Me</a>
             </li>
         
     </ul>
     
     
-    <a class="subscribe-button icon-feed" href="http://localhost:8080/tags/wso2-esb/index.xml">Subscribe</a>
+    <a class="subscribe-button icon-feed" href="http://imesh.github.io:80/tags/wso2-esb/index.xml">Subscribe</a>
     
 </div>
 <span class="nav-cover"></span>
@@ -81,7 +81,7 @@
 
 
 
-	<header class="main-header tag-head" style="background-image: url(http://localhost:8080/images/no-cover.jpg)">
+	<header class="main-header tag-head" style="background-image: url(http://imesh.github.io/images/no-cover.jpg)">
 
     <nav class="main-nav overlay clearfix">
       
@@ -115,10 +115,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://localhost:8080/re-writing-query-parameters-in-wso2-esb">Re-Writing Query Parameters in WSO2 ESB</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">Re-Writing Query Parameters in WSO2 ESB</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs. &lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt; &lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt; &lt;then&gt; &lt;!-- format query parameter found in URL, replace it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt; &lt;/then&gt; &lt;else&gt; &lt;!-- format query parameter not found in URL, add it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt; &lt;/else&gt; &lt;/filter&gt; &lt;log level=&quot;custom&quot;&gt; <a class="read-more" href="http://localhost:8080/re-writing-query-parameters-in-wso2-esb">&raquo;</a></p>
+        <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs. &lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt; &lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt; &lt;then&gt; &lt;!-- format query parameter found in URL, replace it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt; &lt;/then&gt; &lt;else&gt; &lt;!-- format query parameter not found in URL, add it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt; &lt;/else&gt; &lt;/filter&gt; &lt;log level=&quot;custom&quot;&gt; <a class="read-more" href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -129,7 +129,7 @@
         
         on
             
-                <a href="http://localhost:8080/tags/wso2-esb/">#wso2-esb</a>,
+                <a href="http://imesh.github.io/tags/wso2-esb/">#wso2-esb</a>,
             
         
         <time class="post-date" datetime="2014-08-27T16:28:09Z">
@@ -157,9 +157,9 @@
         
     </footer>
     </div>
-    <script type="text/javascript" src="http://localhost:8080/js/jquery.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/js/index.js"></script>
+    <script type="text/javascript" src="http://imesh.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="http://imesh.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://imesh.github.io/js/index.js"></script>
     
 </body>
 </html>
