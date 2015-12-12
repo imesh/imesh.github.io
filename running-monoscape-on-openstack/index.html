@@ -1,40 +1,118 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="">
-		<meta name="description" content="Open Source | Middleware | Cloud | Life">
-		<meta name="generator" content="Hugo 0.14" />
-		<title>Running Monoscape on OpenStack &middot; imesh.io</title>
-		<link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
-		<link rel="stylesheet" href="http://imesh.github.io/css/style.css">
-		<link rel="stylesheet" href="http://imesh.github.io/css/highlight.css">
-		<link href="http://imesh.github.io/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
-	</head>
-    <body>
-       <nav class="main-nav">
-	
-	
-		<a href='http://imesh.github.io/'> <span class="arrow">←</span>Home</a>
-	
+<head>
 
-	
-		<a href='http://imesh.github.io/about'>About</a>
-	
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	
-</nav>
+  	<meta property="og:title" content=" Running Monoscape on OpenStack &middot;  imesh.io" />
+  	<meta property="og:site_name" content="imesh.io" />
+  	<meta property="og:url" content="http://imesh.github.io/running-monoscape-on-openstack/" />
 
-        <section id="wrapper">
-            <article class="post">
-                <header>
-                    <h1>Running Monoscape on OpenStack</h1>
-                    <h2 class="headline">April 14, 2013</h2>
-                </header>
-                <section id="post-body">
-                    <p>Since it&rsquo;s inception Monoscape was built on top of OpenStack IaaS. This was around early 2011. During this time OpenStack had only a minimal set of features and components like Nova - Compute, Swift - Object Storage, Glance - Image Service and a very basic web interface. It even didn&rsquo;t had a proper installation process, most people used Stackops distributions. In contrast today OpenStack is a very matured product. Now it has many componenets (<a href="http://docs.openstack.org/developer/ceilometer/">Ceilometer</a> - Billing, Cinder - Block Storage, Glance - Image Service, <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> - AWS CloudFormation, Horizon - Dashboard, Keystone - Identity Management, Nova - Compute, Quantum and Swift) including a rich set of features and a well defined installation process. Still Stackops provide easy to use distributions for OpenStack packaged with Ubuntu Server but I think they are no longer necessary. One major security issue I noticed with Stackops installation process is that they store client&rsquo;s configuration information in their severs online.</p>
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2013-04-14T17:00:00Z" />
+
+    
+    <meta property="og:article:tag" content="monoscape" />
+    
+    <meta property="og:article:tag" content="openstack" />
+    
+    
+
+  <title>
+     Running Monoscape on OpenStack &middot;  imesh.io
+  </title>
+
+    <meta name="description" content="Open Source | Middleware | Cloud | Life" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://imesh.github.io/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.14" />
+
+    <link rel="canonical" href="http://imesh.github.io/running-monoscape-on-openstack/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://imesh.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+  
+      <a class="menu-button icon-feed" href="http://imesh.github.io/index.xml">&nbsp;&nbsp;Subscribe</a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post ">
+
+    <header class="post-header">
+        <h1 class="post-title">Running Monoscape on OpenStack</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+         
+          <span class="post-tag small"><a href="http://imesh.github.io/tags/monoscape/">#monoscape</a></span>
+         
+          <span class="post-tag small"><a href="http://imesh.github.io/tags/openstack/">#openstack</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      <p>Since it&rsquo;s inception Monoscape was built on top of OpenStack IaaS. This was around early 2011. During this time OpenStack had only a minimal set of features and components like Nova - Compute, Swift - Object Storage, Glance - Image Service and a very basic web interface. It even didn&rsquo;t had a proper installation process, most people used Stackops distributions. In contrast today OpenStack is a very matured product. Now it has many componenets (<a href="http://docs.openstack.org/developer/ceilometer/">Ceilometer</a> - Billing, Cinder - Block Storage, Glance - Image Service, <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> - AWS CloudFormation, Horizon - Dashboard, Keystone - Identity Management, Nova - Compute, Quantum and Swift) including a rich set of features and a well defined installation process. Still Stackops provide easy to use distributions for OpenStack packaged with Ubuntu Server but I think they are no longer necessary. One major security issue I noticed with Stackops installation process is that they store client&rsquo;s configuration information in their severs online.</p>
 
 <p>If you are trying out OpenStack for the first time you could use a Virtual Machine (VM) on Oracle VirtualBox or any other VM platform. However you may need to make sure that you use a physical machine with at least 8GB of memory running with a high end processor. So that you could provide nearly 4 GB of memory to the VM and around 10 GB of dynamic disk space.</p>
 
@@ -95,114 +173,76 @@
 <p>OpenStack Documentation - <a href="http://docs.openstack.org/install">http://docs.openstack.org/install</a><br />
 Deploying OpenStack for Developers - <a href="http://devstack.org">http://devstack.org</a></p>
 
-                </section>
-            </article>
-            <footer id="post-meta" class="clearfix">
-                
-                        <img class="avatar" src="http://imesh.github.io/images/avatar.png">
-                        <div>
-                            <span class="dark"></span>
-                            <span></span>
-                        </div>
-                    
-                <section id="sharing">
-                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fimesh.github.io%2frunning-monoscape-on-openstack%2f - Running%20Monoscape%20on%20OpenStack "><span class="icon-twitter"> Tweet</span></a>
-
-<a class="facebook" href="#" onclick="
-    window.open(
-      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
-      'facebook-share-dialog',
-      'width=626,height=436');
-    return false;"><span class="icon-facebook-rect"> Share</span>
-</a>
-
-                </section>
-            </footer>
-
-            
-
-            <ul id="post-list" class="archive readmore">
-    <h3>Read more</h3>
-    
-    
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/an-introduction-to-wso2-configurator/">An Introduction to WSO2 Configurator<aside class="dates">Oct 13</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/introduction-to-apache-stratos-mock-iaas/">Introduction to Apache Stratos Mock IaaS<aside class="dates">Dec 22</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/installing-a-reverse-proxy-server-on-ubuntu-with-apache2/">Installing A Reverse Proxy Server on Ubuntu with Apache2<aside class="dates">Dec 15</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans<aside class="dates">Nov 27</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/providing-high-availability-for-stratos-with-pacemaker-heartbeat/">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat<aside class="dates">Oct 24</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/">Re-Writing Query Parameters in WSO2 ESB<aside class="dates">Aug 27</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/install-stratos-in-one-go/">Install Stratos in One Go<aside class="dates">Jun 22</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/implementing-split-aggregate-pattern-in-esb/">Implementing Split Aggregate Pattern in ESB<aside class="dates">Jun 15</aside></a>
-        </li>
-        
-   
-    
-        
-        <li>
-            <a href="http://imesh.github.io/exposing-wso2-identity-server-admin-services-as-rest-apis/">Exposing WSO2 Identity Server Admin Services as REST APIs<aside class="dates">May 15</aside></a>
-        </li>
-        
-   
-</ul>
-            <footer id="footer">
-    <p class="small">
-        © Copyright 2015 
-    </p>
-</footer>
-        </section>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://imesh.github.io/js/main.js"></script>
-<script src="http://imesh.github.io/js/highlight.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+    </section>
 
 
-    </body>
+  <footer class="post-footer">
+
+
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://imesh.github.io/">Imesh Gunaratne</a></h4>
+  
+  <p>Read <a href="http://imesh.github.io/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this page</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Running%20Monoscape%20on%20OpenStack&amp;url=http%3a%2f%2fimesh.github.io%2frunning-monoscape-on-openstack%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fimesh.github.io%2frunning-monoscape-on-openstack%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fimesh.github.io%2frunning-monoscape-on-openstack%2f&amp;description=Running%20Monoscape%20on%20OpenStack"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2fimesh.github.io%2frunning-monoscape-on-openstack%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">imesh.io</a> </section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://imesh.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="http://imesh.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://imesh.github.io/js/index.js"></script>
+    
+</body>
 </html>
+
