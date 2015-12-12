@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wso2 on imesh.io</title>
-    <link>http://imesh.github.io:80/tags/wso2/</link>
+    <link>http://localhost:8080/tags/wso2/</link>
     <description>Recent content in Wso2 on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 16 Sep 2013 06:02:09 +0000</lastBuildDate>
-    <atom:link href="http://imesh.github.io:80/tags/wso2/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:8080/tags/wso2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>WSO2 CApp Deployment Verification Process</title>
-      <link>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</link>
+      <link>http://localhost:8080/wso2-capp-deployment-verification-process-2/</link>
       <pubDate>Mon, 16 Sep 2013 06:02:09 +0000</pubDate>
       
-      <guid>http://imesh.github.io/wso2-capp-deployment-verification-process-2/</guid>
+      <guid>http://localhost:8080/wso2-capp-deployment-verification-process-2/</guid>
       <description>&lt;p&gt;WSO2 introduced a new Carbon Application (CApp) deployment verification process in Carbon 4.2.0 release. This might be useful for environments where applicaiton deployment process is automated via DevOps such as Jenkins.&lt;/p&gt;
 
 &lt;p&gt;In Carbon 4.2.0 release CApps are considered as atomic units which consists of a collection of artifacts that provides set of services for a specific requirement. Since the applications are considered atomic, if one of the artifacts of an application does not get deployed properly, that application will considered as not deployed. Which means either the all the artifacts of a CApp will get deployed or none.&lt;/p&gt;
