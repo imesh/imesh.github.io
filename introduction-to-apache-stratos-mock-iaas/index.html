@@ -27,10 +27,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
 
     <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/screen.css" />
     <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/nav.css" />
+    
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
@@ -47,9 +48,13 @@
     
 
     
+    
+    <link rel="stylesheet" href="http://imesh.github.io/css/railscasts.min.css">
+    <script src="http://imesh.github.io/js/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body class="nav-closed">
-
+    
   <div class="nav">
     <h3 class="nav-title">Menu</h3>
     <a href="#" class="nav-close">
@@ -129,17 +134,12 @@
 <p>Stratos provides an abstraction layer for implementing support for Infrastructure as a Service platforms. This is a generic interface that includes following features:</p>
 
 <ul>
-<li><p>Start an instance</p></li>
-
-<li><p>Send user-data/payload parameters to instances</p></li>
-
-<li><p>Attach network interfaces to instances</p></li>
-
-<li><p>Allocate public IP addresses to network interfaces</p></li>
-
-<li><p>Attach storage (volumes) to instances</p></li>
-
-<li><p>Terminate an instance</p></li>
+<li>Start an instance</li>
+<li>Send user-data/payload parameters to instances</li>
+<li>Attach network interfaces to instances</li>
+<li>Allocate public IP addresses to network interfaces</li>
+<li>Attach storage (volumes) to instances</li>
+<li>Terminate an instance</li>
 </ul>
 
 <p>In Stratos 4.0.0 release this interface did not include some of the methods for interacting with the IaaS rather those were directly invoked via the jclouds compute service API. With the introduction of the Mock IaaS all the methods required to communicate with the IaaS were moved to the IaaS interface and jclouds specific logic were moved to a separate class called JcloudsIaas. Now this IaaS interface is implemented by the Mock IaaS client and Jclouds IaaS client (JcloudsIaas). Jclouds IaaS client is further extended by EC2, OpenStack, VCloud, CloudStack, Docker providers.</p>

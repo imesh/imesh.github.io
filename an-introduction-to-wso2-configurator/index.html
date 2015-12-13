@@ -27,10 +27,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="shortcut icon" href="http://imesh.github.io/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" href="http://imesh.github.io/images/apple-touch-icon.png" />
 
     <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/screen.css" />
     <link rel="stylesheet" type="text/css" href="http://imesh.github.io/css/nav.css" />
+    
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
@@ -47,9 +48,13 @@
     
 
     
+    
+    <link rel="stylesheet" href="http://imesh.github.io/css/railscasts.min.css">
+    <script src="http://imesh.github.io/js/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body class="nav-closed">
-
+    
   <div class="nav">
     <h3 class="nav-title">Menu</h3>
     <a href="#" class="nav-close">
@@ -128,7 +133,7 @@
 
 <h4 id="1-build-wso2-configurator:b900d8a8b033f10636d5973137585398">1. Build WSO2 Configurator</h4>
 
-<pre><code>&lt;code&gt;cd /tmp/
+<pre><code>cd /tmp/
 git clone https://github.com/wso2/private-paas-cartridges.git
 cd private-paas-cartridges/common/configurator
 git checkout tags/v4.1.0
@@ -136,38 +141,33 @@ mvn clean install
 cp target/ppaas-configurator-4.1.0.zip /tmp/work
 cd /tmp/work/
 unzip ppaas-configurator-4.1.0.zip
-&lt;/code&gt;
 </code></pre>
 
 <h4 id="2-build-wso2-as-5-2-1-template-module:b900d8a8b033f10636d5973137585398">2. Build WSO2 AS 5.2.1 Template Module</h4>
 
-<pre><code>&lt;code&gt;cd /tmp/private-paas-cartridges/wso2as/5.2.1/template-module 
+<pre><code>cd /tmp/private-paas-cartridges/wso2as/5.2.1/template-module 
 mvn clean install
 cd target/
 unzip wso2as-5.2.1-template-module-4.1.0.zip
 cp wso2as-5.2.1-template-module-4.1.0 /tmp/work/ppaas-configurator-4.1.0/template-modules/
-&lt;/code&gt;
 </code></pre>
 
 <h4 id="3-extract-wso2-as-5-2-1-distribution:b900d8a8b033f10636d5973137585398">3. Extract WSO2 AS 5.2.1 Distribution</h4>
 
-<pre><code>&lt;code&gt;cd /tmp/work/
+<pre><code>cd /tmp/work/
 unzip wso2as-5.2.1.zip
-&lt;/code&gt;
 </code></pre>
 
 <h4 id="4-update-module-ini-file:b900d8a8b033f10636d5973137585398">4. Update module.ini File</h4>
 
-<pre><code>&lt;code&gt; Update module.ini file and set CARBON_HOME to /tmp/work/wso2as-5.2.1
-&lt;/code&gt;
+<pre><code>Update module.ini file and set CARBON_HOME to /tmp/work/wso2as-5.2.1
 </code></pre>
 
 <h4 id="5-run-configurator:b900d8a8b033f10636d5973137585398">5. Run Configurator</h4>
 
-<pre><code>&lt;code&gt; export CONFIG_PARAM_PORT_OFFSET=2
- cd /tmp/work/ppaas-configurator-4.1.0
- python configurator.py
-&lt;/code&gt;
+<pre><code>export CONFIG_PARAM_PORT_OFFSET=2
+cd /tmp/work/ppaas-configurator-4.1.0
+python configurator.py
 </code></pre>
 
 <p>Now have a look at the carbon.xml file port offset value. It should be set to 2.</p>

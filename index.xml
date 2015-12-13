@@ -43,7 +43,7 @@
 
 &lt;h4 id=&#34;1-build-wso2-configurator:b900d8a8b033f10636d5973137585398&#34;&gt;1. Build WSO2 Configurator&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/
+&lt;pre&gt;&lt;code&gt;cd /tmp/
 git clone https://github.com/wso2/private-paas-cartridges.git
 cd private-paas-cartridges/common/configurator
 git checkout tags/v4.1.0
@@ -51,38 +51,33 @@ mvn clean install
 cp target/ppaas-configurator-4.1.0.zip /tmp/work
 cd /tmp/work/
 unzip ppaas-configurator-4.1.0.zip
-&amp;lt;/code&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;2-build-wso2-as-5-2-1-template-module:b900d8a8b033f10636d5973137585398&#34;&gt;2. Build WSO2 AS 5.2.1 Template Module&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/private-paas-cartridges/wso2as/5.2.1/template-module 
+&lt;pre&gt;&lt;code&gt;cd /tmp/private-paas-cartridges/wso2as/5.2.1/template-module 
 mvn clean install
 cd target/
 unzip wso2as-5.2.1-template-module-4.1.0.zip
 cp wso2as-5.2.1-template-module-4.1.0 /tmp/work/ppaas-configurator-4.1.0/template-modules/
-&amp;lt;/code&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;3-extract-wso2-as-5-2-1-distribution:b900d8a8b033f10636d5973137585398&#34;&gt;3. Extract WSO2 AS 5.2.1 Distribution&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt;cd /tmp/work/
+&lt;pre&gt;&lt;code&gt;cd /tmp/work/
 unzip wso2as-5.2.1.zip
-&amp;lt;/code&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;4-update-module-ini-file:b900d8a8b033f10636d5973137585398&#34;&gt;4. Update module.ini File&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt; Update module.ini file and set CARBON_HOME to /tmp/work/wso2as-5.2.1
-&amp;lt;/code&amp;gt;
+&lt;pre&gt;&lt;code&gt;Update module.ini file and set CARBON_HOME to /tmp/work/wso2as-5.2.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;5-run-configurator:b900d8a8b033f10636d5973137585398&#34;&gt;5. Run Configurator&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;code&amp;gt; export CONFIG_PARAM_PORT_OFFSET=2
- cd /tmp/work/ppaas-configurator-4.1.0
- python configurator.py
-&amp;lt;/code&amp;gt;
+&lt;pre&gt;&lt;code&gt;export CONFIG_PARAM_PORT_OFFSET=2
+cd /tmp/work/ppaas-configurator-4.1.0
+python configurator.py
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now have a look at the carbon.xml file port offset value. It should be set to 2.&lt;/p&gt;
@@ -110,17 +105,12 @@ unzip wso2as-5.2.1.zip
 &lt;p&gt;Stratos provides an abstraction layer for implementing support for Infrastructure as a Service platforms. This is a generic interface that includes following features:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Start an instance&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Send user-data/payload parameters to instances&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Attach network interfaces to instances&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Allocate public IP addresses to network interfaces&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Attach storage (volumes) to instances&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Terminate an instance&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Start an instance&lt;/li&gt;
+&lt;li&gt;Send user-data/payload parameters to instances&lt;/li&gt;
+&lt;li&gt;Attach network interfaces to instances&lt;/li&gt;
+&lt;li&gt;Allocate public IP addresses to network interfaces&lt;/li&gt;
+&lt;li&gt;Attach storage (volumes) to instances&lt;/li&gt;
+&lt;li&gt;Terminate an instance&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;In Stratos 4.0.0 release this interface did not include some of the methods for interacting with the IaaS rather those were directly invoked via the jclouds compute service API. With the introduction of the Mock IaaS all the methods required to communicate with the IaaS were moved to the IaaS interface and jclouds specific logic were moved to a separate class called JcloudsIaas. Now this IaaS interface is implemented by the Mock IaaS client and Jclouds IaaS client (JcloudsIaas). Jclouds IaaS client is further extended by EC2, OpenStack, VCloud, CloudStack, Docker providers.&lt;/p&gt;
