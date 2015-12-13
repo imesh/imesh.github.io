@@ -23,15 +23,22 @@
 
 &lt;h4 id=&#34;prerequisites:44b86b14737d76c995bb84192bc26c97&#34;&gt;Prerequisites:&lt;/h4&gt;
 
-&lt;p&gt;&lt;code&gt;An Ubuntu 12.04 64bit host&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An Ubuntu 12.04 64bit host&lt;/li&gt;
+&lt;li&gt;Git client&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&#34;steps-to-follow:44b86b14737d76c995bb84192bc26c97&#34;&gt;Steps to follow:&lt;/h4&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Take a git clone of the below git repository:
-&lt;code&gt;git clone https://github.com/imesh/stratos-dev-stack.git&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Take a git clone of the below git repository:&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;li&gt;&lt;p&gt;Update install.sh with host private IP and IaaS configuration parameters:&lt;/p&gt;&lt;/li&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/imesh/stratos-dev-stack.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Update install.sh with host private IP and IaaS configuration parameters:&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;pre&gt;&lt;code&gt;host_private_ip=&amp;quot;&amp;quot;
