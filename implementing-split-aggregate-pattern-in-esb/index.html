@@ -142,41 +142,34 @@
 <li>At this point iterate mediator set the total sub message count in the message context:</li>
 </ul>
 
-<p>[code lang=&ldquo;java&rdquo;]
-org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
+<pre><code>org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
    private MessageContext getIteratedMessage() {
-      &hellip;
+      ...
       newCtx.setProperty(
-      EIPConstants.MESSAGE_SEQUENCE + &ldquo;.&rdquo; + id,
+      EIPConstants.MESSAGE_SEQUENCE + &quot;.&quot; + id,
       msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
-      &hellip;
-   }</p>
+      ...
+   }
+</code></pre>
 
-<pre><code>
-- Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.
-- Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.
+<ul>
+<li>Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.</li>
+<li>Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.</li>
+</ul>
 
+<h3 id="out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2">Out Mediation Flow</h3>
 
+<p><a href="http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png"><img src="http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png" alt="ESB-Iterate-Aggregate-Out-Flow" /></a></p>
 
-### Out Mediation Flow
+<ul>
+<li>All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).</li>
+<li>In addition any messages that may get timeout by the endpoint will trigger the fault sequence.</li>
+<li>Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.</li>
+<li>Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.</li>
+<li>Then the Aggregate Mediator will wait until responses to all the sub messages are received:</li>
+</ul>
 
-
-  
-
-
-
-
-[![ESB-Iterate-Aggregate-Out-Flow](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)
-
-
-- All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).
-- In addition any messages that may get timeout by the endpoint will trigger the fault sequence.
-- Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.
-- Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.
-- Then the Aggregate Mediator will wait until responses to all the sub messages are received:
-
-[code lang=&quot;java&quot;]
-org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
+<pre><code>org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
    public synchronised boolean isComplete() {
    ...
       String[] msgSequence = prop.toString().split(
@@ -195,17 +188,16 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
 <li>To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:</li>
 </ul>
 
-<p>[code lang=&ldquo;xml&rdquo;]
-<aggregate>
-    <completeCondition>
-        <messageCount/>
-    </completeCondition>
-    <onComplete xmlns:m0="http://services.samples" expression="//m0:getQuoteResponse">
-        <send/>
-    </onComplete>
-</aggregate>
-</code>
-````</p>
+<pre><code>&lt;aggregate&gt; 
+    &lt;completeCondition&gt; 
+        &lt;messageCount/&gt; 
+    &lt;/completeCondition&gt; 
+    &lt;onComplete xmlns:m0=&quot;http://services.samples&quot; expression=&quot;//m0:getQuoteResponse&quot;&gt; 
+        &lt;send/&gt; 
+    &lt;/onComplete&gt; 
+&lt;/aggregate&gt; 
+&lt;/code&gt;
+</code></pre>
 
 <ul>
 <li>Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.</li>

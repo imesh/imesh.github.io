@@ -134,17 +134,12 @@
 <p><strong>How to install OpenStack</strong></p>
 
 <ul>
-<li><p>Download and install Ubuntu 12.04.2 LTS (Precise Pangolin) server x64 from <a href="http://releases.ubuntu.com">http://releases.ubuntu.com</a>.</p></li>
-
-<li><p>Install Git using following command: &gt; sudo apt-get install git</p></li>
-
-<li><p>Download OpenStack installation script from from its git repository using the following command: &gt; git clone git://github.com/openstack-dev/devstack.git</p></li>
-
-<li><p>Run stack.sh script. This script will install MySQL, RabitMQ and many other required software. Then the OpenStack compoenents will be configured with the given user preferences on a single node.</p></li>
-
-<li><p>Once the installation is complete try to login to Horizon via <a href="http://host-ip/">http://host-ip/</a> using the administrative user (&lsquo;admin&rsquo;) and the password given at the installation time. If you could not remember the password by any chance you could find it inside the devstack installation folder written to a text file.</p></li>
-
-<li><p>One important point to note on this relase of OpenStack is that the IP address of the host could be dynamic. Earlier it used to be static with Stackops.</p></li>
+<li>Download and install Ubuntu 12.04.2 LTS (Precise Pangolin) server x64 from <a href="http://releases.ubuntu.com">http://releases.ubuntu.com</a>.</li>
+<li>Install Git using following command: &gt; sudo apt-get install git</li>
+<li>Download OpenStack installation script from from its git repository using the following command: &gt; git clone git://github.com/openstack-dev/devstack.git</li>
+<li>Run stack.sh script. This script will install MySQL, RabitMQ and many other required software. Then the OpenStack compoenents will be configured with the given user preferences on a single node.</li>
+<li>Once the installation is complete try to login to Horizon via <a href="http://host-ip/">http://host-ip/</a> using the administrative user (&lsquo;admin&rsquo;) and the password given at the installation time. If you could not remember the password by any chance you could find it inside the devstack installation folder written to a text file.</li>
+<li>One important point to note on this relase of OpenStack is that the IP address of the host could be dynamic. Earlier it used to be static with Stackops.</li>
 </ul>
 
 <p>Once OpenStack is up and running you could start installing Monoscape. However you may need to note that Keystone, OpenStack identity management service does not start automatically in this release as the operating system starts up. Therefore you may need to manually start it using the script created inside devstack folder. That&rsquo;s the only problem I found so far with the latest dev release.</p>
@@ -154,39 +149,27 @@
 <p><strong>How to install Monoscape</strong></p>
 
 <ul>
-<li><p>Create a new OpenStack user account for monoscape to access the EC2 API.</p></li>
-
-<li><p>Find EC2 authentication details (secret key and access key) for the above user from the IaaS dashboard.</p></li>
-
-<li><p>Update Monoscape Application Grid Controller configuraiton file with the above information.</p></li>
-
-<li><p>Start Monoscape Load Balancer using start-load-balancer.sh shell script.</p></li>
-
-<li><p>Start Monoscape Application Grid using start-application-grid.sh shell script.</p></li>
-
-<li><p>Start Monoscape Dashboard using start-dashboard.sh shell script.</p></li>
-
-<li><p>Login to Monoscape Dashboard using <a href="http://host-ip:8080">http://host-ip:8080</a> and verify IaaS authentication status.</p></li>
-
-<li><p>Create a new key for a EC2 image of Ubuntu 12.04 server and start an instance.</p></li>
-
-<li><p>Copy Monoscape Node Controller to the above VM instance.</p></li>
-
-<li><p>Update Monoscape Node Controller configuration file with the IP address of the application grid.</p></li>
-
-<li><p>Export the above instance of the VM and import it to the IaaS using the same key.</p></li>
-
-<li><p>Login to Monoscape Dashboard and upload Mono applications to be deployed in the PaaS.</p></li>
-
-<li><p>Start an application and do a sanity test to see whether its is working.</p></li>
+<li>Create a new OpenStack user account for monoscape to access the EC2 API.</li>
+<li>Find EC2 authentication details (secret key and access key) for the above user from the IaaS dashboard.</li>
+<li>Update Monoscape Application Grid Controller configuraiton file with the above information.</li>
+<li>Start Monoscape Load Balancer using start-load-balancer.sh shell script.</li>
+<li>Start Monoscape Application Grid using start-application-grid.sh shell script.</li>
+<li>Start Monoscape Dashboard using start-dashboard.sh shell script.</li>
+<li>Login to Monoscape Dashboard using <a href="http://host-ip:8080">http://host-ip:8080</a> and verify IaaS authentication status.</li>
+<li>Create a new key for a EC2 image of Ubuntu 12.04 server and start an instance.</li>
+<li>Copy Monoscape Node Controller to the above VM instance.</li>
+<li>Update Monoscape Node Controller configuration file with the IP address of the application grid.</li>
+<li>Export the above instance of the VM and import it to the IaaS using the same key.</li>
+<li>Login to Monoscape Dashboard and upload Mono applications to be deployed in the PaaS.</li>
+<li>Start an application and do a sanity test to see whether its is working.</li>
 </ul>
 
 <p>If you have any concerns or comments about Monoscape or its installation, please do not hesitate to add a comment line to this post.</p>
 
 <p><strong>References:</strong></p>
 
-<p>OpenStack Documentation - <a href="http://docs.openstack.org/install">http://docs.openstack.org/install</a><br />
-Deploying OpenStack for Developers - <a href="http://devstack.org">http://devstack.org</a></p>
+<p><a href="http://docs.openstack.org/install">OpenStack Documentation</a>
+<a href="http://devstack.org">Deploying OpenStack for Developers</a></p>
 
     </section>
 

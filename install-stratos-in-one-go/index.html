@@ -156,17 +156,25 @@ ec2_security_groups=&quot;security-groups&quot;
 </code></pre>
 
 <ol>
-<li><p>Grant install.sh executable access:
-<code>chmod +x install.sh</code></p></li>
-
-<li><p>Run install.sh with root permissions:
-<code>sudo ./install.sh</code></p></li>
+<li>Grant install.sh executable access:</li>
 </ol>
+
+<pre><code>chmod +x install.sh
+</code></pre>
+
+<ol>
+<li>Run install.sh with root permissions:</li>
+</ol>
+
+<pre><code>sudo ./install.sh
+</code></pre>
 
 <p>This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.</p>
 
-<p>Stratos dashboard URL could be found at the below link:
-<code>https://&lt;hostname&gt;:9443/console</code></p>
+<p>Stratos dashboard URL could be found at the below link:</p>
+
+<pre><code>https://&lt;hostname&gt;:9443/console
+</code></pre>
 
 <p>In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:</p>
 

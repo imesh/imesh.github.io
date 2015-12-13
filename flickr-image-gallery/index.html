@@ -119,21 +119,21 @@
     </header>
 
     <section class="post-content">
-      <p>I was thinking of writting an Image Gallery from some time back to publish my flickr images in my web log. Very recently I found <a href="http://www.codeplex.com/FlickrNet">Flickr.NET</a> API which is a free and open source .NET library which provides access to the Flickr API. So have a look at my first attempt of using Flickr.NET in my <a href="http://rootfolder.info/photography">photography</a> page.</p>
+      <p>I was thinking of writting an Image Gallery from some time back to publish my flickr images in my web log. Very recently I found <a href="http://www.codeplex.com/FlickrNet">Flickr.NET</a> API which is a free and open source .NET library which provides access to the Flickr API. So have a look at my first attempt of using Flickr.NET in my <a href="http://imesh.io/photography">photography</a> page.</p>
 
 <p>It was a really nice experience to develop your own image gallery. The only challenge I had was to come up with a algorithm to implment the navigator. It was bit complex than I thought. I had to design the way that it displays the page numbers according to the selected page and the total number of pages. This is how it was done.</p>
 
 <p>The navigator was designed to display the first five page numbers and the last two page numbers at the start.</p>
 
-<p><img src="http://rootfolder.info/images/ImageGallery/nav1.png" alt="" /></p>
+<p><img src="http://imesh.io/images/ImageGallery/nav1.png" alt="" /></p>
 
 <p>If you navigate to the 5th page it will expand it&rsquo;s content and display a set of five page numbers in the middle by keeping the first and last two page numbers on both sides. It will always display the previous page number on the left hand side to the selected page number. This will allow the user to navigate back to the previous page very easily. Moreover it will display two arrows, basically the greater than and less than characters on the most left and right corners to navigate to each side.</p>
 
-<p><img src="http://rootfolder.info/images/ImageGallery/nav2.png" alt="" /></p>
+<p><img src="http://imesh.io/images/ImageGallery/nav2.png" alt="" /></p>
 
 <p>If you navigate to one of the pages in the set of last 5 pages or may be the last 6 pages it will display the first two page numbers and the last few page numbers as below.</p>
 
-<p><img src="http://rootfolder.info/images/ImageGallery/nav3.png" alt="" /></p>
+<p><img src="http://imesh.io/images/ImageGallery/nav3.png" alt="" /></p>
 
 <p>I&rsquo;m planning to release this application as a free open source product in the near future. It will be improved to read images from web folders or may be from other image publishing platforms like <a href="http://picasa.google.com">Picasa</a>. At the moment this Image Gallery is implemented as a ASP.NET page so I need to change this to a ASP.NET Control. Then it will be able to placed inside a ASP.NET Page with few configuration parameters in the Web.config file.</p>
 

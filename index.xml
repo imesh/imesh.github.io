@@ -31,6 +31,8 @@
       <guid>http://imesh.github.io/an-introduction-to-wso2-configurator/</guid>
       <description>
 
+&lt;p&gt;&lt;em&gt;Note! Configurator is now deprecated, please use &lt;a href=&#34;https://docs.puppetlabs.com/puppet/latest/reference/services_apply.html&#34;&gt;Puppet Apply&lt;/a&gt; instead&lt;/em&gt;&lt;/p&gt;
+
 &lt;p&gt;Product configurations can be automated with orchestration management systems such as Puppet, Chef, Salt, Ansible, etc. Most of these orchestration systems provide their own templating engine for templating configuration files. The problem with this model is that for each orchestration system a separate set of templates need to be created for the same product. Switching between different orchestration systems &amp;amp; maintaining different sets of templates files are very costly.&lt;/p&gt;
 
 &lt;p&gt;WSO2 Configurator was introduced to solve this problem by implementing a generic templating solution which can work with any orchestration system: &lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2015/10/configurator-architecture.png&#34; alt=&#34;configurator-architecture&#34; /&gt;&lt;/p&gt;
@@ -274,13 +276,10 @@ public class Main {
 &lt;h3 id=&#34;prerequisites:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Prerequisites&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Oracle VirtualBox or any other virtualization technology&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Ubuntu 12.04 server (64-bit) virtual machine image&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Pacemaker 1.1.6 or above&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Heartbeat 3.0.5 or above&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Oracle VirtualBox or any other virtualization technology&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Ubuntu 12.04 server (64-bit) virtual machine image&lt;/li&gt;
+&lt;li&gt;Pacemaker 1.1.6 or above&lt;/li&gt;
+&lt;li&gt;Heartbeat 3.0.5 or above&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;steps-for-configuring-pacemaker-heartbeat-for-apache-stratos:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Steps for Configuring Pacemaker &amp;amp; Heartbeat for Apache Stratos:&lt;/h3&gt;
@@ -288,67 +287,58 @@ public class Main {
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Start two instances of Ubuntu 12.04 server virtual machines.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Switch to root user:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Switch to root user:
+&lt;code&gt;
+sudo su
+&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install Pacemaker and Heartbeat&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apt-get install pacemaker heartbeat
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code&gt;sudo su&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Install Pacemaker and Heartbeat&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;apt-get install pacemaker heartbeat&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;# enable pacemaker, without stonith
-crm yes
-# define log file
-logfile /var/log/ha-log
-# warning of soon be dead
-warntime 10
-# declare a host (the other node) dead after:
-deadtime 20
-# dead time on boot (could take some time until net is up)
-initdead 120
-# time between heartbeats
-keepalive 2
-# the nodes
-node node1 # set node1 hostname
-node node2 # set node2 hostname
-# heartbeats, over dedicated replication interface
-ucast eth1 10.186.175.16 # set node1 network-interface and ip address
-ucast eth1 54.211.110.217 # set node2 network-interface and ip address
+&lt;pre&gt;&lt;code&gt;    # enable pacemaker, without stonith
+    crm yes
+    # define log file
+    logfile /var/log/ha-log
+    # warning of soon be dead
+    warntime 10
+    # declare a host (the other node) dead after:
+    deadtime 20
+    # dead time on boot (could take some time until net is up)
+    initdead 120
+    # time between heartbeats
+    keepalive 2
+    # the nodes
+    node node1 # set node1 hostname
+    node node2 # set node2 hostname
+    # heartbeats, over dedicated replication interface
+    ucast eth1 10.186.175.16 # set node1 network-interface and ip address
+    ucast eth1 54.211.110.217 # set node2 network-interface and ip address
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Create authentication key file and set permissions in one of the hosts:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Create authentication key file and set permissions in one of the hosts:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;( echo -ne &amp;quot;auth 1\n1 sha1 &amp;quot;; \
 dd if=/dev/urandom bs=512 count=1 | openssl md5 ) \
 &amp;gt; /etc/ha.d/authkeys
-
 chmod 0600 /etc/ha.d/authkeys
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Copy the above authkeys file to each host (/etc/ha.d/authkeys).&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Restart heartbeat service:&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Restart heartbeat service:
+&lt;code&gt;
+service heartbeat restart
+&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;service heartbeat restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;crm status
-
 ============
 Last updated: Wed Oct 15 11:25:05 2014
 Last change: Wed Oct 15 11:21:51 2014 via crmd on ip-10-186-175-16
@@ -358,171 +348,185 @@ Version: 1.1.6-9971ebba4494012a93c03b40a2c58ec0eb60f50c
 2 Nodes configured, unknown expected votes
 0 Resources configured.
 ============
-
 Online: [ ip-10-186-175-16 ip-10-153-165-178 ]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Disable STONITH:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Disable STONITH:
+&lt;code&gt;
+crm configure property stonith-enabled=false
+&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;pre&gt;&lt;code&gt;crm configure property stonith-enabled=false
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Create a Failover IP resource to manage the virtual IP address:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Create a Failover IP resource to manage the virtual IP address:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;crm configure primitive FAILOVER-IP ocf:heartbeat:IPaddr params ip=192.168.10.20 cidr_netmask=&amp;quot;255.255.255.0&amp;quot; op monitor interval=10s
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;SCP java and Apache Stratos packages to both hosts and extract them under /opt folder.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;&lt;p&gt;Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;https://gist.github.com/imesh/5256272cd71b74a06581
+&lt;p&gt;````
+&lt;a href=&#34;https://gist.github.com/imesh/5256272cd71b74a06581&#34;&gt;https://gist.github.com/imesh/5256272cd71b74a06581&lt;/a&gt;&lt;/p&gt;
 
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          stratos
-# Required-Start:    $local_fs $remote_fs $network $syslog $named
-# Required-Stop:     $local_fs $remote_fs $network $syslog $named
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# X-Interactive:     true
-# Short-Description: Start/stop stratos server
-### END INIT INFO
+&lt;p&gt;#!/bin/sh&lt;/p&gt;
 
-USER=&amp;quot;vagrant&amp;quot;
-PRODUCT_NAME=&amp;quot;stratos&amp;quot;
-JAVA_HOME=&amp;quot;/opt/jdk1.7.0_60&amp;quot;
-PRODUCT_HOME=&amp;quot;/opt/apache_stratos_4.1.0_SNAPSHOT&amp;quot;
-PID_FILE=&amp;quot;${PRODUCT_HOME}/wso2carbon.pid&amp;quot;
-CMD=&amp;quot;${PRODUCT_HOME}/bin/stratos.sh&amp;quot;
+&lt;h3 id=&#34;begin-init-info:a154e42535fddf1ea81063e517e4edcd&#34;&gt;BEGIN INIT INFO&lt;/h3&gt;
 
-# LSB exit codes:
-# ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h
+&lt;h1 id=&#34;provides-stratos:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Provides:          stratos&lt;/h1&gt;
 
-LSB_EXIT_OK=0
+&lt;h1 id=&#34;required-start-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Required-Start:    $local_fs $remote_fs $network $syslog $named&lt;/h1&gt;
+
+&lt;h1 id=&#34;required-stop-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Required-Stop:     $local_fs $remote_fs $network $syslog $named&lt;/h1&gt;
+
+&lt;h1 id=&#34;default-start-2-3-4-5:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Default-Start:     2 3 4 5&lt;/h1&gt;
+
+&lt;h1 id=&#34;default-stop-0-1-6:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Default-Stop:      0 1 6&lt;/h1&gt;
+
+&lt;h1 id=&#34;x-interactive-true:a154e42535fddf1ea81063e517e4edcd&#34;&gt;X-Interactive:     true&lt;/h1&gt;
+
+&lt;h1 id=&#34;short-description-start-stop-stratos-server:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Short-Description: Start/stop stratos server&lt;/h1&gt;
+
+&lt;h3 id=&#34;end-init-info:a154e42535fddf1ea81063e517e4edcd&#34;&gt;END INIT INFO&lt;/h3&gt;
+
+&lt;p&gt;USER=&amp;ldquo;vagrant&amp;rdquo;
+PRODUCT_NAME=&amp;ldquo;stratos&amp;rdquo;
+JAVA_HOME=&amp;ldquo;/opt/jdk1.7.0_60&amp;rdquo;
+PRODUCT_HOME=&amp;ldquo;/opt/apache_stratos_4.1.0_SNAPSHOT&amp;rdquo;
+PID_FILE=&amp;ldquo;${PRODUCT_HOME}/wso2carbon.pid&amp;rdquo;
+CMD=&amp;ldquo;${PRODUCT_HOME}/bin/stratos.sh&amp;rdquo;&lt;/p&gt;
+
+&lt;h1 id=&#34;lsb-exit-codes:a154e42535fddf1ea81063e517e4edcd&#34;&gt;LSB exit codes:&lt;/h1&gt;
+
+&lt;h1 id=&#34;ftp-ftp-nomadlinux-com-nomad-2-dist-heartbeat-1-2-5-include-clplumbing-lsb-exitcodes-h:a154e42535fddf1ea81063e517e4edcd&#34;&gt;&lt;a href=&#34;ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h&#34;&gt;ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;LSB_EXIT_OK=0
 LSB_EXIT_GENERIC=1
 LSB_EXIT_EINVAL=2
 LSB_EXIT_ENOTSUPPORTED=3
 LSB_EXIT_EPERM=4
 LSB_EXIT_NOTINSTALLED=5
 LSB_EXIT_NOTCONFIGED=6
-LSB_EXIT_NOTRUNNING=7
+LSB_EXIT_NOTRUNNING=7&lt;/p&gt;
 
-is_service_running() {
-	if [ -e ${PID_FILE} ]; then
-		PID=`cat ${PID_FILE}`
-	    if  ps -p $PID &amp;gt;&amp;amp;- ; then
-			# service is running
-			return 0
-		else
-			# service is stopped
-			return 1
-	    fi
-	else
-		# pid file was not found, may be server was not started before
-		return 1
-	fi
-}
+&lt;p&gt;is_service_running() {
+    if [ -e ${PID_FILE} ]; then
+        PID=&lt;code&gt;cat ${PID_FILE}&lt;/code&gt;
+        if ps -p $PID &amp;gt;&amp;amp;- ; then
+            # service is running
+            return 0
+            else
+            # service is stopped
+            return 1
+            fi
+         else
+    # pid file was not found, may be server was not started before
+    return 1
+    fi
+}&lt;/p&gt;
 
-# Status the service
-status() {
-	is_service_running
-	service_status=$?
+&lt;h1 id=&#34;status-the-service:a154e42535fddf1ea81063e517e4edcd&#34;&gt;Status the service&lt;/h1&gt;
 
-	if [ &amp;quot;${service_status}&amp;quot; -eq 0 ]; then
-		echo &amp;quot;${PRODUCT_NAME} service is running&amp;quot;
-		return ${LSB_EXIT_OK}
-	elif [ &amp;quot;${service_status}&amp;quot; -eq 1 ]; then
-		echo &amp;quot;$PRODUCT_NAME service is stopped&amp;quot;
-		return ${LSB_EXIT_OK}
-	else
-		echo &amp;quot;$PRODUCT_NAME service status is unknown&amp;quot;
-		return ${LSB_EXIT_GENERIC}
+&lt;p&gt;status() {
+    is_service_running
+    service_status=$?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if [ &amp;quot;${service_status}&amp;quot; -eq 0 ]; then
+    echo &amp;quot;${PRODUCT_NAME} service is running&amp;quot;
+    return ${LSB_EXIT_OK}
+    elif [ &amp;quot;${service_status}&amp;quot; -eq 1 ]; then
+    echo &amp;quot;$PRODUCT_NAME service is stopped&amp;quot;
+    return ${LSB_EXIT_OK}
+    else
+    echo &amp;quot;$PRODUCT_NAME service status is unknown&amp;quot;
+    return ${LSB_EXIT_GENERIC}
     fi
 }
 
+
 # Start the service
 start() {
-	if is_service_running; then
-		echo &amp;quot;${PRODUCT_NAME} service is already running&amp;quot;
-		return ${LSB_EXIT_OK}
-	fi
+    if is_service_running; then
+    echo &amp;quot;${PRODUCT_NAME} service is already running&amp;quot;
+    return ${LSB_EXIT_OK}
+    fi
 
-	echo &amp;quot;starting ${PRODUCT_NAME} service...&amp;quot;
-	su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&amp;quot;
 
-	is_service_running
-	service_status=$?
-	while [ &amp;quot;$service_status&amp;quot; -ne &amp;quot;0&amp;quot; ]
-	do
-		sleep 1;
-		is_service_running
-		service_status=$?
-	done
+    echo &amp;quot;starting ${PRODUCT_NAME} service...&amp;quot;
+    su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&amp;quot;
 
-	echo &amp;quot;${PRODUCT_NAME} service started&amp;quot;
-	return ${LSB_EXIT_OK}
+
+    is_service_running
+    service_status=$?
+    while [ &amp;quot;$service_status&amp;quot; -ne &amp;quot;0&amp;quot; ]
+    do
+    sleep 1;
+    is_service_running
+    service_status=$?
+    done
+
+
+    echo &amp;quot;${PRODUCT_NAME} service started&amp;quot;
+    return ${LSB_EXIT_OK}
 }
+
 
 # Restart the service
 restart() {
-	echo &amp;quot;restarting ${PRODUCT_NAME} service...&amp;quot;
-	su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&amp;quot;
+    echo &amp;quot;restarting ${PRODUCT_NAME} service...&amp;quot;
+    su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&amp;quot;
     echo &amp;quot;${PRODUCT_NAME} service restarted&amp;quot;
-	return ${LSB_EXIT_OK}
+    return ${LSB_EXIT_OK}
 }
+
 
 # Stop the service
 stop() {
-	if ! is_service_running; then
-		echo &amp;quot;${PRODUCT_NAME} service is already stopped&amp;quot;
-		return ${LSB_EXIT_OK}
-	fi
+    if ! is_service_running; then
+    echo &amp;quot;${PRODUCT_NAME} service is already stopped&amp;quot;
+    return ${LSB_EXIT_OK}
+    fi
 
-	echo &amp;quot;stopping ${PRODUCT_NAME} service...&amp;quot;
-	su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&amp;quot;
 
-	is_service_running
-	service_status=$?
-	while [ &amp;quot;$service_status&amp;quot; -eq &amp;quot;0&amp;quot; ]
-	do
-		sleep 1;
-		is_service_running
-		service_status=$?
-	done
+    echo &amp;quot;stopping ${PRODUCT_NAME} service...&amp;quot;
+    su - ${USER} -c &amp;quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&amp;quot;
 
-	echo &amp;quot;${PRODUCT_NAME} service stopped&amp;quot;
-	return ${LSB_EXIT_OK}
+
+    is_service_running
+    service_status=$?
+    while [ &amp;quot;$service_status&amp;quot; -eq &amp;quot;0&amp;quot; ]
+    do
+    sleep 1;
+    is_service_running
+    service_status=$?
+    done
+
+
+    echo &amp;quot;${PRODUCT_NAME} service stopped&amp;quot;
+    return ${LSB_EXIT_OK}
 }
 ### main logic ###
 case &amp;quot;$1&amp;quot; in
 start)
     start
-    ;;
+;;
 stop|graceful-stop)
     stop
-    ;;
+;;
 status)
     status
-    ;;
+;;
 restart|reload|force-reload)
     restart
-    ;;
+;;
 *)
-   echo $&amp;quot;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&amp;quot;
-   exit 1
+echo $&amp;quot;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&amp;quot;
+exit 1
 esac
 exit $?
-&lt;/code&gt;&lt;/pre&gt;
+````
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Create a CRM resource for stratos:&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a CRM resource for stratos:&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;pre&gt;&lt;code&gt;crm configure primitive STRATOS lsb::stratos op monitor interval=15s
@@ -608,17 +612,25 @@ ec2_security_groups=&amp;quot;security-groups&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Grant install.sh executable access:
-&lt;code&gt;chmod +x install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Run install.sh with root permissions:
-&lt;code&gt;sudo ./install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Grant install.sh executable access:&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;chmod +x install.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Run install.sh with root permissions:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo ./install.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.&lt;/p&gt;
 
-&lt;p&gt;Stratos dashboard URL could be found at the below link:
-&lt;code&gt;https://&amp;lt;hostname&amp;gt;:9443/console&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Stratos dashboard URL could be found at the below link:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://&amp;lt;hostname&amp;gt;:9443/console
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:&lt;/p&gt;
 
@@ -664,41 +676,34 @@ Service name: default
 &lt;li&gt;At this point iterate mediator set the total sub message count in the message context:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;[code lang=&amp;ldquo;java&amp;rdquo;]
-org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
+&lt;pre&gt;&lt;code&gt;org.apache.synapse.mediators.eip.splitter.IterateMediator (Synapse 2.1.2-wso2v5):
    private MessageContext getIteratedMessage() {
-      &amp;hellip;
+      ...
       newCtx.setProperty(
-      EIPConstants.MESSAGE_SEQUENCE + &amp;ldquo;.&amp;rdquo; + id,
+      EIPConstants.MESSAGE_SEQUENCE + &amp;quot;.&amp;quot; + id,
       msgNumber + EIPConstants.MESSAGE_SEQUENCE_DELEMITER + msgCount);
-      &amp;hellip;
-   }&lt;/p&gt;
+      ...
+   }
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;
-- Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.
-- Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.
+&lt;ul&gt;
+&lt;li&gt;Then I have configured the endpoint timeout settings to trigger the fault sequence if a timeout occurs.&lt;/li&gt;
+&lt;li&gt;Here we need to consider the timeout value of the actual backend service which the endpoint is pointing to.&lt;/li&gt;
+&lt;/ul&gt;
 
+&lt;h3 id=&#34;out-mediation-flow:94ce61deccc4ede7f2e1a3c4000ccac2&#34;&gt;Out Mediation Flow&lt;/h3&gt;
 
+&lt;p&gt;&lt;a href=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34;&gt;&lt;img src=&#34;http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png&#34; alt=&#34;ESB-Iterate-Aggregate-Out-Flow&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-### Out Mediation Flow
+&lt;ul&gt;
+&lt;li&gt;All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).&lt;/li&gt;
+&lt;li&gt;In addition any messages that may get timeout by the endpoint will trigger the fault sequence.&lt;/li&gt;
+&lt;li&gt;Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.&lt;/li&gt;
+&lt;li&gt;Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.&lt;/li&gt;
+&lt;li&gt;Then the Aggregate Mediator will wait until responses to all the sub messages are received:&lt;/li&gt;
+&lt;/ul&gt;
 
-
-  
-
-
-
-
-[![ESB-Iterate-Aggregate-Out-Flow](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)](http://imesh.gunaratne.org/wp-content/uploads/2014/06/ESB-Iterate-Aggregate-Out-Flow.png)
-
-
-- All successful responses will trigger the out sequence and all fault messages will trigger the fault sequence (according to the API/Proxy Service configuration).
-- In addition any messages that may get timeout by the endpoint will trigger the fault sequence.
-- Both out sequence and fault sequence will generate a sub result block in the same format as show in below sample response. Since both blocks are in the same format the aggregate mediator will be able to aggregate them without any problem.
-- Important: In this approach we will generate a sub result block for all the sub messages sent to the endpoint, even if a timeout occurs in one sub message.
-- Then the Aggregate Mediator will wait until responses to all the sub messages are received:
-
-[code lang=&amp;quot;java&amp;quot;]
-org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
+&lt;pre&gt;&lt;code&gt;org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
    public synchronised boolean isComplete() {
    ...
       String[] msgSequence = prop.toString().split(
@@ -717,17 +722,16 @@ org.apache.synapse.mediators.eip.aggregator.Aggregate (Synapse 2.1.2-wso2v5):
 &lt;li&gt;To do this we should not define a timeout in complete condition in aggregate mediator, rather the following could be defined:&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;[code lang=&amp;ldquo;xml&amp;rdquo;]
-&lt;aggregate&gt;
-    &lt;completeCondition&gt;
-        &lt;messageCount/&gt;
-    &lt;/completeCondition&gt;
-    &lt;onComplete xmlns:m0=&#34;http://services.samples&#34; expression=&#34;//m0:getQuoteResponse&#34;&gt;
-        &lt;send/&gt;
-    &lt;/onComplete&gt;
-&lt;/aggregate&gt;
-&lt;/code&gt;
-````&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;aggregate&amp;gt; 
+    &amp;lt;completeCondition&amp;gt; 
+        &amp;lt;messageCount/&amp;gt; 
+    &amp;lt;/completeCondition&amp;gt; 
+    &amp;lt;onComplete xmlns:m0=&amp;quot;http://services.samples&amp;quot; expression=&amp;quot;//m0:getQuoteResponse&amp;quot;&amp;gt; 
+        &amp;lt;send/&amp;gt; 
+    &amp;lt;/onComplete&amp;gt; 
+&amp;lt;/aggregate&amp;gt; 
+&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Once the aggregated response message is reached at the Response Sequence it will be sent back to the client.&lt;/li&gt;
@@ -1070,24 +1074,17 @@ ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &amp;lt;user-id@apache.org
 &lt;p&gt;You could follow the below steps to build the binary distribution from source:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos
-
 mvn clean install
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip
-
 incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1107,9 +1104,7 @@ incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agen
 &lt;p&gt;Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;stratos-3.0.0-incubating-tomcat-cartridge.img.zip
-
 stratos-3.0.0-incubating-php-cartridge.img.zip
-
 stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1121,23 +1116,24 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;li&gt;The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;sudo apt-get install python-novaclient python-glanceclient swift&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;source /openrc.sh&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;source /openrc.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating&amp;ndash;tomcat-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img&lt;/p&gt;
-
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-mysql-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img&lt;/p&gt;
-
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-php-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;glance image-create --name=&amp;quot;stratos-3.0.0-incubating--tomcat-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img
+glance image-create --name=&amp;quot;stratos-3.0.0-incubating-mysql-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img
+glance image-create --name=&amp;quot;stratos-3.0.0-incubating-php-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt; &lt;/p&gt;
 
@@ -1148,9 +1144,7 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;/ol&gt;
 
 &lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos/tools/stratos-installer
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1176,8 +1170,9 @@ export mysql_connector_jar=$stratos_pack_path/&amp;quot;mysql-connector-java-5.1
 &lt;li&gt;Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;pre&gt;&lt;code&gt;# Openstack
-export openstack_provider_enabled=true
+&lt;h1 id=&#34;openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Openstack&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;export openstack_provider_enabled=true
 export openstack_identity=&amp;quot;stratos:stratos&amp;quot; #Openstack project name:Openstack login user
 export openstack_credential=&amp;quot;password&amp;quot; #Openstack login password
 export openstack_tenant=&amp;quot;stratos&amp;quot; #Openstack project name
@@ -1254,7 +1249,8 @@ Gitblits
 &lt;li&gt;Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;code&gt;https://sc.stratos.apache.org:9445/carbon&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://sc.stratos.apache.org:9445/carbon
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.&lt;/li&gt;
@@ -1364,7 +1360,7 @@ User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
       <guid>http://imesh.github.io/apache-stratos-single-node-installation/</guid>
       <description>
 
-&lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://imesh.io/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;[Based on Apache Stratos (incubating) 4.0.0-M5]&lt;/p&gt;
 

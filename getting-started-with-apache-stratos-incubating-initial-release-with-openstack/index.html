@@ -132,24 +132,17 @@
 <p>You could follow the below steps to build the binary distribution from source:</p>
 
 <pre><code>git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos
-
 mvn clean install
 </code></pre>
 
 <p>This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:</p>
 
 <pre><code>incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip
-
 incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
 </code></pre>
 
@@ -169,9 +162,7 @@ incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agen
 <p>Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:</p>
 
 <pre><code>stratos-3.0.0-incubating-tomcat-cartridge.img.zip
-
 stratos-3.0.0-incubating-php-cartridge.img.zip
-
 stratos-3.0.0-incubating-mysql-cartridge.img.zip
 </code></pre>
 
@@ -183,23 +174,24 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 <li>The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:</li>
 </ol>
 
-<p>sudo apt-get install python-novaclient python-glanceclient swift</p>
+<pre><code>sudo apt-get install python-novaclient python-glanceclient swift
+</code></pre>
 
 <ol>
 <li>Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:</li>
 </ol>
 
-<p>source /openrc.sh</p>
+<pre><code>source /openrc.sh
+</code></pre>
 
 <ol>
 <li>Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.</li>
 </ol>
 
-<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating&ndash;tomcat-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-tomcat-cartridge.img</p>
-
-<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating-mysql-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-mysql-cartridge.img</p>
-
-<p>glance image-create &ndash;name=&ldquo;stratos-3.0.0-incubating-php-cartridge&rdquo; &ndash;is-public=true &ndash;container-format=ami &ndash;disk-format=ami &lt; stratos-3.0.0-incubating-php-cartridge.img</p>
+<pre><code>glance image-create --name=&quot;stratos-3.0.0-incubating--tomcat-cartridge&quot; --is-public=true --container-format=ami --disk-format=ami &lt; stratos-3.0.0-incubating-tomcat-cartridge.img
+glance image-create --name=&quot;stratos-3.0.0-incubating-mysql-cartridge&quot; --is-public=true --container-format=ami --disk-format=ami &lt; stratos-3.0.0-incubating-mysql-cartridge.img
+glance image-create --name=&quot;stratos-3.0.0-incubating-php-cartridge&quot; --is-public=true --container-format=ami --disk-format=ami &lt; stratos-3.0.0-incubating-php-cartridge.img
+</code></pre>
 
 <p> </p>
 
@@ -210,9 +202,7 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 </ol>
 
 <pre><code>git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos/tools/stratos-installer
 </code></pre>
 
@@ -238,8 +228,9 @@ export mysql_connector_jar=$stratos_pack_path/&quot;mysql-connector-java-5.1.25.
 <li>Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.</li>
 </ol>
 
-<pre><code># Openstack
-export openstack_provider_enabled=true
+<h1 id="openstack:ca22749167d775a2e3747beccf928b4d">Openstack</h1>
+
+<pre><code>export openstack_provider_enabled=true
 export openstack_identity=&quot;stratos:stratos&quot; #Openstack project name:Openstack login user
 export openstack_credential=&quot;password&quot; #Openstack login password
 export openstack_tenant=&quot;stratos&quot; #Openstack project name
@@ -316,7 +307,8 @@ Gitblits
 <li>Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:</li>
 </ol>
 
-<p><code>https://sc.stratos.apache.org:9445/carbon</code></p>
+<pre><code>https://sc.stratos.apache.org:9445/carbon
+</code></pre>
 
 <ol>
 <li>Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.</li>

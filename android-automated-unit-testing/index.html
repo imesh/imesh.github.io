@@ -133,32 +133,31 @@
 
 <p>Except for standard test implementation several other open source projects have emerged to simplify the process. One of the leading implementation is <a href="https://github.com/jayway/robotium">Robotium</a>. Robotium is a very light weight framework which has introduced helper classes to facilitate most of the user interaction commands which may cost more if we were to implement on standard Android Test Framework. For an example to type on a text field with standard Android Unit Test implementation we may need to write something like this:</p>
 
-<pre><code>// Find field references
-LoginActivity mActivity = getActivity();
-final EditText mEmailView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.email);
-final EditText mPasswordView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.password);
-final Button mSignIn = (Button) mActivity.findViewById(com.example.helloworld.R.id.sign_in_button);
-
-// Set field values and press sign in button
-mActivity.runOnUiThread(new Runnable() {
-    public void run() {
-        mEmailView.setText(&quot;ABC&quot;);
-        mPasswordView.setText(&quot;hello&quot;);
-        mSignIn.callOnClick();              
-    }
-});
+<pre><code>    // Find field references
+    LoginActivity mActivity = getActivity();
+    final EditText mEmailView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.email);
+    final EditText mPasswordView = (EditText) mActivity.findViewById(com.example.helloworld.R.id.password);
+    final Button mSignIn = (Button) mActivity.findViewById(com.example.helloworld.R.id.sign_in_button);
+    
+    // Set field values and press sign in button
+    mActivity.runOnUiThread(new Runnable() {
+    	public void run() {
+    		mEmailView.setText(&quot;ABC&quot;);
+    		mPasswordView.setText(&quot;hello&quot;);
+    		mSignIn.callOnClick();				
+    	}
+    });
 </code></pre>
 
 <p>However with Robotium we could write the same test script with:</p>
 
-<pre><code>// Find field references
-Activity mActivity = getActivity();
-        EditText mEmailView = (EditText) mActivity.findViewById(R.id.email);
-        EditText mPasswordView = (EditText) mActivity.findViewById(R.id.password);      
-
-        solo.enterText(mEmailView, &quot;f&quot;);
-        solo.enterText(mPasswordView, &quot;hello&quot;);
-        solo.clickOnButton(&quot;Sign in or register&quot;);
+<pre><code>    // Find field references
+    Activity mActivity = getActivity();
+    EditText mEmailView = (EditText) mActivity.findViewById(R.id.email);
+    EditText mPasswordView = (EditText) mActivity.findViewById(R.id.password);		
+    solo.enterText(mEmailView, &quot;f&quot;);
+    solo.enterText(mPasswordView, &quot;hello&quot;);
+    solo.clickOnButton(&quot;Sign in or register&quot;);
 </code></pre>
 
 <p>Robotium also supports to take screen shots at different points of the test flow so that we could have a look at the screens for investigating problems.</p>

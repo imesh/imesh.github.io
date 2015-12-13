@@ -136,13 +136,10 @@
 <h3 id="prerequisites:a154e42535fddf1ea81063e517e4edcd">Prerequisites</h3>
 
 <ul>
-<li><p>Oracle VirtualBox or any other virtualization technology</p></li>
-
-<li><p>Ubuntu 12.04 server (64-bit) virtual machine image</p></li>
-
-<li><p>Pacemaker 1.1.6 or above</p></li>
-
-<li><p>Heartbeat 3.0.5 or above</p></li>
+<li>Oracle VirtualBox or any other virtualization technology<br /></li>
+<li>Ubuntu 12.04 server (64-bit) virtual machine image</li>
+<li>Pacemaker 1.1.6 or above</li>
+<li>Heartbeat 3.0.5 or above</li>
 </ul>
 
 <h3 id="steps-for-configuring-pacemaker-heartbeat-for-apache-stratos:a154e42535fddf1ea81063e517e4edcd">Steps for Configuring Pacemaker &amp; Heartbeat for Apache Stratos:</h3>
@@ -150,67 +147,58 @@
 <ul>
 <li><p>Start two instances of Ubuntu 12.04 server virtual machines.</p></li>
 
-<li><p>Switch to root user:</p></li>
+<li><p>Switch to root user:
+<code>
+sudo su
+</code></p></li>
+
+<li><p>Install Pacemaker and Heartbeat</p>
+
+<pre><code>apt-get install pacemaker heartbeat
+</code></pre></li>
+
+<li><p>Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf</p></li>
 </ul>
 
-<p><code>sudo su</code></p>
-
-<ul>
-<li>Install Pacemaker and Heartbeat</li>
-</ul>
-
-<p><code>apt-get install pacemaker heartbeat</code></p>
-
-<ul>
-<li>Create Heartbeat configuration file at the following location: /etc/ha.d/ha.cf</li>
-</ul>
-
-<pre><code># enable pacemaker, without stonith
-crm yes
-# define log file
-logfile /var/log/ha-log
-# warning of soon be dead
-warntime 10
-# declare a host (the other node) dead after:
-deadtime 20
-# dead time on boot (could take some time until net is up)
-initdead 120
-# time between heartbeats
-keepalive 2
-# the nodes
-node node1 # set node1 hostname
-node node2 # set node2 hostname
-# heartbeats, over dedicated replication interface
-ucast eth1 10.186.175.16 # set node1 network-interface and ip address
-ucast eth1 54.211.110.217 # set node2 network-interface and ip address
+<pre><code>    # enable pacemaker, without stonith
+    crm yes
+    # define log file
+    logfile /var/log/ha-log
+    # warning of soon be dead
+    warntime 10
+    # declare a host (the other node) dead after:
+    deadtime 20
+    # dead time on boot (could take some time until net is up)
+    initdead 120
+    # time between heartbeats
+    keepalive 2
+    # the nodes
+    node node1 # set node1 hostname
+    node node2 # set node2 hostname
+    # heartbeats, over dedicated replication interface
+    ucast eth1 10.186.175.16 # set node1 network-interface and ip address
+    ucast eth1 54.211.110.217 # set node2 network-interface and ip address
 </code></pre>
 
 <ul>
-<li>Create authentication key file and set permissions in one of the hosts:</li>
-</ul>
+<li><p>Create authentication key file and set permissions in one of the hosts:</p>
 
 <pre><code>( echo -ne &quot;auth 1\n1 sha1 &quot;; \
 dd if=/dev/urandom bs=512 count=1 | openssl md5 ) \
 &gt; /etc/ha.d/authkeys
-
 chmod 0600 /etc/ha.d/authkeys
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>Copy the above authkeys file to each host (/etc/ha.d/authkeys).</p></li>
 
-<li><p>Restart heartbeat service:</p></li>
-</ul>
+<li><p>Restart heartbeat service:
+<code>
+service heartbeat restart
+</code></p></li>
 
-<pre><code>service heartbeat restart
-</code></pre>
-
-<ul>
-<li>Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.</li>
-</ul>
+<li><p>Now check the status of the Pacemaker cluster using CRM, here all nodes in the cluster should be in online state. If not check the heartbeat configuration again.</p>
 
 <pre><code>crm status
-
 ============
 Last updated: Wed Oct 15 11:25:05 2014
 Last change: Wed Oct 15 11:21:51 2014 via crmd on ip-10-186-175-16
@@ -220,171 +208,185 @@ Version: 1.1.6-9971ebba4494012a93c03b40a2c58ec0eb60f50c
 2 Nodes configured, unknown expected votes
 0 Resources configured.
 ============
-
 Online: [ ip-10-186-175-16 ip-10-153-165-178 ]
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>Disable STONITH:</li>
-</ul>
+<li><p>Disable STONITH:
+<code>
+crm configure property stonith-enabled=false
+</code></p></li>
 
-<pre><code>crm configure property stonith-enabled=false
-</code></pre>
-
-<ul>
-<li>Create a Failover IP resource to manage the virtual IP address:</li>
-</ul>
+<li><p>Create a Failover IP resource to manage the virtual IP address:</p>
 
 <pre><code>crm configure primitive FAILOVER-IP ocf:heartbeat:IPaddr params ip=192.168.10.20 cidr_netmask=&quot;255.255.255.0&quot; op monitor interval=10s
-</code></pre>
+</code></pre></li>
 
-<ul>
 <li><p>SCP java and Apache Stratos packages to both hosts and extract them under /opt folder.</p></li>
 
-<li><p>Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:</p></li>
-</ul>
+<li><p>Create an init.d script for Stratos using following code and update USER, JAVA_HOME and PRODUCT_HOME variable values:</p>
 
-<pre><code>https://gist.github.com/imesh/5256272cd71b74a06581
+<p>````
+<a href="https://gist.github.com/imesh/5256272cd71b74a06581">https://gist.github.com/imesh/5256272cd71b74a06581</a></p>
 
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          stratos
-# Required-Start:    $local_fs $remote_fs $network $syslog $named
-# Required-Stop:     $local_fs $remote_fs $network $syslog $named
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# X-Interactive:     true
-# Short-Description: Start/stop stratos server
-### END INIT INFO
+<p>#!/bin/sh</p>
 
-USER=&quot;vagrant&quot;
-PRODUCT_NAME=&quot;stratos&quot;
-JAVA_HOME=&quot;/opt/jdk1.7.0_60&quot;
-PRODUCT_HOME=&quot;/opt/apache_stratos_4.1.0_SNAPSHOT&quot;
-PID_FILE=&quot;${PRODUCT_HOME}/wso2carbon.pid&quot;
-CMD=&quot;${PRODUCT_HOME}/bin/stratos.sh&quot;
+<h3 id="begin-init-info:a154e42535fddf1ea81063e517e4edcd">BEGIN INIT INFO</h3>
 
-# LSB exit codes:
-# ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h
+<h1 id="provides-stratos:a154e42535fddf1ea81063e517e4edcd">Provides:          stratos</h1>
 
-LSB_EXIT_OK=0
+<h1 id="required-start-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd">Required-Start:    $local_fs $remote_fs $network $syslog $named</h1>
+
+<h1 id="required-stop-local-fs-remote-fs-network-syslog-named:a154e42535fddf1ea81063e517e4edcd">Required-Stop:     $local_fs $remote_fs $network $syslog $named</h1>
+
+<h1 id="default-start-2-3-4-5:a154e42535fddf1ea81063e517e4edcd">Default-Start:     2 3 4 5</h1>
+
+<h1 id="default-stop-0-1-6:a154e42535fddf1ea81063e517e4edcd">Default-Stop:      0 1 6</h1>
+
+<h1 id="x-interactive-true:a154e42535fddf1ea81063e517e4edcd">X-Interactive:     true</h1>
+
+<h1 id="short-description-start-stop-stratos-server:a154e42535fddf1ea81063e517e4edcd">Short-Description: Start/stop stratos server</h1>
+
+<h3 id="end-init-info:a154e42535fddf1ea81063e517e4edcd">END INIT INFO</h3>
+
+<p>USER=&ldquo;vagrant&rdquo;
+PRODUCT_NAME=&ldquo;stratos&rdquo;
+JAVA_HOME=&ldquo;/opt/jdk1.7.0_60&rdquo;
+PRODUCT_HOME=&ldquo;/opt/apache_stratos_4.1.0_SNAPSHOT&rdquo;
+PID_FILE=&ldquo;${PRODUCT_HOME}/wso2carbon.pid&rdquo;
+CMD=&ldquo;${PRODUCT_HOME}/bin/stratos.sh&rdquo;</p>
+
+<h1 id="lsb-exit-codes:a154e42535fddf1ea81063e517e4edcd">LSB exit codes:</h1>
+
+<h1 id="ftp-ftp-nomadlinux-com-nomad-2-dist-heartbeat-1-2-5-include-clplumbing-lsb-exitcodes-h:a154e42535fddf1ea81063e517e4edcd"><a href="ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h">ftp://ftp.nomadlinux.com/nomad-2/dist/heartbeat-1.2.5/include/clplumbing/lsb_exitcodes.h</a></h1>
+
+<p>LSB_EXIT_OK=0
 LSB_EXIT_GENERIC=1
 LSB_EXIT_EINVAL=2
 LSB_EXIT_ENOTSUPPORTED=3
 LSB_EXIT_EPERM=4
 LSB_EXIT_NOTINSTALLED=5
 LSB_EXIT_NOTCONFIGED=6
-LSB_EXIT_NOTRUNNING=7
+LSB_EXIT_NOTRUNNING=7</p>
 
-is_service_running() {
-	if [ -e ${PID_FILE} ]; then
-		PID=`cat ${PID_FILE}`
-	    if  ps -p $PID &gt;&amp;- ; then
-			# service is running
-			return 0
-		else
-			# service is stopped
-			return 1
-	    fi
-	else
-		# pid file was not found, may be server was not started before
-		return 1
-	fi
-}
+<p>is_service_running() {
+    if [ -e ${PID_FILE} ]; then
+        PID=<code>cat ${PID_FILE}</code>
+        if ps -p $PID &gt;&amp;- ; then
+            # service is running
+            return 0
+            else
+            # service is stopped
+            return 1
+            fi
+         else
+    # pid file was not found, may be server was not started before
+    return 1
+    fi
+}</p>
 
-# Status the service
-status() {
-	is_service_running
-	service_status=$?
+<h1 id="status-the-service:a154e42535fddf1ea81063e517e4edcd">Status the service</h1>
 
-	if [ &quot;${service_status}&quot; -eq 0 ]; then
-		echo &quot;${PRODUCT_NAME} service is running&quot;
-		return ${LSB_EXIT_OK}
-	elif [ &quot;${service_status}&quot; -eq 1 ]; then
-		echo &quot;$PRODUCT_NAME service is stopped&quot;
-		return ${LSB_EXIT_OK}
-	else
-		echo &quot;$PRODUCT_NAME service status is unknown&quot;
-		return ${LSB_EXIT_GENERIC}
+<p>status() {
+    is_service_running
+    service_status=$?</p>
+
+<pre><code>if [ &quot;${service_status}&quot; -eq 0 ]; then
+    echo &quot;${PRODUCT_NAME} service is running&quot;
+    return ${LSB_EXIT_OK}
+    elif [ &quot;${service_status}&quot; -eq 1 ]; then
+    echo &quot;$PRODUCT_NAME service is stopped&quot;
+    return ${LSB_EXIT_OK}
+    else
+    echo &quot;$PRODUCT_NAME service status is unknown&quot;
+    return ${LSB_EXIT_GENERIC}
     fi
 }
 
+
 # Start the service
 start() {
-	if is_service_running; then
-		echo &quot;${PRODUCT_NAME} service is already running&quot;
-		return ${LSB_EXIT_OK}
-	fi
+    if is_service_running; then
+    echo &quot;${PRODUCT_NAME} service is already running&quot;
+    return ${LSB_EXIT_OK}
+    fi
 
-	echo &quot;starting ${PRODUCT_NAME} service...&quot;
-	su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&quot;
 
-	is_service_running
-	service_status=$?
-	while [ &quot;$service_status&quot; -ne &quot;0&quot; ]
-	do
-		sleep 1;
-		is_service_running
-		service_status=$?
-	done
+    echo &quot;starting ${PRODUCT_NAME} service...&quot;
+    su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} start&quot;
 
-	echo &quot;${PRODUCT_NAME} service started&quot;
-	return ${LSB_EXIT_OK}
+
+    is_service_running
+    service_status=$?
+    while [ &quot;$service_status&quot; -ne &quot;0&quot; ]
+    do
+    sleep 1;
+    is_service_running
+    service_status=$?
+    done
+
+
+    echo &quot;${PRODUCT_NAME} service started&quot;
+    return ${LSB_EXIT_OK}
 }
+
 
 # Restart the service
 restart() {
-	echo &quot;restarting ${PRODUCT_NAME} service...&quot;
-	su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&quot;
+    echo &quot;restarting ${PRODUCT_NAME} service...&quot;
+    su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} restart&quot;
     echo &quot;${PRODUCT_NAME} service restarted&quot;
-	return ${LSB_EXIT_OK}
+    return ${LSB_EXIT_OK}
 }
+
 
 # Stop the service
 stop() {
-	if ! is_service_running; then
-		echo &quot;${PRODUCT_NAME} service is already stopped&quot;
-		return ${LSB_EXIT_OK}
-	fi
+    if ! is_service_running; then
+    echo &quot;${PRODUCT_NAME} service is already stopped&quot;
+    return ${LSB_EXIT_OK}
+    fi
 
-	echo &quot;stopping ${PRODUCT_NAME} service...&quot;
-	su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&quot;
 
-	is_service_running
-	service_status=$?
-	while [ &quot;$service_status&quot; -eq &quot;0&quot; ]
-	do
-		sleep 1;
-		is_service_running
-		service_status=$?
-	done
+    echo &quot;stopping ${PRODUCT_NAME} service...&quot;
+    su - ${USER} -c &quot;export JAVA_HOME=${JAVA_HOME}; ${CMD} stop&quot;
 
-	echo &quot;${PRODUCT_NAME} service stopped&quot;
-	return ${LSB_EXIT_OK}
+
+    is_service_running
+    service_status=$?
+    while [ &quot;$service_status&quot; -eq &quot;0&quot; ]
+    do
+    sleep 1;
+    is_service_running
+    service_status=$?
+    done
+
+
+    echo &quot;${PRODUCT_NAME} service stopped&quot;
+    return ${LSB_EXIT_OK}
 }
 ### main logic ###
 case &quot;$1&quot; in
 start)
     start
-    ;;
+;;
 stop|graceful-stop)
     stop
-    ;;
+;;
 status)
     status
-    ;;
+;;
 restart|reload|force-reload)
     restart
-    ;;
+;;
 *)
-   echo $&quot;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&quot;
-   exit 1
+echo $&quot;usage: $0 {start|stop|graceful-stop|restart|reload|force-reload|status}&quot;
+exit 1
 esac
 exit $?
-</code></pre>
+````
+</code></pre></li>
 
-<ul>
-<li>Create a CRM resource for stratos:</li>
+<li><p>Create a CRM resource for stratos:</p></li>
 </ul>
 
 <pre><code>crm configure primitive STRATOS lsb::stratos op monitor interval=15s

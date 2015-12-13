@@ -23,33 +23,38 @@
 
 &lt;h4 id=&#34;install-client-tools-for-nova-glance-swift:6fae9e073b885600c760dbaf63796078&#34;&gt;Install Client Tools for Nova, Glance &amp;amp; Swift:&lt;/h4&gt;
 
-&lt;p&gt;Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. If its a different operating system please refer &lt;a href=&#34;http://docs.openstack.org/user-guide/content/install_clients.html&#34;&gt;OpenStack documentation&lt;/a&gt; for details.&lt;/p&gt;
+&lt;p&gt;Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. If its a different operating system please refer &lt;a href=&#34;http://docs.openstack.org/user-guide/content/install_clients.html&#34;&gt;OpenStack documentation&lt;/a&gt; for details:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;list-running-instances:6fae9e073b885600c760dbaf63796078&#34;&gt;List Running Instances:&lt;/h4&gt;
 
-&lt;p&gt;Next execute the below command to list the running instances.&lt;/p&gt;
+&lt;p&gt;Next execute the below command to list the running instances:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;nova list&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nova list
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;create-an-image-from-a-running-instance:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from a Running Instance:&lt;/h4&gt;
 
-&lt;p&gt;Select the instance that needs to be exported as an image and execute the below command.&lt;/p&gt;
+&lt;p&gt;Select the instance that needs to be exported as an image and execute the below command:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;nova create-image &amp;lt;image-id&amp;gt; &amp;lt;new-image-name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nova create-image &amp;lt;image-id&amp;gt; &amp;lt;new-image-name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;download-an-image-to-disk:6fae9e073b885600c760dbaf63796078&#34;&gt;Download an Image to Disk:&lt;/h4&gt;
 
-&lt;p&gt;Execute the below command to download the created image as a file.&lt;/p&gt;
+&lt;p&gt;Execute the below command to download the created image as a file:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;glance image-download &amp;lt;image-id&amp;gt; --file &amp;lt;file-name&amp;gt;.img&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;glance image-download &amp;lt;image-id&amp;gt; --file &amp;lt;file-name&amp;gt;.img
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;create-an-image-from-an-image-file:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from an Image File:&lt;/h4&gt;
 
 &lt;p&gt;Now if you want to upload an existing image file to an OpenStack instance execute the below command.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;glance image-create --name=&amp;quot;image-name&amp;quot; --is-public=false --container-format=ami --disk-format=ami &amp;lt; file-name.img&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;glance image-create --name=&amp;quot;image-name&amp;quot; --is-public=false --container-format=ami --disk-format=ami &amp;lt; file-name.img
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;
 OpenStack Grizzly release has following components: Object Store (Swift), Image Store (Glance), Compute (Nova), Dashboard (Horizon), Identity (Keystone), Network (Quantum) and Block Storage (Cinder).&lt;/p&gt;

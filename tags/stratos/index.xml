@@ -44,17 +44,25 @@ ec2_security_groups=&amp;quot;security-groups&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Grant install.sh executable access:
-&lt;code&gt;chmod +x install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Run install.sh with root permissions:
-&lt;code&gt;sudo ./install.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Grant install.sh executable access:&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;chmod +x install.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Run install.sh with root permissions:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo ./install.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. Once the process is complete it will start MySQL server, Active MQ and Stratos.&lt;/p&gt;
 
-&lt;p&gt;Stratos dashboard URL could be found at the below link:
-&lt;code&gt;https://&amp;lt;hostname&amp;gt;:9443/console&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Stratos dashboard URL could be found at the below link:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://&amp;lt;hostname&amp;gt;:9443/console
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In addition to Stratos installation we need to create a base cartridge image. This will act as the base image for all the cartridges. To start with spawn another instance of Ubuntu 12.04 64bit image and run the below script with root permissions. In this process we do not need to do any configurations, it will download and install all prerequisites and puppet agent:&lt;/p&gt;
 
@@ -193,24 +201,17 @@ Service name: default
 &lt;p&gt;You could follow the below steps to build the binary distribution from source:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos
-
 mvn clean install
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This process will checkout the source files from 3.0.0-incubating-x branch and build using maven. Once the build is completed you could find the binary packages at the following locations:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;incubator-stratos/products/stratos-cli/distribution/target/apache-stratos-cli-3.0.0-incubating-x.zip
-
 incubator-stratos/products/cloud-controller/modules/distribution/target/apache-stratos-cc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-controller/modules/distribution/target/apache-stratos-sc-3.0.0-incubating-x.zip
-
 incubator-stratos/products/elb/modules/distribution/target/apache-stratos-elb-3.0.0-incubating-x.zip
-
 incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agent-3.0.0-incubating-x.zip
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -230,9 +231,7 @@ incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-agen
 &lt;p&gt;Once the binary distribution is in place we need to prepare Stratos cartridge images according to the preferred Infrastructure as a Service (IaaS) platform. Here I have created Apache Tomcat, PHP and MySQL cartridge images for Openstack. You could download those image files from the following URLs:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;stratos-3.0.0-incubating-tomcat-cartridge.img.zip
-
 stratos-3.0.0-incubating-php-cartridge.img.zip
-
 stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -244,23 +243,24 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;li&gt;The glance client could be used for uploading the above image files to an Openstack instance. Execute the below command to install glance client:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;sudo apt-get install python-novaclient python-glanceclient swift&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Then download EC2 credentials from Openstack Dashboard and source the openrc.sh file:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;source /openrc.sh&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;source /openrc.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Once cartridge images are downloaded execute the below command to upload them via glance. Here the glance client will use the above EC2 credentials to connect to the Openstack instance.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating&amp;ndash;tomcat-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img&lt;/p&gt;
-
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-mysql-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img&lt;/p&gt;
-
-&lt;p&gt;glance image-create &amp;ndash;name=&amp;ldquo;stratos-3.0.0-incubating-php-cartridge&amp;rdquo; &amp;ndash;is-public=true &amp;ndash;container-format=ami &amp;ndash;disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;glance image-create --name=&amp;quot;stratos-3.0.0-incubating--tomcat-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-tomcat-cartridge.img
+glance image-create --name=&amp;quot;stratos-3.0.0-incubating-mysql-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-mysql-cartridge.img
+glance image-create --name=&amp;quot;stratos-3.0.0-incubating-php-cartridge&amp;quot; --is-public=true --container-format=ami --disk-format=ami &amp;lt; stratos-3.0.0-incubating-php-cartridge.img
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt; &lt;/p&gt;
 
@@ -271,9 +271,7 @@ stratos-3.0.0-incubating-mysql-cartridge.img.zip
 &lt;/ol&gt;
 
 &lt;pre&gt;&lt;code&gt;git clone https://git-wip-us.apache.org/repos/asf/incubator-stratos.git
-
 git checkout 3.0.0-incubation-x
-
 cd incubator-stratos/tools/stratos-installer
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -299,8 +297,9 @@ export mysql_connector_jar=$stratos_pack_path/&amp;quot;mysql-connector-java-5.1
 &lt;li&gt;Configure Openstack section with following parameter values. One important thing to note here is that openstack_provider_enabled property enables Openstack IaaS in Stratos. Therefore in this specific scenario you may need to set ec2_provider_enabled property to false.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;pre&gt;&lt;code&gt;# Openstack
-export openstack_provider_enabled=true
+&lt;h1 id=&#34;openstack:ca22749167d775a2e3747beccf928b4d&#34;&gt;Openstack&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;export openstack_provider_enabled=true
 export openstack_identity=&amp;quot;stratos:stratos&amp;quot; #Openstack project name:Openstack login user
 export openstack_credential=&amp;quot;password&amp;quot; #Openstack login password
 export openstack_tenant=&amp;quot;stratos&amp;quot; #Openstack project name
@@ -377,7 +376,8 @@ Gitblits
 &lt;li&gt;Now login to Stratos Controller using admin/admin and create a tenant user at the below URL:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;code&gt;https://sc.stratos.apache.org:9445/carbon&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://sc.stratos.apache.org:9445/carbon
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Login again to Stratos Controller using the tenant user and subscribe to a cartridge. Here you might need to use a Git repository to point to an application to be deployed on Stratos PaaS. This process should spin up a new instance of relevant cartridge and update the status on cartridge subscription list. Once the cartridge is ready you could test the deployed application by using its URL.&lt;/li&gt;
@@ -393,7 +393,7 @@ Gitblits
       <guid>http://imesh.github.io/apache-stratos-single-node-installation/</guid>
       <description>
 
-&lt;p&gt;&lt;img src=&#34;http://rootfolder.info/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://imesh.io/a/1/images/ApacheStratos/stratos-single-node-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;[Based on Apache Stratos (incubating) 4.0.0-M5]&lt;/p&gt;
 
@@ -482,7 +482,7 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
       <guid>http://imesh.github.io/apache-stratos-in-a-nutshell/</guid>
       <description>
 
-&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/images/ApacheStratos/stratos-logo.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://imesh.io/images/ApacheStratos/stratos-logo.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;[Based on Apache Stratos 3.0.0]&lt;/p&gt;
 
@@ -496,7 +496,7 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
 
 &lt;p&gt;At it’s core Apache Stratos is built using OSGi’s [3] dynamic modular architecture. OSGi is one of the best or may be the only industry proven standard for implementing true component based Java applications until JSR 277 [4] was implemented. The core benifit of using a such standard is that, applications could extend their features without having to change the entire system [5]. The complete Stratos PaaS has been composed as a collection of OSGi modules. These modules have been grouped into four different categories as an extra step for improving the maintainability and readability of the platform. They are grouped as components, service stubs, features and products.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/a/1/images/apachestratos/osgi-componenet-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://imesh.io/a/1/images/apachestratos/osgi-componenet-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The component modules are the lowest level implementation of the system functionality. Service stub modules include Axis2 web service client stubs for accessing services. The service implementation is done in each required component. Feature modules aggregate components and service stubs and exposes high level system features to the next level. A feature may also refer another feature. Finally a product module is made by aggregating a collection of selected features. In Apache Stratos currently there are five products; Cloud Controller (CC), Elastic Load Balancer (ELB), Stratos Controller (SC), Stratos Agent and Command Line Interface (CLI). This exceptional architectural design was inherited from OSGi modular architecture of WSO2 Carbon platform. Except for this model Carbon provides more extensive features like User Management, Security Management, Tenant Management, Clustering, SOA Governance, Centralized Logging, Web UI and many other supportive features for middleware related products [6].&lt;/p&gt;
 
@@ -518,7 +518,7 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
 
 &lt;h2 id=&#34;logical-architecture:cae6071688411d68b991aedf25d98df6&#34;&gt;Logical Architecture&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://imesh.gunaratne.org/a/1/images/ApacheStratos/apache-stratos-logical-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://imesh.io/a/1/images/ApacheStratos/apache-stratos-logical-architecture.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;cloud-controller-cc:cae6071688411d68b991aedf25d98df6&#34;&gt;Cloud Controller (CC)&lt;/h3&gt;
 

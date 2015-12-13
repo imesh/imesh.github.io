@@ -119,18 +119,16 @@
     </header>
 
     <section class="post-content">
-      <p>The Amazon EC2 .NET SDK can be used to access <a href="http://www.openstack.org/">Openstack</a>. However the current version (1.3.13.1) has a bug. It does not consider the port when preparing the Signature for the request. Therefore you may see the request being failed in the Openstack cloud controller with a signature mismatch error.</p>
+      <p>The Amazon EC2 .NET SDK can be used to access <a href="http://www.openstack.org/">OpenStack</a>. However the current version (1.3.13.1) has a bug. It does not consider the port when preparing the signature for the request. Therefore you may see the request being failed in the OpenStack cloud controller with a signature mismatch error.</p>
 
 <p>There is a <a href="https://forums.aws.amazon.com/thread.jspa?threadID=64825">patch</a> released to fix this problem. Basically what it does is, include the custom port number if the IsDefaultPort property is set to false when preparing the signature based on the parameters.</p>
 
 <p><strong>How to apply this patch:</strong></p>
 
 <ol>
-<li><p>Download source files of the EC2 SDK from <a href="http://aws.amazon.com/sdkfornet/">http://aws.amazon.com/sdkfornet/</a></p></li>
-
-<li><p>Open the project in Visual Studio.</p></li>
-
-<li><p>Open the AWSSDKUtils.cs file found in Amazon.Util folder.</p></li>
+<li>Download source files of the EC2 SDK from <a href="http://aws.amazon.com/sdkfornet/">http://aws.amazon.com/sdkfornet/</a></li>
+<li>Open the project in Visual Studio.</li>
+<li>Open the AWSSDKUtils.cs file found in Amazon.Util folder.</li>
 
 <li><p>Add the below code block just after data.Append(endpoint.Host); line in CalculateStringToSignV2() method.</p>
 
