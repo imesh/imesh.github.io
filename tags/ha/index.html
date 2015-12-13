@@ -5,16 +5,16 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  	<meta property="og:title" content=" Paas &middot;  imesh.io" />
+  	<meta property="og:title" content=" Ha &middot;  imesh.io" />
   	<meta property="og:site_name" content="imesh.io" />
-  	<meta property="og:url" content="http://imesh.github.io:80/tags/paas/" />
+  	<meta property="og:url" content="http://imesh.github.io:80/tags/ha/" />
 
     
     <meta property="og:type" content="website" />
     
 
   <title>
-     Paas &middot;  imesh.io
+     Ha &middot;  imesh.io
   </title>
 
     <meta name="description" content="Open Source | Middleware | PaaS | Life" />
@@ -36,12 +36,12 @@
           <link href="http://imesh.github.io/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
       
       
-        <link href="http://imesh.github.io:80/tags/paas/index.xml" rel="alternate" type="application/rss+xml" title="Paas &middot; imesh.io" />
+        <link href="http://imesh.github.io:80/tags/ha/index.xml" rel="alternate" type="application/rss+xml" title="Ha &middot; imesh.io" />
       
     
     <meta name="generator" content="Hugo 0.14" />
 
-    <link rel="canonical" href="http://imesh.github.io:80/tags/paas/" />
+    <link rel="canonical" href="http://imesh.github.io:80/tags/ha/" />
 
     
 
@@ -75,7 +75,7 @@
     </ul>
     
     
-    <a class="subscribe-button icon-feed" href="http://imesh.github.io:80/tags/paas/index.xml">Subscribe</a>
+    <a class="subscribe-button icon-feed" href="http://imesh.github.io:80/tags/ha/index.xml">Subscribe</a>
     
 </div>
 <span class="nav-cover"></span>
@@ -96,7 +96,7 @@
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">Paas</h1>
+            <h1 class="page-title">Ha</h1>
             <h2 class="page-description">
                 
             </h2>
@@ -120,10 +120,10 @@
 	   
 <article class="post ">
     <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/install-stratos-in-one-go">Install Stratos in One Go</a></h2>
+        <h2 class="post-title"><a href="http://imesh.github.io:80/providing-high-availability-for-stratos-with-pacemaker-heartbeat">Providing High Availability for Stratos with Pacemaker &amp; Heartbeat</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>Apache Stratos 4.0.0 installation process has series of manual steps; installing prerequisites, downloading source and binary packages, installing and configuring puppet master, configuring Stratos products, etc. I think it is a waste of time to do all these steps over an over again when setting up Stratos development or demo environments. As a solution to this, I implemented a script to automate the complete Stratos installation process by filling the gaps in between: Prerequisites: An Ubuntu 12.04 64bit host Steps to follow: Take a git clone of the below git repository: git clone https://github.com/imesh/stratos-dev-stack.git Update install.sh with host private IP and IaaS configuration parameters: host_private_ip=&quot;&quot; ec2_identity=&quot;identity&quot; ec2_credential=&quot;credential&quot; ec2_keypair_name=&quot;keypair-name&quot; ec2_owner_id=&quot;owner-id&quot; ec2_availability_zone=&quot;availability-zone&quot; ec2_security_groups=&quot;security-groups&quot; Grant install.sh executable access: chmod +x install.sh Run install.sh with root permissions: sudo ./install.sh This will download and install Stratos source/binary packages, Java, MySQL connector, ActiveMQ, puppet master and configure all of them with default configuration settings. <a class="read-more" href="http://imesh.github.io:80/install-stratos-in-one-go">&raquo;</a></p>
+        <p>This article describes how High Availability (HA) can be configured with Pacemaker &amp; Heartbeat for Apache Stratos. In general this concept can be applied for any server application which needs HA and does not require any data replication. If data replication is needed you may need to consider using DRBD with Pacemaker. First of all we will see what Pacemaker and Heartbeat are and go through a series of steps on configuring those. <a class="read-more" href="http://imesh.github.io:80/providing-high-availability-for-stratos-with-pacemaker-heartbeat">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         
@@ -134,46 +134,11 @@
         
         on
             
-                <a href="http://imesh.github.io/tags/apache/">#apache</a>,
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
-            
-                <a href="http://imesh.github.io/tags/paas/">#paas</a>,
+                <a href="http://imesh.github.io/tags/ha/">#ha</a>,
             
         
-        <time class="post-date" datetime="2014-06-22T19:32:40Z">
-            22 Jun 2014
-        </time>
-    </footer>
-</article>
-
-	
-	   
-<article class="post ">
-    <header class="post-header">
-        <h2 class="post-title"><a href="http://imesh.github.io:80/apache-stratos-in-a-nutshell">Apache Stratos in a Nutshell</a></h2>
-    </header>
-    <section class="post-excerpt">
-        <p>[Based on Apache Stratos 3.0.0] Apache Stratos is an open source, enterprise grade Platform as a Service (PaaS) cloud platform built with open standards. Stratos was originally developed by WSO2 and very recently donated to Apache Software Foundation (ASF) with the vision of making it the most open PaaS framework in the market by involving a wide range of organizations and individuals to design and implement it’s features at their best [1]. <a class="read-more" href="http://imesh.github.io:80/apache-stratos-in-a-nutshell">&raquo;</a></p>
-    </section>
-    <footer class="post-meta">
-        
-        
-        
-        
-            
-        
-        on
-            
-                <a href="http://imesh.github.io/tags/cloud/">#cloud</a>,
-            
-                <a href="http://imesh.github.io/tags/paas/">#paas</a>,
-            
-                <a href="http://imesh.github.io/tags/stratos/">#stratos</a>,
-            
-        
-        <time class="post-date" datetime="2013-08-19T01:42:00Z">
-            19 Aug 2013
+        <time class="post-date" datetime="2014-10-24T05:52:55Z">
+            24 Oct 2014
         </time>
     </footer>
 </article>

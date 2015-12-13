@@ -120,6 +120,124 @@
 	   
 <article class="post ">
     <header class="post-header">
+        <h2 class="post-title"><a href="http://imesh.github.io:80/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans">How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>What is a Message Processor? WSO2 ESB provides message processors for delivering messages that have been temporarily stored in a message store. This approach is useful for serving traffic to back-end services that can only accept messages at a given rate, whereas incoming traffic to the ESB arrives at different rates [1]. Please refer [2] for sample use cases of message processors. How to Implement a MBeans Client? The below sample code demonstrates how to talk to the JMX endpoint of the ESB and actiavate and deactivate a message processor. <a class="read-more" href="http://imesh.github.io:80/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+        
+        
+            
+        
+        on
+            
+                <a href="http://imesh.github.io/tags/wso2/">#wso2</a>,
+            
+                <a href="http://imesh.github.io/tags/esb/">#esb</a>,
+            
+        
+        <time class="post-date" datetime="2014-11-27T12:57:55Z">
+            27 Nov 2014
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post ">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">Re-Writing Query Parameters in WSO2 ESB</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs. &lt;property name=&quot;URL&quot; value=&quot;http://host:8280?p1=abc&amp;amp;p2=qwe&quot;/&gt; &lt;filter source=&quot;$ctx:URL&quot; regex=&quot;.*format=.*&quot;&gt; &lt;then&gt; &lt;!-- format query parameter found in URL, replace it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;replace($ctx:URL, 'format=([^&amp;amp;]*)', 'format=xml')&quot;/&gt; &lt;/then&gt; &lt;else&gt; &lt;!-- format query parameter not found in URL, add it --&gt; &lt;property name=&quot;URL_UPDATED&quot; expression=&quot;concat($ctx:URL, '&amp;amp;format=xml')&quot;/&gt; &lt;/else&gt; &lt;/filter&gt; &lt;log level=&quot;custom&quot;&gt; <a class="read-more" href="http://imesh.github.io:80/re-writing-query-parameters-in-wso2-esb">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+        
+        
+            
+        
+        on
+            
+                <a href="http://imesh.github.io/tags/wso2/">#wso2</a>,
+            
+                <a href="http://imesh.github.io/tags/esb/">#esb</a>,
+            
+        
+        <time class="post-date" datetime="2014-08-27T16:28:09Z">
+            27 Aug 2014
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post ">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">Implementing Split Aggregate Pattern in ESB</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Split Aggregate is an Enterprise Integration Pattern (EIP) which could be implemented in an ESB in scenarios where the same backend service needs to be invoked with different payloads. This will avoid the need of making multiple service calls to backend services and eventually reduce the service invocation round trip time. In this article I have designed a sample mediation flow in WSO2 ESB, by using the Iterate and Aggregate mediators to demonstrate the usage of Split Aggregate patten. <a class="read-more" href="http://imesh.github.io:80/implementing-split-aggregate-pattern-in-esb">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+        
+        
+            
+        
+        on
+            
+                <a href="http://imesh.github.io/tags/wso2/">#wso2</a>,
+            
+                <a href="http://imesh.github.io/tags/esb/">#esb</a>,
+            
+        
+        <time class="post-date" datetime="2014-06-15T18:30:48Z">
+            15 Jun 2014
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post ">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">Exposing WSO2 Identity Server Admin Services as REST APIs</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>WSO2 Identity server 4.5.0 does not provide REST APIs for accessing its administrative services out of the box. However we could use WSO2 ESB to convert SOAP based administrative services to REST. Please follow the below steps to do this: Download WSO2 ESB 4.8.1 and IS 4.5.0. Extract ESB distribution and set the offset to 1 in carbon.xml file. &lt;offset&gt;1&lt;/offset&gt; Extract IS distribution and set the HideAdminServiceWSDLs property to false in carbon.xml file. <a class="read-more" href="http://imesh.github.io:80/exposing-wso2-identity-server-admin-services-as-rest-apis">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+        
+        
+            
+        
+        on
+            
+                <a href="http://imesh.github.io/tags/wso2/">#wso2</a>,
+            
+                <a href="http://imesh.github.io/tags/identity/">#identity</a>,
+            
+                <a href="http://imesh.github.io/tags/security/">#security</a>,
+            
+        
+        <time class="post-date" datetime="2014-05-15T13:36:00Z">
+            15 May 2014
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post ">
+    <header class="post-header">
         <h2 class="post-title"><a href="http://imesh.github.io:80/wso2-capp-deployment-verification-process-2">WSO2 CApp Deployment Verification Process</a></h2>
     </header>
     <section class="post-excerpt">

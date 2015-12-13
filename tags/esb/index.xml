@@ -6,8 +6,90 @@
     <description>Recent content in Esb on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Jun 2014 18:30:48 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Nov 2014 12:57:55 +0000</lastBuildDate>
     <atom:link href="http://imesh.github.io:80/tags/esb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to Activate/Deactivate Message Processors in WSO2 ESB with MBeans</title>
+      <link>http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</link>
+      <pubDate>Thu, 27 Nov 2014 12:57:55 +0000</pubDate>
+      
+      <guid>http://imesh.github.io/how-to-activatedeactivate-message-processors-in-wso2-esb-with-mbeans/</guid>
+      <description>
+
+&lt;h2 id=&#34;what-is-a-message-processor:77974a968c24b1b07dd6068f0134deda&#34;&gt;What is a Message Processor?&lt;/h2&gt;
+
+&lt;p&gt;WSO2 ESB provides message processors for delivering messages that have been temporarily stored in a message store. This approach is useful for serving traffic to back-end services that can only accept messages at a given rate, whereas incoming traffic to the ESB arrives at different rates [1]. Please refer [2] for sample use cases of message processors.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-implement-a-mbeans-client:77974a968c24b1b07dd6068f0134deda&#34;&gt;How to Implement a MBeans Client?&lt;/h2&gt;
+
+&lt;p&gt;The below sample code demonstrates how to talk to the JMX endpoint of the ESB and actiavate and deactivate a message processor. Here update the JMX URL and the bean definition accordingly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Map&amp;lt;String, Object&amp;gt; env = new HashMap&amp;lt;String, Object&amp;gt;();
+            String[] credentials = new String[]{&amp;quot;admin&amp;quot;, &amp;quot;admin&amp;quot;};
+            env.put(&amp;quot;jmx.remote.credentials&amp;quot;, credentials);
+
+            String url = &amp;quot;service:jmx:rmi://localhost:11111/jndi/rmi://localhost:9999/jmxrmi&amp;quot;;
+            JMXServiceURL target = new JMXServiceURL(url);
+            JMXConnector connector = JMXConnectorFactory.connect(target, env);
+            MBeanServerConnection remote = connector.getMBeanServerConnection();
+
+            String beanDef = &amp;quot;org.apache.synapse:Type=Message Forwarding Processor view,Name=MessageForwardingProcessor&amp;quot;;
+            ObjectName bean = new ObjectName(beanDef);
+
+            remote.invoke(bean, &amp;quot;activate&amp;quot;, null, null);
+            connector.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://docs.wso2.com/display/ESB481/Message+Processors&#34;&gt;https://docs.wso2.com/display/ESB481/Message+Processors&lt;/a&gt;
+[2] &lt;a href=&#34;https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores&#34;&gt;https://docs.wso2.com/display/ESB481/Store+and+Forward+Using+JMS+Message+Stores&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Re-Writing Query Parameters in WSO2 ESB</title>
+      <link>http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/</link>
+      <pubDate>Wed, 27 Aug 2014 16:28:09 +0000</pubDate>
+      
+      <guid>http://imesh.github.io/re-writing-query-parameters-in-wso2-esb/</guid>
+      <description>&lt;p&gt;The following code sample shows how to re-write a query parameter in an URL in WSO2 ESB. This technique might be useful when dynamically handling endpoint URLs.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;property name=&amp;quot;URL&amp;quot; value=&amp;quot;http://host:8280?p1=abc&amp;amp;amp;p2=qwe&amp;quot;/&amp;gt;
+&amp;lt;filter source=&amp;quot;$ctx:URL&amp;quot; regex=&amp;quot;.*format=.*&amp;quot;&amp;gt;
+    &amp;lt;then&amp;gt;
+         &amp;lt;!-- format query parameter found in URL, replace it --&amp;gt;
+         &amp;lt;property name=&amp;quot;URL_UPDATED&amp;quot;
+                   expression=&amp;quot;replace($ctx:URL, &#39;format=([^&amp;amp;amp;]*)&#39;, &#39;format=xml&#39;)&amp;quot;/&amp;gt;
+    &amp;lt;/then&amp;gt;
+    &amp;lt;else&amp;gt;
+         &amp;lt;!-- format query parameter not found in URL, add it --&amp;gt;
+         &amp;lt;property name=&amp;quot;URL_UPDATED&amp;quot; 
+                   expression=&amp;quot;concat($ctx:URL, &#39;&amp;amp;amp;format=xml&#39;)&amp;quot;/&amp;gt;
+    &amp;lt;/else&amp;gt;
+&amp;lt;/filter&amp;gt;
+&amp;lt;log level=&amp;quot;custom&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;-- original --&amp;quot; expression=&amp;quot;$ctx:URL&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;-- updated --&amp;quot; expression=&amp;quot;$ctx:URL_UPDATED&amp;quot;/&amp;gt;
+&amp;lt;/log&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Implementing Split Aggregate Pattern in ESB</title>

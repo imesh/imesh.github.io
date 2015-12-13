@@ -127,7 +127,8 @@
 
 <h4 id="1-generate-a-self-signed-key:a55d05ad15c95240857fdd7bd1629bb7">1. Generate a Self Signed Key</h4>
 
-<p><code>$ gpg --gen-key</code></p>
+<pre><code>$ gpg --gen-key
+</code></pre>
 
 <pre><code>gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -172,7 +173,8 @@ You need a Passphrase to protect your secret key.
 
 <h4 id="2-check-that-sha1-is-avoided:a55d05ad15c95240857fdd7bd1629bb7">2. Check that SHA1 is Avoided</h4>
 
-<p><code>$ gpg --edit-key KEY-ID</code></p>
+<pre><code>$ gpg --edit-key KEY-ID
+</code></pre>
 
 <pre><code>gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -186,7 +188,8 @@ sub  4096R/436E0F7C  created: 2010-02-16  expires: never       usage: E
 ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &lt;user-id@apache.org&gt;
 </code></pre>
 
-<p><code>Command&gt; showpref</code></p>
+<pre><code>Command&gt; showpref
+</code></pre>
 
 <pre><code>ultimate (1). First-Name Last-Name (CODE SIGNING KEY)
 &lt;user-id@apache.org&gt;
@@ -198,25 +201,29 @@ ultimate (1). First-Name Last-Name (CODE SIGNING KEY) &lt;user-id@apache.org&gt;
 
 <p>Here SHA1 should appear last in the Digest section. If not enter below command to correct the order:</p>
 
-<p><code>Command&gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed</code></p>
+<pre><code>Command&gt; setpref SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed 
+</code></pre>
 
 <h4 id="3-export-the-private-key:a55d05ad15c95240857fdd7bd1629bb7">3. Export the Private Key</h4>
 
 <p>Export and keep the private key in a secure location:</p>
 
-<p><code>$ gpg --export-secret-keys --armor --output private-key.sec</code></p>
+<pre><code>$ gpg --export-secret-keys --armor --output private-key.sec
+</code></pre>
 
 <h4 id="4-export-the-public-key:a55d05ad15c95240857fdd7bd1629bb7">4. Export the Public Key</h4>
 
 <p>Export the public key:</p>
 
-<p><code>$ gpg --export --armor --output public-key.asc</code></p>
+<pre><code>$ gpg --export --armor --output public-key.asc 
+</code></pre>
 
 <h4 id="5-send-the-public-key-to-a-server:a55d05ad15c95240857fdd7bd1629bb7">5. Send the Public Key to a Server</h4>
 
 <p>Send the public key to a preferred key server (pgp.mit.edu, pgpkeys.telering.at, pgp.surfnet.nl, etc):</p>
 
-<p><code>$ gpg --keyserver SERVER-HOST --send-keys KEY-ID</code></p>
+<pre><code>$ gpg --keyserver SERVER-HOST --send-keys KEY-ID
+</code></pre>
 
 <p><strong>References:</strong></p>
 
