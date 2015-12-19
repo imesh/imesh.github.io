@@ -6,22 +6,8 @@
     <description>Recent content on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Nov 2015 06:13:48 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2015 14:44:13 +0000</lastBuildDate>
     <atom:link href="http://imesh.github.io:80/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>about</title>
-      <link>http://imesh.github.io/about/</link>
-      <pubDate>Wed, 18 Nov 2015 06:13:48 +0530</pubDate>
-      
-      <guid>http://imesh.github.io/about/</guid>
-      <description>&lt;p&gt;About the author&lt;/p&gt;
-
-&lt;p&gt;Imesh is a Senior Technical Lead at WSO2 and the Product Lead of WSO2 Private PaaS. He is a committer and Project Management Committee (PMC) member of Apache Stratos project. Imesh has provided technical consultancy for many customers on designing and implementing Enterprise Integration, API Management, Identity Management and Platform as a Service (PaaS) solutions at WSO2.&lt;/p&gt;
-
-&lt;p&gt;Imesh holds a masters with a distinction in Enterprise Applications Development awarded by Sheffield Hallam University (SHU), United Kingdom. Imesh implemented a PaaS solution for Mono for his masters thesis and received an award for his work from SHU. He has also received many other awards during his bachelors for his contributions and performance. Imesh has done visiting lectures and supervised final year research projects at University of Moratuwa, University of Peradeniya, University of Kelaniya and University of Colombo, Sri Lanka Institute of Information Technology, Sri Lanka. Imesh enjoys playing the acoustic guitar and the piano.&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>An Introduction to WSO2 Configurator</title>
@@ -1452,6 +1438,60 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Creating OpenStack Images</title>
+      <link>http://imesh.github.io/creating-openstack-images/</link>
+      <pubDate>Mon, 19 Aug 2013 09:56:00 +0000</pubDate>
+      
+      <guid>http://imesh.github.io/creating-openstack-images/</guid>
+      <description>
+
+&lt;p&gt;The official documentation for creating OpenStack images from an ISO can be found &lt;a href=&#34;http://docs.openstack.org/image-guide/content/ch_creating_images_manually.html&#34;&gt;here&lt;/a&gt;. In this article we will discuss how to create an image from a running instance and how to upload an existing image file to an OpenStack instance.&lt;/p&gt;
+
+&lt;p&gt;To create a new VM image from a running VM instance we first need to install client tools.&lt;/p&gt;
+
+&lt;h4 id=&#34;install-client-tools-for-nova-glance-swift:6fae9e073b885600c760dbaf63796078&#34;&gt;Install Client Tools for Nova, Glance &amp;amp; Swift:&lt;/h4&gt;
+
+&lt;p&gt;Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. If its a different operating system please refer &lt;a href=&#34;http://docs.openstack.org/user-guide/content/install_clients.html&#34;&gt;OpenStack documentation&lt;/a&gt; for details:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;list-running-instances:6fae9e073b885600c760dbaf63796078&#34;&gt;List Running Instances:&lt;/h4&gt;
+
+&lt;p&gt;Next execute the below command to list the running instances:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nova list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;create-an-image-from-a-running-instance:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from a Running Instance:&lt;/h4&gt;
+
+&lt;p&gt;Select the instance that needs to be exported as an image and execute the below command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nova create-image &amp;lt;image-id&amp;gt; &amp;lt;new-image-name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;download-an-image-to-disk:6fae9e073b885600c760dbaf63796078&#34;&gt;Download an Image to Disk:&lt;/h4&gt;
+
+&lt;p&gt;Execute the below command to download the created image as a file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;glance image-download &amp;lt;image-id&amp;gt; --file &amp;lt;file-name&amp;gt;.img
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;create-an-image-from-an-image-file:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from an Image File:&lt;/h4&gt;
+
+&lt;p&gt;Now if you want to upload an existing image file to an OpenStack instance execute the below command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;glance image-create --name=&amp;quot;image-name&amp;quot; --is-public=false --container-format=ami --disk-format=ami &amp;lt; file-name.img
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;
+OpenStack Grizzly release has following components: Object Store (Swift), Image Store (Glance), Compute (Nova), Dashboard (Horizon), Identity (Keystone), Network (Quantum) and Block Storage (Cinder).&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
 </description>
     </item>
     
