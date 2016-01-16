@@ -6,8 +6,83 @@
     <description>Recent content on imesh.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Oct 2015 14:44:13 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2016 16:00:00 +0530</lastBuildDate>
     <atom:link href="http://imesh.github.io:80/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Evolution of Linux Containers and Future</title>
+      <link>http://imesh.github.io/evolution-of-linux-containers-and-future/</link>
+      <pubDate>Sat, 16 Jan 2016 16:00:00 +0530</pubDate>
+      
+      <guid>http://imesh.github.io/evolution-of-linux-containers-and-future/</guid>
+      <description>
+
+&lt;h1 id=&#34;evolution-of-linux-containers-future:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;Evolution of Linux Containers &amp;amp; Future&lt;/h1&gt;
+
+&lt;p&gt;Linux containers is an &lt;a href=&#34;https://en.wikipedia.org/wiki/Operating-system-level_virtualization#IMPLEMENTATIONS&#34;&gt;operating system level virtualization&lt;/a&gt; technology for providing multiple isolated Linux environments on a single Linux host. Unlike virtual machines (VMs) containers do not run a dedicated guest operating system rather they share the host operating system kernel and make use of  guest operating system system libraries for providing the required OS capabilities. Since there is no dedicated operating system, containers start much faster than VMs.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imesh.github.io:80/images/contvsvm.png&#34; alt=&#34;Virtual Machines Vs Containers&#34; /&gt;
+&amp;gt; Image credit: Docker Inc.&lt;/p&gt;
+
+&lt;p&gt;Containers make use of the Linux kernel features such as Namespaces, Apparmor, SELinux profiles, chroot &amp;amp; CGroups for providing an isolated environment similar to VMs. Linux security modules guarantee that access to the host machine and the kernel from the containers is properly managed to avoid any intrusion activities. In addition containers can run different Linux distributions from its host operating system  if both operating systems to run on the same CPU architecture.&lt;/p&gt;
+
+&lt;p&gt;In general containers provide means of creating container images based on various Linux distributions, an API for managing the lifecycle of the containers, client tools for interacting with the API, features to take snapshots, migrating container instances from one container host to another, etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;container-history:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;Container History&lt;/h2&gt;
+
+&lt;p&gt;Below is a short summary of container history extracted from Wikipedia and listed according to &lt;a href=&#34;http://pivotal.io/platform/infographic/moments-in-container-history&#34;&gt;11&lt;/a&gt;:&lt;/p&gt;
+
+&lt;h3 id=&#34;1979-chroot:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;1979 - chroot&lt;/h3&gt;
+
+&lt;p&gt;Container concept was started way back in 1979 with UNIX &lt;a href=&#34;https://en.wikipedia.org/wiki/Chroot&#34;&gt;chroot&lt;/a&gt;. It&amp;rsquo;s an UNIX operating-system system call for changing the root directory of a process and its children to a new location in the filesystem which is only visible to a given process. The idea of this feature is to provide an isolated disk space for each process. Later in 1982 this was added to BSD.&lt;/p&gt;
+
+&lt;h3 id=&#34;2000-freebsd-jails:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2000 - FreeBSD Jails&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/FreeBSD_jail&#34;&gt;FreeBSD Jails&lt;/a&gt; is one of the early container technologies introduced by Derrick T. Woolworth at R&amp;amp;D Associates for FreeBSD in year 2000. It is an operating-system system call similar to chroot but included additional process sandboxing features for isolating the filesystem, users, networking, etc. As a result it could provide means of assigning an IP address for each jail, custom software installations and configurations, etc.&lt;/p&gt;
+
+&lt;h3 id=&#34;2001-linux-vserver:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2001 - Linux VServer&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Linux-VServer&#34;&gt;Linux VServer&lt;/a&gt; is a another jail mechanism that can be used to securely partition resources on a computer system (file system, CPU time, network addresses and memory). Each partition is called a security context and the virtualized system within it is called a virtual private server.&lt;/p&gt;
+
+&lt;h3 id=&#34;2004-solaris-containers:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2004 - Solaris Containers&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Solaris_Containers&#34;&gt;Solaris Containers&lt;/a&gt; was introduced for x86 and SPARC systems, first released publicly in February 2004 in build 51 beta of Solaris 10, and subsequently in the first full release of Solaris 10, 2005. A Solaris Container is a combination of system resource controls and the boundary separation provided by zones. Zones act as completely isolated virtual servers within a single operating system instance.&lt;/p&gt;
+
+&lt;h3 id=&#34;2005-openvz:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2005 - OpenVZ&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/OpenVZ&#34;&gt;OpenVZ&lt;/a&gt; is similar to Solaris Containers and make use of a patched Linux kernel for providing virtualization, isolation, resource management, and checkpointing. Each OpenVZ container would have an isolated file system, users &amp;amp; user groups, a process tree, network, devices and IPC objects.&lt;/p&gt;
+
+&lt;h3 id=&#34;2006-process-containers:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2006 - Process Containers&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Cgroups&#34;&gt;Process Containers&lt;/a&gt; was implemented at Google in year 2006 for limiting, accounting and isolating resource usage (CPU, memory, disk I/O, network, etc) of a collection of processes. Later on it was renamed to Control Groups to avoid the confusion multiple meanings of the term &amp;ldquo;container&amp;rdquo; in the Linux kernel context and merged to the Linux kernel 2.6.24. This shows how early Google was involved in container technology and how they have contributed back.&lt;/p&gt;
+
+&lt;h3 id=&#34;2007-control-groups:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2007 - Control Groups&lt;/h3&gt;
+
+&lt;p&gt;As explained above Control Groups AKA cgroups was implemented by Google and added to the Linux Kernel in year 2007.&lt;/p&gt;
+
+&lt;h3 id=&#34;2008-lxc:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2008 - LXC&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/LXC&#34;&gt;LXC&lt;/a&gt; stands for LinuX Containers and it is the first, most complete implementation of Linux container manager. It was implemented using cgroups and Linux namespaces. LXC was delivered in liblxc library and provided language bindings for the API in python3, python2, lua, Go, ruby, and Haskell. Contrast to other container technologies LXC works on vanila Linux kernel without requiring any patches. Today &lt;a href=&#34;https://linuxcontainers.org/lxc/introduction/&#34;&gt;LXC project&lt;/a&gt; is sponsored by Canonical Ltd and hosted here.&lt;/p&gt;
+
+&lt;h3 id=&#34;2011-warden:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2011 - Warden&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.cloudfoundry.org/concepts/architecture/warden.html&#34;&gt;Warden&lt;/a&gt; was implemented by CloudFoundry in year 2011 by using LXC at the initial stage and later on replaced with their own implementation. Unlike LXC, Warden is not tightly coupled to Linux rather it can work on any operating system that can provide ways of isolating the environments. It runs as a daemon and provides an API for managing the containers. Refer &lt;a href=&#34;https://docs.cloudfoundry.org/concepts/architecture/warden.html&#34;&gt;Warden documentation&lt;/a&gt; and &lt;a href=&#34;http://blog.altoros.com/cloud-foundry-containers-warden-docker-garden.html&#34;&gt;this blog post&lt;/a&gt; for more detailed information on Warden.&lt;/p&gt;
+
+&lt;h3 id=&#34;2013-lmctfy:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2013 - LMCTFY&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/google/lmctfy&#34;&gt;lmctfy&lt;/a&gt; stands for &amp;ldquo;Let Me Contain That For You&amp;rdquo;. It is the open source version of Google’s container stack, which provides Linux application containers. Google started this project with the intension of providing guaranteed performance, high resource utilization, shared resources, over-commitment and near zero overhead with containers (Ref: &lt;a href=&#34;http://www.linuxplumbersconf.org/2013/ocw//system/presentations/1239/original/lmctfy%20(1).pdf&#34;&gt;lmctfy presentation&lt;/a&gt;). The cAdvisor tool used by Kubernetes today was started as a result of lmctfy project. The initial release of lmctfy was made in Oct 2013 and in year 2015 Google has decided to contribute core lmctfy concepts and abstractions to libcontainer. As a result now no active development is done in LMCTFY.&lt;/p&gt;
+
+&lt;p&gt;The libcontainer project was initially started by &lt;a href=&#34;https://github.com/docker/libcontainer&#34;&gt;Docker&lt;/a&gt; and now it has been moved to &lt;a href=&#34;https://github.com/opencontainers/runc/tree/master/libcontainer&#34;&gt;Open Container Foundation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;2013-docker:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2013 - Docker&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Docker_(software)&#34;&gt;Docker&lt;/a&gt; is the most popular and widely used container management system as of January 2016. It was developed as an internal project at a platform as a service company called dotCloud and later renamed to Docker. Similar to Warden Docker also used LXC at the initial stages and later replaced LXC with it&amp;rsquo;s own library called libcontainer. Unlike any other container platform Docker introduced an entire ecosystem for managing containers. This includes a highly efficient, layered container image model, a global and local container registries, a clean REST API, a CLI, etc. At a later stage Docker also took an initiative to implement a container cluster management solution called Docker Swarm.&lt;/p&gt;
+
+&lt;h3 id=&#34;2014-rocket:ba85387dcdeb3e25471a63f45f6b923c&#34;&gt;2014 - Rocket&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://coreos.com/blog/rocket/&#34;&gt;Rocket&lt;/a&gt; is a much similar initiative to Docker started by CoreOS for fixing some of the drawbacks they found in Docker. CoreOS has mentioned that their aim is to provide more rigorous security and production requirements than Docker. More importantly it is implemented on App Container specification to be a more open standard. In addition to Rocket, CoreOS also develops several other container related products used by Docker &amp;amp; Kubernetes; &lt;a href=&#34;https://en.wikipedia.org/wiki/CoreOS&#34;&gt;CoreOS Operating System&lt;/a&gt;, &lt;a href=&#34;https://coreos.com/etcd/&#34;&gt;etcd&lt;/a&gt;, &lt;a href=&#34;https://github.com/coreos/flannel&#34;&gt;flannel&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>An Introduction to WSO2 Configurator</title>
@@ -1438,60 +1513,6 @@ cp incubator-stratos/products/stratos-agent/distribution/target/apache-stratos-a
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This script will drop all Stratos databases created, remove any logs available and remove CC, SC, ELB and Agent content. You may run this script on your own risk.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Creating OpenStack Images</title>
-      <link>http://imesh.github.io/creating-openstack-images/</link>
-      <pubDate>Mon, 19 Aug 2013 09:56:00 +0000</pubDate>
-      
-      <guid>http://imesh.github.io/creating-openstack-images/</guid>
-      <description>
-
-&lt;p&gt;The official documentation for creating OpenStack images from an ISO can be found &lt;a href=&#34;http://docs.openstack.org/image-guide/content/ch_creating_images_manually.html&#34;&gt;here&lt;/a&gt;. In this article we will discuss how to create an image from a running instance and how to upload an existing image file to an OpenStack instance.&lt;/p&gt;
-
-&lt;p&gt;To create a new VM image from a running VM instance we first need to install client tools.&lt;/p&gt;
-
-&lt;h4 id=&#34;install-client-tools-for-nova-glance-swift:6fae9e073b885600c760dbaf63796078&#34;&gt;Install Client Tools for Nova, Glance &amp;amp; Swift:&lt;/h4&gt;
-
-&lt;p&gt;Execute the below command to install nova-client, glance-client and swift on an Ubuntu host. If its a different operating system please refer &lt;a href=&#34;http://docs.openstack.org/user-guide/content/install_clients.html&#34;&gt;OpenStack documentation&lt;/a&gt; for details:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install python-novaclient python-glanceclient swift
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;list-running-instances:6fae9e073b885600c760dbaf63796078&#34;&gt;List Running Instances:&lt;/h4&gt;
-
-&lt;p&gt;Next execute the below command to list the running instances:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nova list
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;create-an-image-from-a-running-instance:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from a Running Instance:&lt;/h4&gt;
-
-&lt;p&gt;Select the instance that needs to be exported as an image and execute the below command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nova create-image &amp;lt;image-id&amp;gt; &amp;lt;new-image-name&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;download-an-image-to-disk:6fae9e073b885600c760dbaf63796078&#34;&gt;Download an Image to Disk:&lt;/h4&gt;
-
-&lt;p&gt;Execute the below command to download the created image as a file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;glance image-download &amp;lt;image-id&amp;gt; --file &amp;lt;file-name&amp;gt;.img
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;create-an-image-from-an-image-file:6fae9e073b885600c760dbaf63796078&#34;&gt;Create an Image from an Image File:&lt;/h4&gt;
-
-&lt;p&gt;Now if you want to upload an existing image file to an OpenStack instance execute the below command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;glance image-create --name=&amp;quot;image-name&amp;quot; --is-public=false --container-format=ami --disk-format=ami &amp;lt; file-name.img
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;
-OpenStack Grizzly release has following components: Object Store (Swift), Image Store (Glance), Compute (Nova), Dashboard (Horizon), Identity (Keystone), Network (Quantum) and Block Storage (Cinder).&lt;/p&gt;
-
-&lt;p&gt; &lt;/p&gt;
 </description>
     </item>
     
