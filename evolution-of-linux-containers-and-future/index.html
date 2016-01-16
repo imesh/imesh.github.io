@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Evolution of Linux Containers and Future &middot;  imesh.io" />
+  	<meta property="og:site_name" content="imesh.io" />
+  	<meta property="og:url" content="http://localhost:8080/evolution-of-linux-containers-and-future/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2016-01-16T16:00:00&#43;05:30" />
+
+    
+    <meta property="og:article:tag" content="containers, docker, linux" />
+    
+    
+
+  <title>
+     Evolution of Linux Containers and Future &middot;  imesh.io
+  </title>
+
+    <meta name="description" content="Open Source | Middleware | PaaS | Life" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:8080/images/favicon.ico">
+	<link rel="apple-touch-icon" href="http://localhost:8080/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/nav.css" />
+    
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:8080/index.xml" rel="alternate" type="application/rss+xml" title="imesh.io" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.14" />
+
+    <link rel="canonical" href="http://localhost:8080/evolution-of-linux-containers-and-future/" />
+
+    
+
+    
+    
+    <link rel="stylesheet" href="http://localhost:8080/css/railscasts.min.css">
+    <script src="http://localhost:8080/js/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body class="nav-closed">
+    
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:8080/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:8080/tags/apache/">Apache</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:8080/tags/wso2/">WSO2</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:8080/about/">About Me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:8080/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post ">
+
+    <header class="post-header">
+        <h1 class="post-title">Evolution of Linux Containers and Future</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+         
+          <span class="post-tag small"><a href="http://localhost:8080/tags/containers-docker-linux/">#containers, docker, linux</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<h1 id="evolution-of-linux-containers-future:ba85387dcdeb3e25471a63f45f6b923c">Evolution of Linux Containers &amp; Future</h1>
+
+<p>Linux containers is an <a href="https://en.wikipedia.org/wiki/Operating-system-level_virtualization#IMPLEMENTATIONS">operating system level virtualization</a> technology for providing multiple isolated Linux environments on a single Linux host. Unlike virtual machines (VMs) containers do not run a dedicated guest operating system rather they share the host operating system kernel and make use of  guest operating system system libraries for providing the required OS capabilities. Since there is no dedicated operating system, containers start much faster than VMs.</p>
+
+<p><img src="http://localhost:8080/images/contvsvm.png" alt="Virtual Machines Vs Containers" />
+&gt; Image credit: Docker Inc.</p>
+
+<p>Containers make use of the Linux kernel features such as Namespaces, Apparmor, SELinux profiles, chroot &amp; CGroups for providing an isolated environment similar to VMs. Linux security modules guarantee that access to the host machine and the kernel from the containers is properly managed to avoid any intrusion activities. In addition containers can run different Linux distributions from its host operating system  if both operating systems to run on the same CPU architecture.</p>
+
+<p>In general containers provide means of creating container images based on various Linux distributions, an API for managing the lifecycle of the containers, client tools for interacting with the API, features to take snapshots, migrating container instances from one container host to another, etc.</p>
+
+<h2 id="container-history:ba85387dcdeb3e25471a63f45f6b923c">Container History</h2>
+
+<p>Below is a short summary of container history extracted from Wikipedia and listed according to <a href="http://pivotal.io/platform/infographic/moments-in-container-history">11</a>:</p>
+
+<h3 id="1979-chroot:ba85387dcdeb3e25471a63f45f6b923c">1979 - chroot</h3>
+
+<p>Container concept was started way back in 1979 with UNIX <a href="https://en.wikipedia.org/wiki/Chroot">chroot</a>. It&rsquo;s an UNIX operating-system system call for changing the root directory of a process and its children to a new location in the filesystem which is only visible to a given process. The idea of this feature is to provide an isolated disk space for each process. Later in 1982 this was added to BSD.</p>
+
+<h3 id="2000-freebsd-jails:ba85387dcdeb3e25471a63f45f6b923c">2000 - FreeBSD Jails</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/FreeBSD_jail">FreeBSD Jails</a> is one of the early container technologies introduced by Derrick T. Woolworth at R&amp;D Associates for FreeBSD in year 2000. It is an operating-system system call similar to chroot but included additional process sandboxing features for isolating the filesystem, users, networking, etc. As a result it could provide means of assigning an IP address for each jail, custom software installations and configurations, etc.</p>
+
+<h3 id="2001-linux-vserver:ba85387dcdeb3e25471a63f45f6b923c">2001 - Linux VServer</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Linux-VServer">Linux VServer</a> is a another jail mechanism that can be used to securely partition resources on a computer system (file system, CPU time, network addresses and memory). Each partition is called a security context and the virtualized system within it is called a virtual private server.</p>
+
+<h3 id="2004-solaris-containers:ba85387dcdeb3e25471a63f45f6b923c">2004 - Solaris Containers</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Solaris_Containers">Solaris Containers</a> was introduced for x86 and SPARC systems, first released publicly in February 2004 in build 51 beta of Solaris 10, and subsequently in the first full release of Solaris 10, 2005. A Solaris Container is a combination of system resource controls and the boundary separation provided by zones. Zones act as completely isolated virtual servers within a single operating system instance.</p>
+
+<h3 id="2005-openvz:ba85387dcdeb3e25471a63f45f6b923c">2005 - OpenVZ</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/OpenVZ">OpenVZ</a> is similar to Solaris Containers and make use of a patched Linux kernel for providing virtualization, isolation, resource management, and checkpointing. Each OpenVZ container would have an isolated file system, users &amp; user groups, a process tree, network, devices and IPC objects.</p>
+
+<h3 id="2006-process-containers:ba85387dcdeb3e25471a63f45f6b923c">2006 - Process Containers</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Cgroups">Process Containers</a> was implemented at Google in year 2006 for limiting, accounting and isolating resource usage (CPU, memory, disk I/O, network, etc) of a collection of processes. Later on it was renamed to Control Groups to avoid the confusion multiple meanings of the term &ldquo;container&rdquo; in the Linux kernel context and merged to the Linux kernel 2.6.24. This shows how early Google was involved in container technology and how they have contributed back.</p>
+
+<h3 id="2007-control-groups:ba85387dcdeb3e25471a63f45f6b923c">2007 - Control Groups</h3>
+
+<p>As explained above Control Groups AKA cgroups was implemented by Google and added to the Linux Kernel in year 2007.</p>
+
+<h3 id="2008-lxc:ba85387dcdeb3e25471a63f45f6b923c">2008 - LXC</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/LXC">LXC</a> stands for LinuX Containers and it is the first, most complete implementation of Linux container manager. It was implemented using cgroups and Linux namespaces. LXC was delivered in liblxc library and provided language bindings for the API in python3, python2, lua, Go, ruby, and Haskell. Contrast to other container technologies LXC works on vanila Linux kernel without requiring any patches. Today <a href="https://linuxcontainers.org/lxc/introduction/">LXC project</a> is sponsored by Canonical Ltd and hosted here.</p>
+
+<h3 id="2011-warden:ba85387dcdeb3e25471a63f45f6b923c">2011 - Warden</h3>
+
+<p><a href="https://docs.cloudfoundry.org/concepts/architecture/warden.html">Warden</a> was implemented by CloudFoundry in year 2011 by using LXC at the initial stage and later on replaced with their own implementation. Unlike LXC, Warden is not tightly coupled to Linux rather it can work on any operating system that can provide ways of isolating the environments. It runs as a daemon and provides an API for managing the containers. Refer <a href="https://docs.cloudfoundry.org/concepts/architecture/warden.html">Warden documentation</a> and <a href="http://blog.altoros.com/cloud-foundry-containers-warden-docker-garden.html">this blog post</a> for more detailed information on Warden.</p>
+
+<h3 id="2013-lmctfy:ba85387dcdeb3e25471a63f45f6b923c">2013 - LMCTFY</h3>
+
+<p><a href="https://github.com/google/lmctfy">lmctfy</a> stands for &ldquo;Let Me Contain That For You&rdquo;. It is the open source version of Google’s container stack, which provides Linux application containers. Google started this project with the intension of providing guaranteed performance, high resource utilization, shared resources, over-commitment and near zero overhead with containers (Ref: <a href="http://www.linuxplumbersconf.org/2013/ocw//system/presentations/1239/original/lmctfy%20(1).pdf">lmctfy presentation</a>). The cAdvisor tool used by Kubernetes today was started as a result of lmctfy project. The initial release of lmctfy was made in Oct 2013 and in year 2015 Google has decided to contribute core lmctfy concepts and abstractions to libcontainer. As a result now no active development is done in LMCTFY.</p>
+
+<p>The libcontainer project was initially started by <a href="https://github.com/docker/libcontainer">Docker</a> and now it has been moved to <a href="https://github.com/opencontainers/runc/tree/master/libcontainer">Open Container Foundation</a>.</p>
+
+<h3 id="2013-docker:ba85387dcdeb3e25471a63f45f6b923c">2013 - Docker</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Docker_(software)">Docker</a> is the most popular and widely used container management system as of January 2016. It was developed as an internal project at a platform as a service company called dotCloud and later renamed to Docker. Similar to Warden Docker also used LXC at the initial stages and later replaced LXC with it&rsquo;s own library called libcontainer. Unlike any other container platform Docker introduced an entire ecosystem for managing containers. This includes a highly efficient, layered container image model, a global and local container registries, a clean REST API, a CLI, etc. At a later stage Docker also took an initiative to implement a container cluster management solution called Docker Swarm.</p>
+
+<h3 id="2014-rocket:ba85387dcdeb3e25471a63f45f6b923c">2014 - Rocket</h3>
+
+<p><a href="https://coreos.com/blog/rocket/">Rocket</a> is a much similar initiative to Docker started by CoreOS for fixing some of the drawbacks they found in Docker. CoreOS has mentioned that their aim is to provide more rigorous security and production requirements than Docker. More importantly it is implemented on App Container specification to be a more open standard. In addition to Rocket, CoreOS also develops several other container related products used by Docker &amp; Kubernetes; <a href="https://en.wikipedia.org/wiki/CoreOS">CoreOS Operating System</a>, <a href="https://coreos.com/etcd/">etcd</a>, <a href="https://github.com/coreos/flannel">flannel</a>.</p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://localhost:8080/">Imesh Gunaratne</a></h4>
+  
+  <p>Read <a href="http://localhost:8080/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Colombo, LK</span>
+    <span class="author-link icon-link"><a href="http://imesh.io">http://imesh.io</a></span>
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this page</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Evolution%20of%20Linux%20Containers%20and%20Future&amp;url=http%3a%2f%2flocalhost%3a8080%2fevolution-of-linux-containers-and-future%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a8080%2fevolution-of-linux-containers-and-future%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a8080%2fevolution-of-linux-containers-and-future%2f&amp;description=Evolution%20of%20Linux%20Containers%20and%20Future"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a8080%2fevolution-of-linux-containers-and-future%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'imeshio';
+  var disqus_url = 'http:\/\/localhost:8080\/evolution-of-linux-containers-and-future\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">imesh.io</a> </section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:8080/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/js/index.js"></script>
+    
+</body>
+</html>
+
